@@ -47,7 +47,7 @@ const file2Buffer = file => {
 }
 
 onMounted(async () => {
-  const { data } = await axios.get('/war3map.w3t', { responseType: 'blob' })
+  const { data } = await axios.get('/twrpg/war3map.w3t', { responseType: 'blob' })
   const translator = new Translator()
   const { json } = translator.Objects.warToJson('string', Buffer.from(await data.arrayBuffer()))
   const items = Object.assign(json.original, json.custom)

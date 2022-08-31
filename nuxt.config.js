@@ -1,5 +1,8 @@
 module.exports = {
   ssr: false,
+  app: {
+    baseURL: '/twrpg/'
+  },
   vite: {
     define: {
       'process.env': {}
