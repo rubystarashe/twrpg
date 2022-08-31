@@ -1,7 +1,8 @@
 module.exports = {
   ssr: false,
-  app: {
-    baseURL: '/twrpg/'
+  target: 'static',
+  router: {
+    base: '/twrpg/'
   },
   vite: {
     define: {
