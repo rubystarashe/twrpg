@@ -4,6 +4,10 @@ module.exports = {
   router: {
     base: '/twrpg/'
   },
+  app: {
+    baseURL: '/twrpg',
+    buildAssetsDir: '/nuxt'
+  },
   vite: {
     define: {
       'process.env': {}
