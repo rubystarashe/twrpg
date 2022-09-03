@@ -110,7 +110,7 @@ onMounted(async () => {
   dropdata.match(/(?<=set zy\[BY\]=)((.|\r|\n)*?)call d3o/g).map(e => {
     const arr = e.split('\n')
     const rate = arr[0]
-    const items = arr.map(e => e.match(/(?<=call (dSo|dUo)\(BY,\(')(.*?)(?=')/)).filter(e => e).map(e => e[0])
+    const items = arr.map(e => e.match(/(?<=call (dSo)\(BY,\(')(.*?)(?=')/)).filter(e => e).map(e => e[0])
     return {
       rate,
       items
