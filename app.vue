@@ -31,7 +31,7 @@
       <h3>가진 아이템</h3>
       <div class="items" v-if="targetsave.items">
         <div class="item" v-for="item in targetsave.items">
-          <div>{{itemlist[item]}}</div>
+          <div :class="{ ready: checkisneed(item) }">{{itemlist[item]}}</div>
         </div>
       </div>
     </div>
@@ -210,6 +210,25 @@ const filedropped = async e => {
 }
 const filechanged = async e => {
   parse(e)
+}
+
+const checkisneed = item => {
+  let needed = false
+  Object.keys(target.value).forEach(e => {
+    const check = (item, target) => {
+      if (item == target) needed = true
+      if (recipies.value[target]) {
+        recipies.value[target].forEach(e => {
+          if (e.item == item) needed = true
+          if (recipies.value[e.item]) recipies.value[e.item].forEach(e => {
+            check(item, e.item)
+          })
+        })
+      }
+    }
+    check(item, e)
+  })
+  return needed
 }
 
 const parse = async e => {
