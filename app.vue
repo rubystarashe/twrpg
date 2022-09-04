@@ -213,22 +213,31 @@ const filechanged = async e => {
 }
 
 const checkisneed = item => {
-  let needed = false
-  Object.keys(target.value).forEach(e => {
-    const check = (item, target) => {
-      if (item == target) needed = true
-      if (recipies.value[target]) {
-        recipies.value[target].forEach(e => {
-          if (e.item == item) needed = true
-          if (recipies.value[e.item]) recipies.value[e.item].forEach(e => {
-            check(item, e.item)
-          })
-        })
-      }
-    }
-    check(item, e)
+  const list = {}
+
+  const ready = {}
+  targetsave.value.items?.forEach(e => {
+    if (!ready[e]) ready[e] = 0
+    ready[e]++
   })
-  return needed
+
+  const targets = Object.keys(target.value).map(e => recipies.value[e])
+  targets.forEach(e => {
+    if (e) e.forEach(e => {
+      if (ready[e.item]) return list[e.item] = itemlist.value[e.item]
+      
+      const check = e => {
+        if (recipies.value[e.item]) {
+          recipies.value[e.item].forEach(e => {
+            if (ready[e.item]) return list[e.item] = itemlist.value[e.item]
+            check(e)
+          })
+        }
+      }
+      check(e)
+    })
+  })
+  return list[item]
 }
 
 const parse = async e => {
