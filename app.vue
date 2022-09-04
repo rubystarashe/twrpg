@@ -60,7 +60,7 @@
       <div class="items">
         <div class="item" v-for="(d, key) in target">
           <div class="name" :class="{ ready: (targetsave.items || []).find(e => e == key) }">{{itemlist[key]}}</div>
-          <Recipie v-if="recipies[key] && !(targetsave.items || []).find(e => e == key)" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave || {}" :target="key"/>
+          <Recipie v-if="recipies[key]" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave || {}" :target="key"/>
         </div>
       </div>
     </div>
