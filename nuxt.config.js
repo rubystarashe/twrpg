@@ -19,5 +19,6 @@ module.exports = {
       },
       'process.env.NODE_DEBUG': {}
     }
-  }
+  },
+  modules: ['nuxt3-pinia']
 }

@@ -9,7 +9,12 @@
       <input @input="e => dropsearch = e.target.value">
     </div>
     <div class="items">
-      <div class="item" v-for="({ rate, wish }, key) in droptable" :key="key" v-show="dropsearch.length ? itemlist[key].indexOf(dropsearch) >= 0 : true">
+      <div class="item"
+        v-for="({ rate, wish }, key) in droptable"
+        :key="key"
+        v-show="dropsearch.length ? itemlist[key].indexOf(dropsearch) >= 0 : true"
+        @click="target[key] ? delete target[key] : target[key] = true"
+      >
         <div>{{itemlist[key]}}</div>
         <div>{{rate}}%</div>
         <div v-if="wish">소원시 {{wish}}%</div>
@@ -17,14 +22,60 @@
     </div>
   </div>
   <div class="savefile">
+    <div>
+      <h2>파밍 루트를 계산할 세이브를 선택해 주세요</h2>
+      <input type="file" @change="filechanged" accept=".txt">
+      <div>버전: {{targetsave.version}}</div>
+      <div>{{targetsave.date}}</div>
+      <div>직업: {{targetsave.job}}</div>
+      <h3>가진 아이템</h3>
+      <div class="items" v-if="targetsave.items">
+        <div class="item" v-for="item in targetsave.items">
+          <div>{{itemlist[item]}}</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2>목표 파밍 아이템을 선택해 주세요</h2>
+      <div>아이템 검색</div>
+      <input @input="e => targetsearch = e.target.value">
+      <div class="items">
+        <div v-if="!targetsearch.length">검색된 아이템 없음</div>
+        <div class="item" v-for="(item, key) in itemlist" v-show="targetsearch.length && item.indexOf(targetsearch) >= 0"
+          @click="target[key] ? delete target[key] : target[key] = true"
+        >{{item}}</div>
+      </div>
+    </div>
+    <div>
+      <h3>현재 선택된 목표 아이템:</h3>
+      <div class="items">
+        <div v-if="!Object.keys(target).length">목표 아이템 없음</div>
+        <div class="item" v-for="(d, key) in target" @click="delete target[key]">
+          {{itemlist[key]}}
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3>파밍에 필요한 아이템</h3>
+      <div class="items">
+        <div class="item" v-for="(d, key) in target">
+          <div class="name" :class="{ ready: (targetsave.items || []).find(e => e == key) }">{{itemlist[key]}}</div>
+          <Recipie v-if="recipies[key] && !(targetsave.items || []).find(e => e == key)" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave || {}" :target="key"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="replayfile">
     <div class="search">
-      <div>세이브 파일 분석</div>
+      <div>리플레이 파일 분석</div>
       <input type="file" @change="filechanged" accept=".w3g" multiple>
       <div>유저이름: <input @input="e => savesearch_nick = e.target.value"></div>
       <div>아이템: <input @input="e => savesearch_item = e.target.value"></div>
     </div>
-    <div class="saveresults">
-      <div class="result" v-for="({ log, map, date }, name) in result">
+    <div class="replayresults">
+      <div class="result" v-for="({ log, map, date }, name) in result"
+        v-show="(savesearch_nick.length ? log.find(({ player }) => player?.indexOf(savesearch_nick) >= 0) ? true : false : true) && (savesearch_item.length ? log.find(({ item }) => item?.indexOf(savesearch_item) >= 0) ? true : false : true)"
+      >
         <div>버전: {{map.version}}</div>
         <div>날짜: {{date}}</div>
         <div>파일명: {{name}}</div>
@@ -49,15 +100,26 @@ import { Translator } from '@voces/wc3maptranslator'
 import { Buffer } from 'buffer'
 import ReplayParser from 'w3gjs/dist/lib/parsers/ReplayParser'
 
+const { target, targetsave } = store('usersetting').toRefs()
+
 const itemLoaded = ref(false)
 const itemlist = ref({})
+const itemnamelist = computed(() => {
+  const obj = {}
+  Object.keys(itemlist.value).forEach(id => {
+    obj[itemlist.value[id]] = id
+  })
+  return obj
+})
 const droptable = ref({})
+const recipies = ref({})
 
 const dragging = ref(false)
 
 const dropsearch = ref('')
 const savesearch_nick = ref('')
 const savesearch_item = ref('')
+const targetsearch = ref('')
 
 const result = ref({})
 
@@ -105,6 +167,17 @@ onMounted(async () => {
     droptable.value[e.id] = {
       rate: e.rate
     }
+  })
+  dropdata.match(/(?<=call D4o)(.*)(?=\))/g).map(e => {
+    const [ idstring, ...materialstring ] = e.split(`,'`)
+    const id = idstring.match(/(?<=')(.*)(?=')/)[0]
+    const materials = materialstring.map(e => {
+      const [ item, count ] = e.split(',')
+      return { item: item.replace(/'/g, ''), count: parseInt(count.replace(/\(|\)/g, ''))}
+    })
+    return { id, materials }
+  }).forEach(e => {
+    recipies.value[e.id] = e.materials
   })
 
   dropdata.match(/(?<=set zy\[BY\]=)((.|\r|\n)*?)call d3o/g).map(e => {
@@ -173,6 +246,8 @@ const parse = async e => {
                   case '성수 교환':
                   case '숙박':
                   case '소원':
+                  case '하드 모드':
+                  case '슈퍼 리버스':
                     return
                   case '조합':
                     return logs.push({
@@ -221,8 +296,18 @@ const parse = async e => {
       }
     }
     for (let i = 0; i < e.target.files.length; i++) {
-      console.log(i)
-      await getfile(e.target.files[i])
+      if (e.target.files[i].name.indexOf('.w3g') == e.target.files[i].name.length - 4) await getfile(e.target.files[i])
+      if (e.target.files[i].name.indexOf('.txt') == e.target.files[i].name.length - 4) {
+        const buffer = await file2Buffer(e.target.files[i])
+        const savefile = buffer.toString()
+        const [n1, n2, n3, n4, versionstring, vv, jobstring, l, ...itemsstring ] = savefile.split('\n')
+        targetsave.value = {
+          date: new Date(e.target.files[i].lastModified).toLocaleString(),
+          version: versionstring.match(/(?<="플레이 버전: )(.*)(?=")/)[0],
+          job: jobstring.match(/(?<="직업: )(.*)(?=")/)[0],
+          items: itemsstring.map(e => e.match(/(?<="[0-9]*\.\s)(.*)(?=")/)?.[0]).filter(e => e).map(e => itemnamelist.value[e]).filter(e => e)
+        }
+      }
     }
 
     e.target.value = ''
@@ -248,7 +333,7 @@ body {
     position: relative;
     height: 100vh;
     padding: 20px;
-    width: 40%;
+    width: 20%;
     box-sizing: border-box;
     .search {
       position: absolute;
@@ -266,8 +351,6 @@ body {
       padding-top: 50px;
       .item {
         display: flex;
-        justify-content: center;
-        align-items: center;
         border: 1px solid black;
         flex-direction: column;
         justify-content: center;
@@ -283,6 +366,30 @@ body {
     padding: 20px;
     box-sizing: border-box;
     width: 60%;
+    overflow-y: auto;
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        margin: 5px;
+        padding: 10px;
+        border: 1px solid black;
+        margin-bottom: auto;
+        .name {
+
+        }
+        .ready {
+          background: greenyellow;
+        }
+      }
+    }
+  }
+  .replayfile {
+    position: relative;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 20%;
     .search {
       position: absolute;
       background: white;
@@ -290,7 +397,7 @@ body {
       left: 20px;
       top: 20px;
     }
-    .saveresults {
+    .replayresults {
       display: flex;
       flex-wrap: wrap;
       overflow-y: auto;
