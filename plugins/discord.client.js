@@ -29,29 +29,29 @@ export default defineNuxtPlugin(nuxt => {
     tries += 1
 
     const ws = new WebSocket(
-      `ws://127.0.0.1:${port}/?v=1&client_id=1016252391777108010`
+      `ws://127.0.0.1:${port}/?v=1&client_id=1016252391777108010&encoding=json`
     )
+    ws.onmessage = (event) => {
+      console.log(event)
+    }
     ws.onopen = () => {
       tries = 0
       console.log(ws)
 
-      ws.send(
-        JSON.stringify({
-          nonce: nonce(),
-          args: {
-            client_id: "1016252391777108010",
-            scopes: ["rpc"]
-          },
-          cmd: "AUTHORIZE"
-        }
-      ))
+      // ws.send(
+      //   JSON.stringify({
+      //     nonce: nonce(),
+      //     args: {
+      //       client_id: "1016252391777108010",
+      //       scopes: ["rpc"]
+      //     },
+      //     cmd: "AUTHORIZE"
+      //   }
+      // ))
     }
     ws.onerror = e => {
       ws.close()
       setTimeout(() => connect(), 1000)
-    }
-    ws.onmessage = (event) => {
-      console.log(event)
     }
   }
   connect()
