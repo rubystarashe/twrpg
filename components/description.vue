@@ -13,15 +13,17 @@
 
 <script setup>
 const props = defineProps(['itemlist', 'descriptions', 'hover', 'recipies'])
-const { target } = store('usersetting').toRefs()
+const { target, targetsave } = store('usersetting').toRefs()
 
 const targetlist = computed(() => {
   const res = {}
   Object.keys(target.value).forEach(e => {
     res[e] = true
     const check = id => {
+      if (targetsave.value.items?.find(e => e == id)) return
       if (!props.recipies[id]) return
       props.recipies[id].forEach(e => {
+        if (targetsave.value.items?.find(i => i == e.item)) return
         res[e.item] = true
         check(e.item)
       })
