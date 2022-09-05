@@ -393,10 +393,6 @@ const parse = async e => {
     //console.log(e)
   }
 }
-
-onMounted(() => {
-  
-})
 </script>
 
 <style>

@@ -17,7 +17,6 @@
     "axios": "^0.27.2",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
-    "discord-rpc": "^4.0.1",
     "events": "^3.3.0",
     "nuxt": "^3.0.0-rc.8",
     "nuxt3-pinia": "^1.0.7",
