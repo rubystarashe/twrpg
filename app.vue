@@ -14,6 +14,7 @@
         :key="key"
         v-show="dropsearch.length ? itemlist[key].indexOf(dropsearch) >= 0 : true"
         @click="target[key] ? delete target[key] : target[key] = true"
+        @mouseover="hover = key" @mouseleave="hover = null"
       >
         <div>{{itemlist[key]}}</div>
         <div>{{rate}}%</div>
@@ -36,7 +37,7 @@
       <div>직업: {{targetsave.job}}</div>
       <h3>가진 아이템</h3>
       <div class="items" v-if="targetsave.items">
-        <div class="item" v-for="item in targetsave.items">
+        <div class="item" v-for="item in targetsave.items" @mouseover="hover = item" @mouseleave="hover = null">
           <div :class="{ ready: checkisneed(item) }">{{itemlist[item]}}</div>
         </div>
       </div>
@@ -47,8 +48,9 @@
       <input @input="e => targetsearch = e.target.value">
       <div class="items">
         <div v-if="!targetsearch.length">검색된 아이템 없음</div>
-        <div class="item" v-for="(item, key) in itemlist" v-show="(recipies[key] || key == itemnamelist[item]) && targetsearch.length && item.indexOf(targetsearch) >= 0"
+        <div class="item" v-for="(item, key) in itemlist" v-show="(recipies[key] || key == itemnamelist[item]) && targetsearch.length && searchitem(targetsearch, item, key)"
           @click="target[key] ? delete target[key] : target[key] = true"
+          @mouseover="hover = key" @mouseleave="hover = null"
         >{{item}}</div>
       </div>
     </div>
@@ -56,7 +58,7 @@
       <h3>현재 선택된 목표 아이템:</h3>
       <div class="items">
         <div v-if="!Object.keys(target).length">목표 아이템 없음</div>
-        <div class="item" v-for="(d, key) in target" @click="delete target[key]">
+        <div class="item" v-for="(d, key) in target" @click="delete target[key]" @mouseover="hover = key" @mouseleave="hover = null">
           {{itemlist[key]}}
         </div>
       </div>
@@ -65,8 +67,8 @@
       <h3>파밍에 필요한 아이템</h3>
       <div class="items">
         <div class="item" v-for="(d, key) in target">
-          <div class="name" :class="{ ready: (targetsave.items || []).find(e => e == key) }">{{itemlist[key]}}</div>
-          <Recipie v-if="recipies[key]" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave || {}" :target="key"/>
+          <div class="name" :class="{ ready: (targetsave.items || []).find(e => e == key) }" @mouseover="hover = key" @mouseleave="hover = null">{{itemlist[key]}}</div>
+          <Recipie v-if="recipies[key]" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave || {}" :target="key" @hover="v => hover = v"/>
         </div>
       </div>
     </div>
@@ -96,6 +98,7 @@
       </div>
     </div>
   </div>
+  <Description :itemlist="itemlist" :descriptions="itemdescriptions" :recipies="recipies" :hover="hover"/>
   <div class="dragging" v-if="dragging">Dragging</div>
 </div>
 </template>
@@ -110,6 +113,13 @@ const { target, targetsave } = store('usersetting').toRefs()
 
 const itemLoaded = ref(false)
 const itemlist = ref({})
+const itemdescriptions = ref({})
+const itemsearchstrings = ref({})
+
+const searchitem = (string, item, id) => {
+  if (item.indexOf(string) >= 0) return true
+  return itemsearchstrings.value[id]?.indexOf(string) >= 0
+}
 const itemnamelist = computed(() => {
   const obj = {}
   Object.keys(itemlist.value).forEach(id => {
@@ -121,6 +131,7 @@ const droptable = ref({})
 const recipies = ref({})
 
 const dragging = ref(false)
+const hover = ref(null)
 
 const dropsearch = ref('')
 const savesearch_nick = ref('')
@@ -146,12 +157,24 @@ onMounted(async () => {
   const translator = new Translator()
   const { json } = translator.Objects.warToJson('string', Buffer.from(await itemdata.arrayBuffer()))
   const items = Object.assign(json.original, json.custom)
+  const descriptions = {}
+  const searchstrings = {}
+  const itemlistdata = {}
   Object.keys(items).forEach(id => {
     const item = items[id].find(e => e.id == 'unam').value.replace(/[^ㄱ-ㅎ가-힣\s]/g, '')
-    delete items[id]
-    if (item) items[id.replace(/:[A-z0-9]*/, '')] = item
+    const description = items[id].find(e => e.id == 'utub')?.value?.replace(/\|c[A-z0-9]{8}/g, '').replace(/\|r/g, '').replace('∴클릭 시 관련 조합법을 확인', '').replace(/\n/g, '<br/>')
+    const searchstring = description?.split('<br/>')?.[1]
+    if (searchstring && searchstring.startsWith('- ')) searchstrings[id] = searchstring
+    const key = id.replace(/:[A-z0-9]*/, '')
+    if (item) {
+      if (key == 'I0RP') console.log(item)
+      itemlistdata[key] = item
+      descriptions[key] = description
+    }
   })
-  itemlist.value = items
+  itemlist.value = itemlistdata
+  itemdescriptions.value = descriptions
+  itemsearchstrings.value = searchstrings
   itemLoaded.value = true
 
   let { data: dropdata } = await axios.get('/twrpg/war3map.j')

@@ -1,7 +1,7 @@
 <template>
 <div class="recipie">
   <div class="item" v-for="{ item, count, multi, sub } in recipie">
-    <div class="name" :class="{ ready: readyitems.find(e => e == item) }">
+    <div class="name" :class="{ ready: readyitems.find(e => e == item) }" @mouseover="$emit('hover', item)" @mouseleave="$emit('hover', null)">
       <div class="text">{{itemlist[item]}} <span v-if="sub" class="sub">교차가능</span> <span v-if="count > 1">{{count}}개</span></div>
       <div class="rate" v-if="droptable[item]">{{droptable[item].rate}}%
       <span v-if="droptable[item] && droptable[item].wish">소원시{{droptable[item].wish}}%
@@ -11,7 +11,9 @@
       </span>
       </div>
     </div>
-    <Recipie v-if="recipies[item] && !readyitems.find(e => e == item)" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave" :target="item"/>
+    <Recipie v-if="recipies[item] && !readyitems.find(e => e == item)" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave" :target="item"
+      @hover="v => $emit('hover', v)"  
+    />
   </div>
 </div>
 </template>
