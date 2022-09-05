@@ -47,7 +47,7 @@
       <input @input="e => targetsearch = e.target.value">
       <div class="items">
         <div v-if="!targetsearch.length">검색된 아이템 없음</div>
-        <div class="item" v-for="(item, key) in itemlist" v-show="targetsearch.length && item.indexOf(targetsearch) >= 0"
+        <div class="item" v-for="(item, key) in itemlist" v-show="recipies[key] && targetsearch.length && item.indexOf(targetsearch) >= 0"
           @click="target[key] ? delete target[key] : target[key] = true"
         >{{item}}</div>
       </div>
