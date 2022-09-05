@@ -24,7 +24,7 @@ export default defineNuxtPlugin(nuxt => {
 
   let tries = 0
   const connect = async () => {
-    console.log('trying')
+    console.log('trying2')
     const port = 6463 + (tries % 10)
     tries += 1
 
@@ -49,6 +49,7 @@ export default defineNuxtPlugin(nuxt => {
       //   }
       // ))
     }
+    ws.onclose = e => console.log(e)
     ws.onerror = e => {
       ws.close()
       setTimeout(() => connect(), 1000)
