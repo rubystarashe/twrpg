@@ -29,7 +29,7 @@ export default defineNuxtPlugin(nuxt => {
     tries += 1
 
     const ws = new WebSocket(
-      `ws://127.0.0.1:${port}/?v=1&client_id=1016252391777108010&encoding=json`
+      `ws://127.0.0.1:${port}/?v=1&client_id=1016279948337610772&encoding=json`
     )
     ws.onmessage = (event) => {
       console.log(event)
