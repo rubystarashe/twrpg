@@ -4,6 +4,7 @@
   <div class="descarea">
     <div class="desc" v-if="descriptions[hover]" v-html="`<div>`+descriptions[hover]+`</div>`"/>
     <div class="highorder" v-if="recipieslist[hover]">
+      상위 아이템
       <div class="orderitem" v-for="(d, key) in recipieslist[hover]" :class="{ target: targetlist[key] }">{{itemlist[key]}}</div>
     </div>
   </div>
@@ -29,35 +30,6 @@ const targetlist = computed(() => {
   })
   return res
 })
-
-// const checkisneed = item => {
-//   const list = {}
-
-//   const ready = {}
-//   targetsave.value.items?.forEach(e => {
-//     if (!ready[e]) ready[e] = 0
-//     ready[e]++
-//   })
-
-//   const targets = Object.keys(target.value).map(e => recipies.value[e])
-//   targets.forEach(e => {
-//     if (e) e.forEach(e => {
-//       if (ready[e.item]) return list[e.item] = itemlist.value[e.item]
-      
-//       const check = e => {
-//         if (recipies.value[e.item]) {
-//           recipies.value[e.item].forEach(e => {
-//             if (ready[e.item]) return list[e.item] = itemlist.value[e.item]
-//             check(e)
-//           })
-//         }
-//       }
-//       check(e)
-//     })
-//   })
-//   return list[item]
-// }
-
 
 const mouseposition = ref({
   x: 0,

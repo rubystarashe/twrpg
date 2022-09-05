@@ -163,9 +163,9 @@ onMounted(async () => {
   Object.keys(items).forEach(id => {
     const item = items[id].find(e => e.id == 'unam').value.replace(/[^ㄱ-ㅎ가-힣\s]/g, '')
     const description = items[id].find(e => e.id == 'utub')?.value?.replace(/\|c[A-z0-9]{8}/g, '').replace(/\|r/g, '').replace('∴클릭 시 관련 조합법을 확인', '').replace(/\n/g, '<br/>')
-    const searchstring = description?.split('<br/>')?.[1]
-    if (searchstring && searchstring.startsWith('- ')) searchstrings[id] = searchstring
+    const searchstring = description?.split('<br/>')?.find(e => e?.indexOf('-') >= 0)
     const key = id.replace(/:[A-z0-9]*/, '')
+    if (searchstring) searchstrings[key] = searchstring
     if (item) {
       if (key == 'I0RP') console.log(item)
       itemlistdata[key] = item
