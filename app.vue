@@ -10,7 +10,7 @@
     </div>
     <div class="items">
       <div class="item"
-        v-for="({ rate, wish }, key) in droptable"
+        v-for="({ rate, wish, alt }, key) in droptable"
         :key="key"
         v-show="dropsearch.length ? itemlist[key].indexOf(dropsearch) >= 0 : true"
         @click="target[key] ? delete target[key] : target[key] = true"
@@ -18,6 +18,12 @@
         <div>{{itemlist[key]}}</div>
         <div>{{rate}}%</div>
         <div v-if="wish">소원시 {{wish}}%</div>
+        <div v-if="alt">
+          <div class="subitem" v-for="({ rate: altrate, wish }, i) in alt" v-show="altrate != rate && (!i || (i && altrate != alt[i - 1].rate))">
+            <div>{{altrate}}%</div>
+            <div v-if="wish">소원시 {{wish}}%</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -164,7 +170,12 @@ onMounted(async () => {
       rate
     }
   }).filter(e => e).forEach(e => {
-    droptable.value[e.id] = {
+    if (droptable.value[e.id]) {
+      if (!droptable.value[e.id].alt) droptable.value[e.id].alt = []
+      droptable.value[e.id].alt.push({
+        rate: e.rate
+      })
+    } else droptable.value[e.id] = {
       rate: e.rate
     }
   })
@@ -177,7 +188,16 @@ onMounted(async () => {
     })
     return { id, materials }
   }).forEach(e => {
-    recipies.value[e.id] = e.materials
+    if (recipies.value[e.id]) {
+      e.materials.forEach(m => {
+        const index = recipies.value[e.id].findIndex(r => r.item == m.item)
+        if (index >= 0) {
+          if (!recipies.value[e.id][index].multi) recipies.value[e.id][index].multi = 0
+          recipies.value[e.id][index].multi++
+        }
+        else recipies.value[e.id].push(m)
+      })
+    } else recipies.value[e.id] = e.materials
   })
 
   dropdata.match(/(?<=set zy\[BY\]=)((.|\r|\n)*?)call d3o/g).map(e => {
@@ -190,9 +210,16 @@ onMounted(async () => {
     }
   }).forEach(e => {
     e.items.forEach(i => {
-      droptable.value[i].wish = droptable.value[i].rate
-      droptable.value[i].rate = droptable.value[i].rate * e.rate
-      droptable.value[i].rate = parseFloat(droptable.value[i].rate.toFixed(3))
+      if (!droptable.value[i].wish) {
+        droptable.value[i].wish = droptable.value[i].rate
+        droptable.value[i].rate = droptable.value[i].rate * e.rate
+        droptable.value[i].rate = parseFloat(droptable.value[i].rate.toFixed(3))
+      } else {
+        const index = droptable.value[i].alt.findIndex(e => !e.wish)
+        droptable.value[i].alt[index].wish = droptable.value[i].alt[index].rate
+        droptable.value[i].alt[index].rate = droptable.value[i].alt[index].rate * e.rate
+        droptable.value[i].alt[index].rate = parseFloat(droptable.value[i].alt[index].rate.toFixed(3))
+      }
     })
   })
 })
@@ -385,6 +412,12 @@ body {
         align-items: center;
         margin: 5px;
         padding: 10px;
+        .subitem {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
       }
     }
   }

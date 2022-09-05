@@ -1,10 +1,14 @@
 <template>
 <div class="recipie">
-  <div class="item" v-for="{ item, count } in recipies[target]">
+  <div class="item" v-for="{ item, count, sub } in recipie">
     <div class="name" :class="{ ready: readyitems.find(e => e == item) }">
-      <div class="text">{{itemlist[item]}}</div>
+      <div class="text">{{itemlist[item]}} <span v-if="sub" class="sub">교차가능</span> <span v-if="count > 1">{{count}}개</span></div>
       <div class="rate" v-if="droptable[item]">{{droptable[item].rate}}%
-      <span v-if="droptable[item] && droptable[item].wish">소원시{{droptable[item].wish}}%</span>
+      <span v-if="droptable[item] && droptable[item].wish">소원시{{droptable[item].wish}}%
+        <span v-if="droptable[item].alt" v-for="{ rate, wish } in droptable[item].alt">
+          <br>{{rate}}% <span v-if="wish">소원시{{wish}}%</span>
+        </span>
+      </span>
       </div>
     </div>
     <Recipie v-if="recipies[item] && !readyitems.find(e => e == item)" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave" :target="item"/>
@@ -23,6 +27,17 @@ const props = defineProps([
 
 const readyitems = computed(() => {
   return props.targetsave.items || []
+})
+
+const checkmulti = (multi) => {
+  const recipie = props.recipies[props.target]
+  return recipie.find(e => e.multi > multi)
+}
+const recipie = computed(() => {
+  const recipie = props.recipies[props.target]
+  return recipie.map(e => {
+    return { ...e, sub: !!checkmulti(e.multi) }
+  }).sort((a, b) => a.sub - b.sub)
 })
 </script>
 
@@ -48,6 +63,10 @@ const readyitems = computed(() => {
     }
     .ready {
       background: greenyellow;
+    }
+    .sub {
+      color: gray;
+      font-size: .6em
     }
   }
 }
