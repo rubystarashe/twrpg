@@ -66,6 +66,18 @@
     <div>
       <h3>파밍에 필요한 아이템</h3>
       <div class="items">
+        <!--div v-for="(c, item) in requiremats">{{itemlist[item]}} {{c}}개</div-->
+        <div class="item" v-for="(items, key) in itemgroup" v-show="Object.keys(requiremats).find(e => items.find(i => i == e))">
+          <div class="name">{{itemgroupname[key]}}</div>
+          <div class="mats">
+            <div class="mat" v-for="item in Object.keys(requiremats).filter(e => items.find(i => i == e))"
+              @mouseover="hover = item" @mouseleave="hover = null"
+            >{{itemlist[item]}}<div class="count">{{requiremats[item]}}개</div></div>
+          </div>
+        </div>
+      </div>
+      <h3>조합법 지도</h3>
+      <div class="items">
         <div class="item" v-for="(d, key) in target">
           <div class="name" :class="{ ready: (targetsave.items || []).find(e => e == key) }" @mouseover="hover = key" @mouseleave="hover = null">{{itemlist[key]}}</div>
           <Recipie v-if="recipies[key]" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave || {}" :target="key" @hover="v => hover = v"/>
@@ -98,7 +110,7 @@
       </div>
     </div>
   </div>
-  <Description :itemlist="itemlist" :descriptions="itemdescriptions" :recipies="recipies" :hover="hover"/>
+  <Description :itemlist="itemlist" :descriptions="itemdescriptions" :recipies="recipies" :hover="hover" :itemgroup="itemgroup" :itemgroupname="itemgroupname" :droptable="droptable"/>
   <div class="dragging" v-if="dragging">Dragging</div>
 </div>
 </template>
@@ -129,6 +141,54 @@ const itemnamelist = computed(() => {
 })
 const droptable = ref({})
 const recipies = ref({})
+const itemgroup = ref({})
+
+const itemgroupname = {
+  'I0Q3': '자이언트 터틀',
+  'ciri': '킹크랩',
+  'I0DT': '바다코끼리',
+  'ssil': '매머드',
+  'I0DV': '킹콩',
+  'I0BT': '피의 망령',
+  'I0BT': '박쥐 괴인',
+  'I046': '다크나이트',
+  'nspi': '라그나스',
+  'blba': '이블 라바',
+  'gvsm': '촉수 지배자',
+  'I0OV': '바다의 수호자',
+  'dtsb': '자이언트 골렘',
+  'wcyc': '매드클라운',
+  'envl': '마나 에인션트',
+  'oven': '하이드라',
+  'shen': '왈라키아 백작',
+  'drph': '잭 오 랜턴',
+  'lnrn': '마법사 왕',
+  'oli2': '데드렉트',
+  'amrc': '문지기',
+  'tmmt': '능천사',
+  'mnsf': '타천사',
+  'olig': '서리한의 혼',
+  'stre': '거미 여왕 일셰나',
+  'tst2': '서리거미 제왕',
+  'wswd': '마왕 베리엘',
+  'ccmd': '스피릿 비스트',
+  'rugt': '커럽터 렉터스',
+  'shdt': '플레임 나이트메어',
+  'wshs': '터틀 로드',
+  'rre1': '본 드래곤',
+  'fgrg': '해골왕 데스페리아',
+  'pomn': '좀비 로드',
+  'pres': '에인션트 엔트',
+  'sneg': '주천사 사미엘',
+  'shar': '암흑룡 이르베르트',
+  'infs': '데스 핀드',
+  'I0P0': '뇌신 발토라',
+  'I0P1': '화신 이프리트',
+  'I0P2': '해신 네레이드',
+  'I0P3': '지하군주 아가레스',
+  'I0R6': '공작 라자루스',
+  'I0R7': '지신 가이아'
+}
 
 const dragging = ref(false)
 const hover = ref(null)
@@ -137,6 +197,30 @@ const dropsearch = ref('')
 const savesearch_nick = ref('')
 const savesearch_item = ref('')
 const targetsearch = ref('')
+
+const requiremats = computed(() => {
+  const res = {}
+  const targetitems = Object.keys(recipies.value).filter(e => target.value[e])
+
+  const check = item => {
+    if (targetsave.value.items?.find(e => e == item)) return
+    if (recipies.value[item]) {
+      recipies.value[item].forEach(e => {
+        check(e.item)
+      })
+    }
+    else if (droptable.value[item]) {
+      if (!res[item]) res[item] = 1
+      else res[item]++
+    }
+  }
+  targetitems.forEach(e => {
+    recipies.value[e].forEach(e => {
+      if (!targetsave.value.items?.find(i => i == e.item)) check(e.item)
+    })
+  })
+  return res
+})
 
 const result = ref({})
 
@@ -167,7 +251,6 @@ onMounted(async () => {
     const key = id.replace(/:[A-z0-9]*/, '')
     if (searchstring) searchstrings[key] = searchstring
     if (item) {
-      if (key == 'I0RP') console.log(item)
       itemlistdata[key] = item
       descriptions[key] = description
     }
@@ -244,6 +327,12 @@ onMounted(async () => {
         droptable.value[i].alt[index].rate = parseFloat(droptable.value[i].alt[index].rate.toFixed(3))
       }
     })
+  })
+
+  dropdata.match(/(?<=call dSo)((.|\r|\n)*?)(?=call d6o|call d0o|call d3o)/g).map(e => {
+    const arr = e.split('\n').filter(e => e)
+    const items = arr.map(e => e.match(/(?<=BY,\(')(.*?)(?=')/)).filter(e => e).map(e => e[0])
+    itemgroup.value[items[items.length - 1]] = items
   })
 })
 
@@ -460,10 +549,21 @@ body {
         border: 1px solid black;
         margin-bottom: auto;
         .name {
-
         }
         .ready {
           background: greenyellow;
+        }
+        .mats {
+          margin-top: 10px;
+        }
+        .mat {
+          font-size: .8em;
+          margin: 5px 2px;
+          display: flex;
+          justify-content: space-between;
+          .count {
+            margin-left: 10px;
+          }
         }
       }
     }

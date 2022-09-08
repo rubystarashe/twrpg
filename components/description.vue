@@ -1,6 +1,15 @@
 <template>
 <div class="hoverdesc" v-show="hover" :style="{ top: mouseposition.y + 'px', left: mouseposition.x + 'px' }">
   <div class="item" v-if="itemlist[hover]">{{itemlist[hover]}}</div>
+  <div class="drop" v-if="droptable[hover]">
+    <div class="mobs">
+      <div v-for="item in itemgroups">{{itemgroupname[item]}}</div>
+    </div>
+    <div class="rates">
+      <div class="rate">{{droptable[hover].rate}}% <span v-if="droptable[hover].wish">소원시{{droptable[hover].wish}}%</span></div>
+      <div class="rate" v-for="{ rate, wish } in droptable[hover].alt">{{rate}}% <span v-if="wish">소원시{{wish}}%</span></div>
+    </div>
+  </div>
   <div class="descarea">
     <div class="desc" v-if="descriptions[hover]" v-html="`<div>`+descriptions[hover]+`</div>`"/>
     <div class="highorder" v-if="recipieslist[hover]">
@@ -12,7 +21,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['itemlist', 'descriptions', 'hover', 'recipies'])
+const props = defineProps(['itemlist', 'descriptions', 'hover', 'recipies', 'itemgroup', 'itemgroupname', 'droptable'])
 const { target, targetsave } = store('usersetting').toRefs()
 
 const targetlist = computed(() => {
@@ -31,6 +40,12 @@ const targetlist = computed(() => {
     check(e)
   })
   return res
+})
+
+const itemgroups = computed(() => {
+  return Object.keys(props.itemgroup).filter(e => {
+    return props.itemgroup[e].find(e => e == props.hover)
+  })
 })
 
 const mouseposition = ref({
@@ -75,6 +90,15 @@ onBeforeUnmount(() => {
   color: white;
   .item {
     margin: 10px;
+  }
+  .drop {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    .rate {
+      text-align: right;
+    }
   }
   .descarea {
     display: flex;
