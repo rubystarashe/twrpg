@@ -64,7 +64,7 @@
       </div>
     </div>
     <div>
-      <h3>파밍에 필요한 아이템</h3>
+      <h3>파밍이 필요한 아이템</h3>
       <div class="items">
         <!--div v-for="(c, item) in requiremats">{{itemlist[item]}} {{c}}개</div-->
         <div class="item" v-for="(items, key) in itemgroup" v-show="Object.keys(requiremats).find(e => items.find(i => i == e))">
