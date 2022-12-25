@@ -321,24 +321,25 @@ const requiremats = computed(() => {
   const targetitems = Object.keys(recipies.value).filter(e => target.value[e])
   const saved = [ ...targetsave?.value?.items || [] ]
 
-  const check = item => {
-    if (saved?.find(e => e == item)) {
-      saved?.splice(saved?.findIndex(e => e == item), 1)
+  const check = (item, count) => {
+    // if (item == 'phea') console.log(saved?.filter(e => e == item).length, count)
+    if (saved?.filter(e => e == item).length >= count) {
+      for (let i = 0; i < count; i++) saved?.splice(saved?.findIndex(e => e == item), 1)
       return
     }
     if (recipies.value[item]) {
       recipies.value[item].forEach(e => {
-        check(e.item)
+        check(e.item, e.count)
       })
     }
     else if (droptable.value[item]) {
-      if (!res[item]) res[item] = 1
-      else res[item]++
+      if (!res[item]) res[item] = count
+      else res[item] += count
     }
   }
   targetitems.forEach(e => {
     recipies.value[e].forEach(e => {
-      check(e.item)
+      check(e.item, e.count || 1)
     })
   })
   return res
