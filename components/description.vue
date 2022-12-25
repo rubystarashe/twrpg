@@ -22,7 +22,15 @@
 
 <script setup>
 const props = defineProps(['itemlist', 'descriptions', 'hover', 'recipies', 'itemgroup', 'itemgroupname', 'droptable'])
-const { target, targetsave } = store('usersetting').toRefs()
+const { preset, presets, targets, targetsaves } = store('usersetting').toRefs()
+const target = computed({
+  get: () => targets.value[preset.value] || {},
+  set: v => targets.value[preset.value] = v
+})
+const targetsave = computed({
+  get: () => targetsaves.value[preset.value] || {},
+  set: v => targetsaves.value[preset.value] = v
+})
 
 const targetlist = computed(() => {
   const res = {}

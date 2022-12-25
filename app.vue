@@ -5,7 +5,7 @@
   @drop="filedropped">
   <div class="droprate">
     <div class="search">
-      <div>드랍 확률 목록 버전: 0.61s</div>
+      <div>드랍 확률 목록 버전: 0.62k</div>
       <input @input="e => dropsearch = e.target.value">
     </div>
     <div class="items">
@@ -30,8 +30,27 @@
   </div>
   <div class="savefile">
     <div>
+      <h2>프리셋을 선택해 주세요</h2>
+      <div class="items">
+        <div class="item" :class="{ selected: p == preset }" v-for="(d, p) in presets" @click="preset = p">{{p == 'default' ? '기본 프리셋' : p}}</div>
+      </div>
+      <div>
+        <h3>선택된 프리셋 관리</h3>
+        <button @click="savepreset">추출하기</button>
+        <input ref="loadpresetbutton" type="file" @change="loadpreset" accept=".txt" :style="{ display: 'none' }">
+        <button @click="loadpresetbutton.click()">불러오기</button>
+        <button @click="deletepreset" :style="{ 'margin-left': '100px' }">삭제하기</button>
+      </div>
+      <div>
+        <h3>새 프리셋 추가</h3>
+        <input @input="e => presetnameinput = e.target.value" :value="presetnameinput">
+        <button @click="addpreset">추가</button>
+      </div>
+    </div>
+    <div>
       <h2>파밍 루트를 계산할 세이브를 선택해 주세요</h2>
       <input type="file" @change="filechanged" accept=".txt">
+      <button @click="resetsave">세이브 초기화</button>
       <div>버전: {{targetsave.version}}</div>
       <div>{{targetsave.date}}</div>
       <div>직업: {{targetsave.job}}</div>
@@ -121,12 +140,107 @@ import { Translator } from '@voces/wc3maptranslator'
 import { Buffer } from 'buffer'
 import ReplayParser from 'w3gjs/dist/lib/parsers/ReplayParser'
 
-const { target, targetsave } = store('usersetting').toRefs()
+const { preset, presets, targets, targetsaves } = store('usersetting').toRefs()
+
+if (!targets.value[preset.value]) targets.value[preset.value] = {}
+if (!targetsaves.value[preset.value]) targetsaves.value[preset.value] = {}
+
+const target = computed({
+  get: () => targets.value[preset.value] || {},
+  set: v => targets.value[preset.value] = v
+})
+const targetsave = computed({
+  get: () => targetsaves.value[preset.value] || {},
+  set: v => targetsaves.value[preset.value] = v
+})
 
 const itemLoaded = ref(false)
 const itemlist = ref({})
 const itemdescriptions = ref({})
 const itemsearchstrings = ref({})
+const presetnameinput = ref('')
+const loadpresetbutton = ref()
+const addpreset = () => {
+  const presetname = presetnameinput.value
+  if (presetname && !presets.value[presetname]) {
+    presets.value[presetname] = {
+      created: new Date().toLocaleString()
+    }
+    preset.value = presetname
+  }
+  presetnameinput.value = ''
+}
+const deletepreset = () => {
+  const presetname = preset.value
+  switch (presetname) {
+    case 'default':
+      return
+    default:
+      preset.value = 'default'
+      delete presets.value[presetname]
+      delete targets.value[presetname]
+      delete targetsaves.value[presetname]
+  }
+}
+const savepreset = () => {
+  const h = targetsave.value.items?.map(e => itemlist.value[e]) || []
+  const t = Object.keys(target.value).map(e => itemlist.value[e])
+  let res = '프리셋 날짜: ' + new Date().toLocaleString() + '\n'
+  if (targetsave.value.date) res += '세이브 날짜: ' + targetsave.value.date + '\n'
+  if (targetsave.value.version) res += '세이브 버전: ' + targetsave.value.version + '\n'
+  if (targetsave.value.job) res += '세이브 직업: ' + targetsave.value.job + '\n'
+  if (h.length) {
+    res += '가진 아이템:\n'
+    h.forEach(e => res += e + '\n')
+  }
+  if (t.length) {
+    res += '목표 아이템:\n'
+    t.forEach(e => res += e + '\n')
+  }
+  const blob = new Blob([res], { type: 'text/plain' })
+  const temp = document.createElement('a')
+  temp.setAttribute('download', encodeURIComponent(preset.value) + '.txt')
+  const link = window.URL.createObjectURL(blob)
+  temp.setAttribute('href', link)
+  temp.click()
+  window.URL.revokeObjectURL(link)
+  temp.remove()
+}
+const loadpreset = e => {
+  const fr = new FileReader()
+  fr.onload = () => {
+    if (!targets.value[preset.value]) targets.value[preset.value] = {}
+    if (!targetsaves.value[preset.value]) targetsaves.value[preset.value] = {}
+
+    const h = fr.result.split('목표 아이템:\n')[0]?.split('가진 아이템:\n')[1]?.split('\n')?.filter(e => e)
+    const t = fr.result.split('목표 아이템:\n')[1]?.split('\n')?.filter(e => e)
+    fr.result.split('\n').forEach(e => {
+      if (e.startsWith('세이브 날짜: ')) {
+        targetsave.value.date = e.split('세이브 날짜: ')[1]
+      }
+      if (e.startsWith('세이브 버전: ')) {
+        targetsave.value.version = e.split('세이브 버전: ')[1]
+      }
+      if (e.startsWith('세이브 직업: ')) {
+        targetsave.value.job = e.split('세이브 직업: ')[1]
+      }
+    })
+    targetsave.value.items = h.map(e => itemnamelist.value[e]).filter(e => e)
+    target.value = {}
+    t.forEach(e => {
+      if (itemnamelist.value[e]) {
+        target.value[itemnamelist.value[e]] = true
+      }
+    })
+  }
+  fr.readAsText(e.target.files[0])
+  e.target.value = ''
+}
+const resetsave = () => {
+  if (!targets.value[preset.value]) targets.value[preset.value] = {}
+  if (!targetsaves.value[preset.value]) targetsaves.value[preset.value] = {}
+  targetsave.value = {}
+}
 
 const searchitem = (string, item, id) => {
   if (item.indexOf(string) >= 0) return true
@@ -201,9 +315,13 @@ const targetsearch = ref('')
 const requiremats = computed(() => {
   const res = {}
   const targetitems = Object.keys(recipies.value).filter(e => target.value[e])
+  const saved = [ ...targetsave?.value?.items || [] ]
 
   const check = item => {
-    if (targetsave.value.items?.find(e => e == item)) return
+    if (saved?.find(e => e == item)) {
+      saved?.splice(saved?.findIndex(e => e == item), 1)
+      return
+    }
     if (recipies.value[item]) {
       recipies.value[item].forEach(e => {
         check(e.item)
@@ -216,7 +334,7 @@ const requiremats = computed(() => {
   }
   targetitems.forEach(e => {
     recipies.value[e].forEach(e => {
-      if (!targetsave.value.items?.find(i => i == e.item)) check(e.item)
+      check(e.item)
     })
   })
   return res
@@ -237,7 +355,7 @@ const file2Buffer = file => {
 }
 
 onMounted(async () => {
-  const { data: itemdata } = await axios.get('/twrpg/war3map.w3t', { responseType: 'blob' })
+  const { data: itemdata } = await axios.get('/twrpg/war3map_0.62k.w3t', { responseType: 'blob' })
   const translator = new Translator()
   const { json } = translator.Objects.warToJson('string', Buffer.from(await itemdata.arrayBuffer()))
   const items = Object.assign(json.original, json.custom)
@@ -260,9 +378,9 @@ onMounted(async () => {
   itemsearchstrings.value = searchstrings
   itemLoaded.value = true
 
-  let { data: dropdata } = await axios.get('/twrpg/war3map.j')
-  dropdata = dropdata.split('\n').slice(40000, 45000).join('\n')
-  dropdata.match(/(?<=call (dSo|dUo))((.*)(?=))/g).map(e => {
+  let { data: dropdata } = await axios.get('/twrpg/war3map_0.62k.j')
+  dropdata = dropdata.split(/\n|\r/).slice(41000, 45000).join('\n')
+  dropdata.match(/(?<=call (ggo|gjo))((.*)(?=))/g).map(e => {
     const [ prefix, idstring, ratestring ] = e.split(',')
     const id = idstring.match(/(?<=')(.*)(?=')/)[0]
     const ratemethod = ratestring.match(/(\()(.*)(?=\))/)[0]
@@ -285,7 +403,7 @@ onMounted(async () => {
       rate: e.rate
     }
   })
-  dropdata.match(/(?<=call D4o)(.*)(?=\))/g).map(e => {
+  dropdata.match(/(?<=call Gso)(.*)(?=\))/g).map(e => {
     const [ idstring, ...materialstring ] = e.split(`,'`)
     const id = idstring.match(/(?<=')(.*)(?=')/)[0]
     const materials = materialstring.map(e => {
@@ -306,10 +424,10 @@ onMounted(async () => {
     } else recipies.value[e.id] = e.materials
   })
 
-  dropdata.match(/(?<=set zy\[BY\]=)((.|\r|\n)*?)call d3o/g).map(e => {
+  dropdata.match(/(?<=set mY\[xz\]=)((.|\r|\n)*?)call gQo/g).map(e => {
     const arr = e.split('\n')
     const rate = arr[0]
-    const items = arr.map(e => e.match(/(?<=call (dSo)\(BY,\(')(.*?)(?=')/)).filter(e => e).map(e => e[0])
+    const items = arr.map(e => e.match(/(?<=call (ggo)\(xz,\(')(.*?)(?=')/)).filter(e => e).map(e => e[0])
     return {
       rate,
       items
@@ -329,9 +447,9 @@ onMounted(async () => {
     })
   })
 
-  dropdata.match(/(?<=call dSo)((.|\r|\n)*?)(?=call d6o|call d0o|call d3o)/g).map(e => {
+  dropdata.match(/(?<=call ggo)((.|\r|\n)*?)(?=call gto|call gpo|call gQo)/g).map(e => {
     const arr = e.split('\n').filter(e => e)
-    const items = arr.map(e => e.match(/(?<=BY,\(')(.*?)(?=')/)).filter(e => e).map(e => e[0])
+    const items = arr.map(e => e.match(/(?<=xz,\(')(.*?)(?=')/)).filter(e => e).map(e => e[0])
     itemgroup.value[items[items.length - 1]] = items
   })
 })
@@ -474,6 +592,7 @@ const parse = async e => {
           job: jobstring.match(/(?<="직업: )(.*)(?=")/)[0],
           items: itemsstring.map(e => e.match(/(?<="[0-9]*\.\s)(.*)(?=")/)?.[0]).filter(e => e).map(e => itemnamelist.value[e]).filter(e => e)
         }
+        presets.value[preset.value].lastsaveloaded = new Date().toLocaleString()
       }
     }
 
@@ -540,6 +659,7 @@ body {
     box-sizing: border-box;
     width: 60%;
     overflow-y: auto;
+    padding-bottom: 50%;
     .items {
       display: flex;
       flex-wrap: wrap;
@@ -565,6 +685,9 @@ body {
             margin-left: 10px;
           }
         }
+      }
+      .selected {
+        background: greenyellow;
       }
     }
   }
