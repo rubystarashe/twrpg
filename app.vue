@@ -203,7 +203,8 @@ const savepreset = () => {
   }
   const blob = new Blob([res], { type: 'text/plain' })
   const temp = document.createElement('a')
-  temp.setAttribute('download', encodeURIComponent(preset.value) + '.txt')
+  // temp.setAttribute('download', encodeURIComponent(preset.value) + '.txt')
+  temp.setAttribute('download', preset.value + '.txt')
   const link = window.URL.createObjectURL(blob)
   temp.setAttribute('href', link)
   temp.click()
