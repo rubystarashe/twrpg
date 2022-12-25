@@ -142,8 +142,12 @@ import ReplayParser from 'w3gjs/dist/lib/parsers/ReplayParser'
 
 const { preset, presets, targets, targetsaves } = store('usersetting').toRefs()
 
-if (!targets.value[preset.value]) targets.value[preset.value] = {}
-if (!targetsaves.value[preset.value]) targetsaves.value[preset.value] = {}
+watch(preset, v => {
+  if (!targets.value[preset.value]) targets.value[preset.value] = {}
+  if (!targetsaves.value[preset.value]) targetsaves.value[preset.value] = {}
+}, {
+  immediate: true
+})
 
 const target = computed({
   get: () => targets.value[preset.value] || {},
