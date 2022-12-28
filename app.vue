@@ -137,7 +137,7 @@
 <script setup>
 const route = useRoute()
 const lang = ref('ko')
-if (route.params.lang[0]) lang.value = route.params.lang[0]
+if (route.path == '/en') lang.value = 'en'
 
 const version = '0.62k'
 const translations = {
