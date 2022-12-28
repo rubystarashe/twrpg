@@ -264,7 +264,7 @@ const translations = {
       saveVersion: 'Version',
       saveJob: 'Job',
       haveItems: 'Holding',
-      targetItemSelecter: 'Please select a target farming item',
+      targetItemSelecter: 'Please select a target item',
       searchItem: 'Search Item',
       searchItemNull: 'No items detected',
       selectedTargetItems: 'The currently selected target items',
