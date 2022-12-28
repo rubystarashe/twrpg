@@ -6,14 +6,14 @@
       <div v-for="item in itemgroups">{{itemgroupname[item]}}</div>
     </div>
     <div class="rates">
-      <div class="rate">{{droptable[hover].rate}}% <span v-if="droptable[hover].wish">소원시{{droptable[hover].wish}}%</span></div>
-      <div class="rate" v-for="{ rate, wish } in droptable[hover].alt">{{rate}}% <span v-if="wish">소원시{{wish}}%</span></div>
+      <div class="rate">{{droptable[hover].rate}}% <span v-if="droptable[hover].wish">{{t.wish}}{{droptable[hover].wish}}%</span></div>
+      <div class="rate" v-for="{ rate, wish } in droptable[hover].alt">{{rate}}% <span v-if="wish">{{t.wish}}{{wish}}%</span></div>
     </div>
   </div>
   <div class="descarea">
     <div class="desc" v-if="descriptions[hover]" v-html="`<div>`+descriptions[hover]+`</div>`"/>
     <div class="highorder" v-if="recipieslist[hover]">
-      상위 아이템
+      {{t.upward}}
       <div class="orderitem" v-for="(d, key) in recipieslist[hover]" :class="{ target: targetlist[key] }">{{itemlist[key]}}</div>
     </div>
   </div>
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['itemlist', 'descriptions', 'hover', 'recipies', 'itemgroup', 'itemgroupname', 'droptable'])
+const props = defineProps(['t', 'itemlist', 'descriptions', 'hover', 'recipies', 'itemgroup', 'itemgroupname', 'droptable'])
 const { preset, presets, targets, targetsaves } = store('usersetting').toRefs()
 const target = computed({
   get: () => targets.value[preset.value] || {},
