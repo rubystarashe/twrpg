@@ -137,7 +137,6 @@
 <script setup>
 const route = useRoute()
 const lang = ref('ko')
-console.log(route.path)
 if (route.path == '/en/' || route.path == '/en') lang.value = 'en'
 
 const version = '0.62k'
