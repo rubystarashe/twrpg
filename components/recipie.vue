@@ -2,16 +2,16 @@
 <div class="recipie">
   <div class="item" v-for="{ item, count, multi, sub } in recipie">
     <div class="name" :class="{ ready: readyitems.find(e => e == item) }" @mouseover="$emit('hover', item)" @mouseleave="$emit('hover', null)">
-      <div class="text">{{itemlist[item]}} <span v-if="sub" class="sub">{{t.upward}}</span> <span v-if="count > 1">{{count}}{{t.count}}</span></div>
+      <div class="text">{{itemlist[item]}} <span v-if="sub" class="sub">교차가능</span> <span v-if="count > 1">{{count}}개</span></div>
       <div class="rate" v-if="droptable[item]">{{droptable[item].rate}}%
-      <span v-if="droptable[item] && droptable[item].wish">{{t.wish}}{{droptable[item].wish}}%
+      <span v-if="droptable[item] && droptable[item].wish">소원시{{droptable[item].wish}}%
         <span v-if="droptable[item].alt" v-for="{ rate, wish } in droptable[item].alt">
-          <br>{{rate}}% <span v-if="wish">{{t.wish}}{{wish}}%</span>
+          <br>{{rate}}% <span v-if="wish">소원시{{wish}}%</span>
         </span>
       </span>
       </div>
     </div>
-    <Recipie :t="t" v-if="recipies[item] && !readyitems.find(e => e == item)" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave" :target="item"
+    <Recipie v-if="recipies[item] && !readyitems.find(e => e == item)" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave" :target="item"
       @hover="v => $emit('hover', v)"  
     />
   </div>
@@ -20,7 +20,6 @@
 
 <script setup>
 const props = defineProps([
-  't',
   'itemlist',
   'recipies',
   'droptable',
