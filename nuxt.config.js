@@ -20,5 +20,8 @@ module.exports = {
       'process.env.NODE_DEBUG': {}
     }
   },
-  modules: ['nuxt3-pinia']
+  modules: ['nuxt3-pinia'],
+  generate: {
+    routes: ['/en']
+  }
 }

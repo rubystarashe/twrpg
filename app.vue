@@ -5,7 +5,7 @@
   @drop="filedropped">
   <div class="droprate">
     <div class="search">
-      <div>드랍 확률 목록 버전: 0.62k</div>
+      <div>{{t.UI.version}}: 0.62k</div>
       <input @input="e => dropsearch = e.target.value">
     </div>
     <div class="items">
@@ -18,11 +18,11 @@
       >
         <div>{{itemlist[key]}}</div>
         <div>{{rate}}%</div>
-        <div v-if="wish">소원시 {{wish}}%</div>
+        <div v-if="wish">{{t.wish}} {{wish}}%</div>
         <div v-if="alt">
           <div class="subitem" v-for="({ rate: altrate, wish }, i) in alt" v-show="altrate != rate && (!i || (i && altrate != alt[i - 1].rate))">
             <div>{{altrate}}%</div>
-            <div v-if="wish">소원시 {{wish}}%</div>
+            <div v-if="wish">{{t.wish}} {{wish}}%</div>
           </div>
         </div>
       </div>
@@ -30,31 +30,31 @@
   </div>
   <div class="savefile">
     <div>
-      <h2>프리셋을 선택해 주세요</h2>
+      <h2>{{t.UI.preset}}</h2>
       <div class="items">
-        <div class="item" :class="{ selected: p == preset }" v-for="(d, p) in presets" @click="preset = p">{{p == 'default' ? '기본 프리셋' : p}}</div>
+        <div class="item" :class="{ selected: p == preset }" v-for="(d, p) in presets" @click="preset = p">{{p == 'default' ? t.UI.defaultPreset : p}}</div>
       </div>
       <div>
-        <h3>선택된 프리셋 관리</h3>
-        <button @click="savepreset">추출하기</button>
+        <h3>{{t.UI.presetManagement}}</h3>
+        <button @click="savepreset">{{t.UI.exportPreset}}</button>
         <input ref="loadpresetbutton" type="file" @change="loadpreset" accept=".txt" :style="{ display: 'none' }">
-        <button @click="loadpresetbutton.click()">불러오기</button>
-        <button @click="deletepreset" :style="{ 'margin-left': '100px' }">삭제하기</button>
+        <button @click="loadpresetbutton.click()">{{t.UI.loadPreset}}</button>
+        <button @click="deletepreset" :style="{ 'margin-left': '100px' }">{{t.UI.deletePreset}}</button>
       </div>
       <div>
-        <h3>새 프리셋 추가</h3>
+        <h3>{{t.UI.addPreset}}</h3>
         <input @input="e => presetnameinput = e.target.value" :value="presetnameinput">
-        <button @click="addpreset">추가</button>
+        <button @click="addpreset">{{t.UI.addPresetButton}}</button>
       </div>
     </div>
     <div>
-      <h2>파밍 루트를 계산할 세이브를 선택해 주세요</h2>
+      <h2>{{t.UI.selectSave}}</h2>
       <input type="file" @change="filechanged" accept=".txt">
-      <button @click="resetsave">세이브 초기화</button>
-      <div>버전: {{targetsave.version}}</div>
+      <button @click="resetsave">{{t.UI.resetSave}}</button>
+      <div>{{t.UI.saveVersion}}: {{targetsave.version}}</div>
       <div>{{targetsave.date}}</div>
-      <div>직업: {{targetsave.job}}</div>
-      <h3>가진 아이템</h3>
+      <div>{{t.UI.saveJob}}: {{targetsave.job}}</div>
+      <h3>{{t.UI.haveItems}}</h3>
       <div class="items" v-if="targetsave.items">
         <div class="item" v-for="item in targetsave.items" @mouseover="hover = item" @mouseleave="hover = null">
           <div :class="{ ready: checkisneed(item) }">{{itemlist[item]}}</div>
@@ -62,11 +62,11 @@
       </div>
     </div>
     <div>
-      <h2>목표 파밍 아이템을 선택해 주세요</h2>
-      <div>아이템 검색</div>
+      <h2>{{t.UI.targetItemSelecter}}</h2>
+      <div>{{t.UI.searchItem}}</div>
       <input @input="e => targetsearch = e.target.value">
       <div class="items">
-        <div v-if="!targetsearch.length">검색된 아이템 없음</div>
+        <div v-if="!targetsearch.length">{{t.UI.searchItemNull}}</div>
         <div class="item" v-for="(item, key) in itemlist" v-show="(recipies[key] || key == itemnamelist[item]) && targetsearch.length && searchitem(targetsearch, item, key)"
           @click="target[key] ? delete target[key] : target[key] = true"
           @mouseover="hover = key" @mouseleave="hover = null"
@@ -74,16 +74,16 @@
       </div>
     </div>
     <div>
-      <h3>현재 선택된 목표 아이템:</h3>
+      <h3>{{t.UI.selectedTargetItems}}:</h3>
       <div class="items">
-        <div v-if="!Object.keys(target).length">목표 아이템 없음</div>
+        <div v-if="!Object.keys(target).length">{{t.UI.selectedTargetItemsNull}}</div>
         <div class="item" v-for="(d, key) in target" @click="delete target[key]" @mouseover="hover = key" @mouseleave="hover = null">
           {{itemlist[key]}}
         </div>
       </div>
     </div>
     <div>
-      <h3>파밍이 필요한 아이템</h3>
+      <h3>{{t.UI.neededItems}}</h3>
       <div class="items">
         <!--div v-for="(c, item) in requiremats">{{itemlist[item]}} {{c}}개</div-->
         <div class="item" v-for="(items, key) in itemgroup" v-show="Object.keys(requiremats).find(e => items.find(i => i == e))">
@@ -95,46 +95,247 @@
           </div>
         </div>
       </div>
-      <h3>조합법 지도</h3>
+      <h3>{{t.UI.recipeMap}}</h3>
       <div class="items">
         <div class="item" v-for="(d, key) in target">
           <div class="name" :class="{ ready: (targetsave.items || []).find(e => e == key) }" @mouseover="hover = key" @mouseleave="hover = null">{{itemlist[key]}}</div>
-          <Recipie v-if="recipies[key]" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave || {}" :target="key" @hover="v => hover = v"/>
+          <Recipie v-if="recipies[key]" :t="t" :itemlist="itemlist" :recipies="recipies" :droptable="droptable" :targetsave="targetsave || {}" :target="key" @hover="v => hover = v"/>
         </div>
       </div>
     </div>
   </div>
   <div class="replayfile">
     <div class="search">
-      <div>리플레이 파일 분석</div>
+      <div>{{t.UI.replayFile}}</div>
       <input type="file" @change="filechanged" accept=".w3g" multiple>
-      <div>유저이름: <input @input="e => savesearch_nick = e.target.value"></div>
-      <div>아이템: <input @input="e => savesearch_item = e.target.value"></div>
+      <div>{{t.UI.replayUserSearch}}: <input @input="e => savesearch_nick = e.target.value"></div>
+      <div>{{t.UI.replayItemSearch}}: <input @input="e => savesearch_item = e.target.value"></div>
     </div>
     <div class="replayresults">
       <div class="result" v-for="({ log, map, date }, name) in result"
         v-show="(savesearch_nick.length ? log.find(({ player }) => player?.indexOf(savesearch_nick) >= 0) ? true : false : true) && (savesearch_item.length ? log.find(({ item }) => item?.indexOf(savesearch_item) >= 0) ? true : false : true)"
       >
-        <div>버전: {{map.version}}</div>
-        <div>날짜: {{date}}</div>
-        <div>파일명: {{name}}</div>
+        <div>{{t.UI.saveVersion}}: {{map.version}}</div>
+        <div>{{t.UI.replayDate}}: {{date}}</div>
+        <div>{{t.UI.replayFilename}}: {{name}}</div>
         <div class="log" v-for="{ player, mins, seconds, item, type } in log" v-show="(savesearch_nick.length ? player?.indexOf(savesearch_nick) >= 0 ? true : false : true) && (savesearch_item.length ? item?.indexOf(savesearch_item) >= 0 ? true : false : true)">
           <div v-if="type == 'get'">
-            <span>{{player}}</span>가 <span>{{mins}}분 {{seconds}}초</span>에 <span>{{item}}</span> 획득함
+            <span>{{player}}</span>{{t.UI.replayWho}} <span>{{mins}}{{t.UI.replayMin}} {{seconds}}{{t.UI.replaySec}}</span>{{t.UI.replayAt}} <span>{{item}}</span> {{t.UI.replayGet}}
           </div>
           <div v-else-if="type == 'craft'">
-            <span>{{player}}</span>가 <span>{{mins}}분 {{seconds}}초</span>에 아이템 조합함
+            <span>{{player}}</span>{{t.UI.replayWho}} <span>{{mins}}{{t.UI.replayMin}} {{seconds}}{{t.UI.replaySec}}</span>{{t.UI.replayAt}} {{t.UI.replayMade}}
           </div>
         </div>
       </div>
     </div>
   </div>
-  <Description :itemlist="itemlist" :descriptions="itemdescriptions" :recipies="recipies" :hover="hover" :itemgroup="itemgroup" :itemgroupname="itemgroupname" :droptable="droptable"/>
+  <Description :t="t" :itemlist="itemlist" :descriptions="itemdescriptions" :recipies="recipies" :hover="hover" :itemgroup="itemgroup" :itemgroupname="itemgroupname" :droptable="droptable"/>
   <div class="dragging" v-if="dragging">Dragging</div>
 </div>
 </template>
 
 <script setup>
+const route = useRoute()
+const lang = ref('ko')
+if (route.params.lang[0]) lang.value = route.params.lang[0]
+
+const version = '0.62k'
+const translations = {
+  'ko': {
+    stringfile: '/twrpg/war3map_0.62k.w3t',
+    wish: '소원시',
+    swapable: '교차가능',
+    upward: '상위 아이템',
+    count: '개',
+    preset: {
+      date: '프리셋 날짜: ',
+      savedate: '세이브 날짜: ',
+      version: '세이브 버전: ',
+      job: '세이브 직업: ',
+      has: '가진 아이템:\n',
+      target: '목표 아이템:\n'
+    },
+    UI: {
+      preset: '프리셋을 선택해 주세요',
+      defaultPreset: '기본 프리셋',
+      presetManagement: '선택된 프리셋 관리',
+      exportPreset: '추출하기',
+      loadPreset: '불러오기',
+      deletePreset: '삭제하기',
+      addPreset: '새 프리셋 추가',
+      addPresetButton: '추가',
+      selectSave: '파밍 루트를 계산할 세이브를 선택해 주세요',
+      resetSave: '세이브 초기화',
+      saveVersion: '버전',
+      saveJob: '직업',
+      haveItems: '가진 아이템',
+      targetItemSelecter: '목표 파밍 아이템을 선택해 주세요',
+      searchItem: '아이템 검색',
+      searchItemNull: '검색된 아이템 없음',
+      selectedTargetItems: '현재 선택된 목표 아이템',
+      selectedTargetItemsNull: '목표 아이템 없음',
+      neededItems: '파밍이 필요한 아이템',
+      recipeMap: '조합법 지도',
+      version: '드랍 확률 목록 버전',
+      replayFile: '리플레이 파일 분석',
+      replayUserSearch: '유저이름',
+      replayItemSearch: '아이템',
+      replayDate: '날짜',
+      replayFilename: '파일명',
+      replayWho: '가',
+      replayMin: '분',
+      replaySec: '초',
+      replayAt: '에',
+      replayGet: '획득함',
+      replayMade: '아이템 조합함'
+    },
+    mobs: {
+      'I0Q3': '자이언트 터틀',
+      'ciri': '킹크랩',
+      'I0DT': '바다코끼리',
+      'ssil': '매머드',
+      'I0DV': '킹콩',
+      'I0BT': '피의 망령',
+      'I0BT': '박쥐 괴인',
+      'I046': '다크나이트',
+      'nspi': '라그나스',
+      'blba': '이블 라바',
+      'gvsm': '촉수 지배자',
+      'I0OV': '바다의 수호자',
+      'dtsb': '자이언트 골렘',
+      'wcyc': '매드클라운',
+      'envl': '마나 에인션트',
+      'oven': '하이드라',
+      'shen': '왈라키아 백작',
+      'drph': '잭 오 랜턴',
+      'lnrn': '마법사 왕',
+      'oli2': '데드렉트',
+      'amrc': '문지기',
+      'tmmt': '능천사',
+      'mnsf': '타천사',
+      'olig': '서리한의 혼',
+      'stre': '거미 여왕 일셰나',
+      'tst2': '서리거미 제왕',
+      'wswd': '마왕 베리엘',
+      'ccmd': '스피릿 비스트',
+      'rugt': '커럽터 렉터스',
+      'shdt': '플레임 나이트메어',
+      'wshs': '터틀 로드',
+      'rre1': '본 드래곤',
+      'fgrg': '해골왕 데스페리아',
+      'pomn': '좀비 로드',
+      'pres': '에인션트 엔트',
+      'sneg': '주천사 사미엘',
+      'shar': '암흑룡 이르베르트',
+      'infs': '데스 핀드',
+      'I0P0': '뇌신 발토라',
+      'I0P1': '화신 이프리트',
+      'I0P2': '해신 네레이드',
+      'I0P3': '지하군주 아가레스',
+      'I0R6': '공작 라자루스',
+      'I0R7': '지신 가이아'
+    }
+  },
+  'en': {
+    stringfile: '/twrpg/war3map_0.62k_en.w3t',
+    wish: 'wish',
+    swapable: 'Alternative',
+    upward: 'Next Tier',
+    count: 'pcs',
+    preset: {
+      date: 'Preset Date: ',
+      savedate: 'Save Date: ',
+      version: 'Save Version: ',
+      job: 'Save Job: ',
+      has: 'Holding Items:\n',
+      target: 'Target Items:\n'
+    },
+    UI: {
+      preset: 'Please select a preset',
+      defaultPreset: 'Default Preset',
+      presetManagement: 'Manage Selected Presets',
+      exportPreset: 'Export',
+      loadPreset: 'Load',
+      deletePreset: 'Delete',
+      addPreset: 'Add New Preset',
+      addPresetButton: 'Add',
+      selectSave: 'Please select the save to calculate the farming route',
+      resetSave: 'Reset Loaded Save Data',
+      saveVersion: 'Version',
+      saveJob: 'Job',
+      haveItems: 'Holding',
+      targetItemSelecter: 'Please select a target farming item',
+      searchItem: 'Search Item',
+      searchItemNull: 'No items detected',
+      selectedTargetItems: 'The currently selected target items',
+      selectedTargetItemsNull: 'No target items',
+      neededItems: 'Items that require farming',
+      recipeMap: 'Recipe Map',
+      version: 'Version',
+      replayFile: 'Replay File Viewer',
+      replayUserSearch: 'User',
+      replayItemSearch: 'Item',
+      replayDate: 'Date',
+      replayFilename: 'FileName',
+      replayWho: '',
+      replayMin: 'm',
+      replaySec: 's',
+      replayAt: '',
+      replayGet: '',
+      replayMade: 'created'
+    },
+    mobs: {
+      'I0Q3': 'Dragon Turtle',
+      'ciri': 'King Crab',
+      'I0DT': 'Walrus',
+      'ssil': 'Mammoth',
+      'I0DV': 'King Kong',
+      'I0BT': 'Blood Wraith',
+      'I0BT': 'Wallachia Monstrosity',
+      'I046': 'Wallachia Death Knight Lord',
+      'nspi': 'Ruler of Flames Ragnaar',
+      'blba': 'Evil Lava Spawn',
+      'gvsm': 'Tentacle Lord',
+      'I0OV': 'Guardian of Sea',
+      'dtsb': 'Giant Golem',
+      'wcyc': 'Mad Clown',
+      'envl': 'Mana Ancient',
+      'oven': 'Ruler of The Lav Sea (Hydra)',
+      'shen': 'Count of Wallachia',
+      'drph': 'Jack-O-Lantern',
+      'lnrn': 'Mage Lord',
+      'oli2': 'Wigns of Death (Dragon)',
+      'amrc': 'Castle Avalon Gatekeeper',
+      'tmmt': `The 3rd Army's Guardian Angel`,
+      'mnsf': `The Devil's Right Arm Corrupt Angel`,
+      'olig': 'Soul of Everfrost',
+      'stre': 'Frostspider Queen',
+      'tst2': 'Frostspider Lord',
+      'wswd': 'Demon Lord Beriel',
+      'ccmd': 'Spirit Beast',
+      'rugt': 'Corruptor Rectus',
+      'shdt': 'Flame Nightmare',
+      'wshs': 'Turtle Lord',
+      'rre1': 'Bone Dragon',
+      'fgrg': 'Skeletal King Desperia',
+      'pomn': 'Zombie Lord',
+      'pres': 'Ancient Ent',
+      'sneg': 'Archangel Samael',
+      'shar': 'Shadow Dragon Irbert',
+      'infs': 'Death Fiend',
+      'I0P0': 'Valtora',
+      'I0P1': 'Ifrit',
+      'I0P2': 'Nereid',
+      'I0P3': 'Underlord Agareth',
+      'I0R6': 'Duke Lazarus',
+      'I0R7': 'Gaia'
+    }
+  },
+}
+const t = computed(() => {
+  return translations[lang.value]
+})
+
 import axios from 'axios'
 import { Translator } from '@voces/wc3maptranslator'
 import { Buffer } from 'buffer'
@@ -188,18 +389,18 @@ const deletepreset = () => {
 }
 const savepreset = () => {
   const h = targetsave.value.items?.map(e => itemlist.value[e]) || []
-  const t = Object.keys(target.value).map(e => itemlist.value[e])
-  let res = '프리셋 날짜: ' + new Date().toLocaleString() + '\n'
-  if (targetsave.value.date) res += '세이브 날짜: ' + targetsave.value.date + '\n'
-  if (targetsave.value.version) res += '세이브 버전: ' + targetsave.value.version + '\n'
-  if (targetsave.value.job) res += '세이브 직업: ' + targetsave.value.job + '\n'
+  const tt = Object.keys(target.value).map(e => itemlist.value[e])
+  let res = t.value.preset.date + new Date().toLocaleString() + '\n'
+  if (targetsave.value.date) res += t.value.preset.savedate + targetsave.value.date + '\n'
+  if (targetsave.value.version) res += t.value.preset.version + targetsave.value.version + '\n'
+  if (targetsave.value.job) res += t.value.preset.job + targetsave.value.job + '\n'
   if (h.length) {
-    res += '가진 아이템:\n'
+    res += t.value.preset.has
     h.forEach(e => res += e + '\n')
   }
-  if (t.length) {
-    res += '목표 아이템:\n'
-    t.forEach(e => res += e + '\n')
+  if (tt.length) {
+    res += t.value.preset.target
+    tt.forEach(e => res += e + '\n')
   }
   const blob = new Blob([res], { type: 'text/plain' })
   const temp = document.createElement('a')
@@ -217,22 +418,22 @@ const loadpreset = e => {
     if (!targets.value[preset.value]) targets.value[preset.value] = {}
     if (!targetsaves.value[preset.value]) targetsaves.value[preset.value] = {}
 
-    const h = fr.result.split('목표 아이템:\n')[0]?.split('가진 아이템:\n')[1]?.split('\n')?.filter(e => e)
-    const t = fr.result.split('목표 아이템:\n')[1]?.split('\n')?.filter(e => e)
+    const h = fr.result.split(t.value.preset.target)[0]?.split(t.value.preset.has)[1]?.split('\n')?.filter(e => e)
+    const tt = fr.result.split(t.value.preset.target)[1]?.split('\n')?.filter(e => e)
     fr.result.split('\n').forEach(e => {
-      if (e.startsWith('세이브 날짜: ')) {
-        targetsave.value.date = e.split('세이브 날짜: ')[1]
+      if (e.startsWith(t.value.preset.savedate)) {
+        targetsave.value.date = e.split(t.value.preset.savedate)[1]
       }
-      if (e.startsWith('세이브 버전: ')) {
-        targetsave.value.version = e.split('세이브 버전: ')[1]
+      if (e.startsWith(t.value.preset.version)) {
+        targetsave.value.version = e.split(t.value.preset.version)[1]
       }
-      if (e.startsWith('세이브 직업: ')) {
-        targetsave.value.job = e.split('세이브 직업: ')[1]
+      if (e.startsWith(t.value.preset.job)) {
+        targetsave.value.job = e.split(t.value.preset.job)[1]
       }
     })
-    targetsave.value.items = h.map(e => itemnamelist.value[e]).filter(e => e)
+    if (h) targetsave.value.items = h.map(e => itemnamelist.value[e]).filter(e => e)
     target.value = {}
-    t.forEach(e => {
+    if (tt) tt.forEach(e => {
       if (itemnamelist.value[e]) {
         target.value[itemnamelist.value[e]] = true
       }
@@ -248,7 +449,7 @@ const resetsave = () => {
 }
 
 const searchitem = (string, item, id) => {
-  if (item.indexOf(string) >= 0) return true
+  if (item.toLowerCase().indexOf(string.toLowerCase()) >= 0) return true
   return itemsearchstrings.value[id]?.indexOf(string) >= 0
 }
 const itemnamelist = computed(() => {
@@ -262,52 +463,53 @@ const droptable = ref({})
 const recipies = ref({})
 const itemgroup = ref({})
 
-const itemgroupname = {
-  'I0Q3': '자이언트 터틀',
-  'ciri': '킹크랩',
-  'I0DT': '바다코끼리',
-  'ssil': '매머드',
-  'I0DV': '킹콩',
-  'I0BT': '피의 망령',
-  'I0BT': '박쥐 괴인',
-  'I046': '다크나이트',
-  'nspi': '라그나스',
-  'blba': '이블 라바',
-  'gvsm': '촉수 지배자',
-  'I0OV': '바다의 수호자',
-  'dtsb': '자이언트 골렘',
-  'wcyc': '매드클라운',
-  'envl': '마나 에인션트',
-  'oven': '하이드라',
-  'shen': '왈라키아 백작',
-  'drph': '잭 오 랜턴',
-  'lnrn': '마법사 왕',
-  'oli2': '데드렉트',
-  'amrc': '문지기',
-  'tmmt': '능천사',
-  'mnsf': '타천사',
-  'olig': '서리한의 혼',
-  'stre': '거미 여왕 일셰나',
-  'tst2': '서리거미 제왕',
-  'wswd': '마왕 베리엘',
-  'ccmd': '스피릿 비스트',
-  'rugt': '커럽터 렉터스',
-  'shdt': '플레임 나이트메어',
-  'wshs': '터틀 로드',
-  'rre1': '본 드래곤',
-  'fgrg': '해골왕 데스페리아',
-  'pomn': '좀비 로드',
-  'pres': '에인션트 엔트',
-  'sneg': '주천사 사미엘',
-  'shar': '암흑룡 이르베르트',
-  'infs': '데스 핀드',
-  'I0P0': '뇌신 발토라',
-  'I0P1': '화신 이프리트',
-  'I0P2': '해신 네레이드',
-  'I0P3': '지하군주 아가레스',
-  'I0R6': '공작 라자루스',
-  'I0R7': '지신 가이아'
-}
+const itemgroupname = translations[lang.value].mobs
+// const itemgroupname = {
+//   'I0Q3': '자이언트 터틀',
+//   'ciri': '킹크랩',
+//   'I0DT': '바다코끼리',
+//   'ssil': '매머드',
+//   'I0DV': '킹콩',
+//   'I0BT': '피의 망령',
+//   'I0BT': '박쥐 괴인',
+//   'I046': '다크나이트',
+//   'nspi': '라그나스',
+//   'blba': '이블 라바',
+//   'gvsm': '촉수 지배자',
+//   'I0OV': '바다의 수호자',
+//   'dtsb': '자이언트 골렘',
+//   'wcyc': '매드클라운',
+//   'envl': '마나 에인션트',
+//   'oven': '하이드라',
+//   'shen': '왈라키아 백작',
+//   'drph': '잭 오 랜턴',
+//   'lnrn': '마법사 왕',
+//   'oli2': '데드렉트',
+//   'amrc': '문지기',
+//   'tmmt': '능천사',
+//   'mnsf': '타천사',
+//   'olig': '서리한의 혼',
+//   'stre': '거미 여왕 일셰나',
+//   'tst2': '서리거미 제왕',
+//   'wswd': '마왕 베리엘',
+//   'ccmd': '스피릿 비스트',
+//   'rugt': '커럽터 렉터스',
+//   'shdt': '플레임 나이트메어',
+//   'wshs': '터틀 로드',
+//   'rre1': '본 드래곤',
+//   'fgrg': '해골왕 데스페리아',
+//   'pomn': '좀비 로드',
+//   'pres': '에인션트 엔트',
+//   'sneg': '주천사 사미엘',
+//   'shar': '암흑룡 이르베르트',
+//   'infs': '데스 핀드',
+//   'I0P0': '뇌신 발토라',
+//   'I0P1': '화신 이프리트',
+//   'I0P2': '해신 네레이드',
+//   'I0P3': '지하군주 아가레스',
+//   'I0R6': '공작 라자루스',
+//   'I0R7': '지신 가이아'
+// }
 
 const dragging = ref(false)
 const hover = ref(null)
@@ -361,7 +563,7 @@ const file2Buffer = file => {
 }
 
 onMounted(async () => {
-  const { data: itemdata } = await axios.get('/twrpg/war3map_0.62k.w3t', { responseType: 'blob' })
+  const { data: itemdata } = await axios.get(t.value.stringfile, { responseType: 'blob' })
   const translator = new Translator()
   const { json } = translator.Objects.warToJson('string', Buffer.from(await itemdata.arrayBuffer()))
   const items = Object.assign(json.original, json.custom)
@@ -369,8 +571,8 @@ onMounted(async () => {
   const searchstrings = {}
   const itemlistdata = {}
   Object.keys(items).forEach(id => {
-    const item = items[id].find(e => e.id == 'unam').value.replace(/[^ㄱ-ㅎ가-힣\s]/g, '')
-    const description = items[id].find(e => e.id == 'utub')?.value?.replace(/\|c[A-z0-9]{8}/g, '').replace(/\|r/g, '').replace('∴클릭 시 관련 조합법을 확인', '').replace(/\n/g, '<br/>')
+    const item = items[id].find(e => e.id == 'unam').value.replace(/\|[A-z0-9]{9}/, '').replace(/\|r/g, '').replace(/[^ㄱ-ㅎ가-힣A-z\s]/g, '')
+    const description = items[id].find(e => e.id == 'utub')?.value?.replace(/\|c[A-z0-9]{8}/g, '').replace(/\|r/g, '').replace('∴클릭 시 관련 조합법을 확인', '').replace('∴Click to check any related recipes', '').replace(/\n/g, '<br/>')
     const searchstring = description?.split('<br/>')?.find(e => e?.indexOf('-') >= 0)
     const key = id.replace(/:[A-z0-9]*/, '')
     if (searchstring) searchstrings[key] = searchstring
@@ -440,6 +642,7 @@ onMounted(async () => {
     }
   }).forEach(e => {
     e.items.forEach(i => {
+      if (!droptable.value[i]) return
       if (!droptable.value[i].wish) {
         droptable.value[i].wish = droptable.value[i].rate
         droptable.value[i].rate = droptable.value[i].rate * e.rate
@@ -594,8 +797,8 @@ const parse = async e => {
         const [n1, n2, n3, n4, versionstring, vv, jobstring, l, ...itemsstring ] = savefile.split('\n')
         targetsave.value = {
           date: new Date(e.target.files[i].lastModified).toLocaleString(),
-          version: versionstring.match(/(?<="플레이 버전: )(.*)(?=")/)[0],
-          job: jobstring.match(/(?<="직업: )(.*)(?=")/)[0],
+          version: versionstring.match(lang.value == 'en' ? /(?<="Played Version: )(.*)(?=")/ : /(?<="플레이 버전: )(.*)(?=")/)[0],
+          job: jobstring.match(lang.value == 'en' ? /(?<="Class: )(.*)(?=")/ : /(?<="직업: )(.*)(?=")/)[0],
           items: itemsstring.map(e => e.match(/(?<="[0-9]*\.\s)(.*)(?=")/)?.[0]).filter(e => e).map(e => itemnamelist.value[e]).filter(e => e)
         }
         presets.value[preset.value].lastsaveloaded = new Date().toLocaleString()
