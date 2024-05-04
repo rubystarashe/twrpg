@@ -34,6 +34,33 @@
             </div>
           </div>
         </div>
+        
+        <div class="section_title">목표 아이템 그룹 선택</div>
+        <div v-for="({ name, items }, index) in p_targets"
+          :class="{ selected: p_targetIndexes.find(e => e == index) }"
+          @click="f_select_targetIndex(index)"
+        >
+          <div>{{ name }}</div>
+          <div>{{ items }}</div>
+          <div @click.stop="e_call_itemfinder({ account: p_account, job: p_job, index })">edit</div>
+        </div>
+        <div>아이콘 파밍</div>
+        <div @click="f_update_iconfarming(!p_iconfarming)">{{ p_iconfarming }}</div>
+        <div>{{ p_icons }}</div>
+        <div>
+          <div v-for="(icons, grade) in _iconlist">
+            <div v-if="grade != 'undefined'">{{ grade }}</div>
+            <div v-for="{ id, name, grade } in icons"
+              v-show="id == 'I02T' || !p_icons.find(e => e == 'I02T')"
+              :class="{ handled: p_icons.find(e => e == id) }"
+              @click="f_select_icon(id)"
+            >
+              <div>{{ grade }}</div>
+              <div>{{ name }}</div>
+            </div>
+          </div>
+        </div>
+
         <div class="section_title">인벤토리 ({{ f_getEquips(p_handle).counts }}/60)</div>
         <div class="inventory">
           <div class="category">장비류</div>
@@ -42,7 +69,7 @@
               <div class="type">{{ type }}</div>
               <div class="gears">
                 <div class="gear" v-for="{ name, grade, id } in items"
-                  :class="{ targeted: c_targets[id] }"
+                  :class="{ targeted: c_targets[id], equiped: f_getEquips(p_handle).equips.find(e => e.id == id) }"
                 >
                   <div class="grade" :class="`grade_${grade}`"/>
                   <div class="name">{{ name }}</div>
@@ -70,25 +97,13 @@
                     :isTarget="true"
                     :tree="tree"
                   />
+                  <div class="margin"/>
                   <div class="trash" v-if="!c_targets[id] && (!f_getUsedby(id) || Object.keys(f_getUsedby(id)).length < count)">!</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="section_title">목표 아이템 그룹 선택</div>
-        {{ p_targetIndexes }} {{c_targets}}
-        <div v-for="({ name, items }, index) in p_targets"
-          :class="{ selected: p_targetIndexes.find(e => e == index) }"
-          @click="f_select_targetIndex(index)"
-        >
-          <div>{{ name }}</div>
-          <div>{{ items }}</div>
-          <div @click.stop="e_call_itemfinder({ account: p_account, job: p_job, index })">edit</div>
-        </div>
-        <div>아이콘 파밍</div>
-        <div @click="f_update_iconfarming(!p_iconfarming)">{{ p_iconfarming }}</div>
-        <div>{{ p_icons }}</div>
       </div>
     </div>
   </Transition>
@@ -137,8 +152,60 @@ const f_update_iconfarming = boolean => {
   e_refresh()
 }
 
+const icons = [
+  '레전드 아이콘',
+  '그랜드마스터 아이콘',
+  '마스터 아이콘',
+  '아가레스 아이콘',
+  '해신 아이콘',
+  '화신 아이콘',
+  '뇌신 아이콘',
+  '데스 핀드 아이콘',
+  '암흑룡 아이콘',
+  '본 드래곤 아이콘',
+  '주천사 아이콘',
+  '해골 왕 아이콘',
+  '좀비 로드 아이콘',
+  '에인션트 엔트 아이콘',
+  '플레임 나이트메어 아이콘',
+  '터틀 로드 아이콘',
+  '커럽터 아이콘',
+  '스피릿 비스트 아이콘',
+  '매드 클라운 아이콘',
+  '마왕 아이콘',
+  '거미 제왕 아이콘',
+  '서리한 아이콘',
+  '능천사 아이콘',
+  '타천사 아이콘',
+  '문지기 아이콘',
+  '마법사 왕 아이콘',
+  '데드렉트 아이콘',
+  '백작 아이콘',
+  '잭 아이콘',
+  '마나 에인션트 아이콘',
+  '자이언트 골렘 아이콘',
+  '라그나스 아이콘',
+  '촉수 지배자 아이콘',
+  '하이드라 아이콘'
+]
 
 const grades = ['일반', '델티라마', '넵티노스', '그노시스', '알테이아', '아르카나']
+const _iconlist = Object.values(s_database.value.items).filter(e => e.type == '아이콘' && icons.find(i => i == e.name)).sort((a, b) => icons.indexOf(a.name) - icons.indexOf(b.name))
+  .map(e => {
+    let grade = 1
+    const index = icons.indexOf(e.name)
+    if (!index) grade = 6
+    else if (index <= 2) grade = 5
+    else if (index <= 7) grade = 4
+    else if (index <= 13) grade = 3
+    else if (index <= 21) grade = 2
+    return { ...e, grade }
+  })
+  .reduce((p, c) => {
+    if (!p[grades[c.grade]]) p[grades[c.grade]] = []
+    p[grades[c.grade]].push(c)
+    return p
+  }, {})
 
 const usedby = {}
 Object.values(s_database.value.items).forEach(({ id, recipies }) => {
@@ -160,6 +227,7 @@ const c_targets = computed(() => {
     })
   })
   res['I0OO'] = s_database.value.items['I0OO']
+  if (p_iconfarming.value) res['I02T'] = s_database.value.items['I02T']
   return res
 })
 const types = reactive(['무기', '방어구', '날개', '장신구', '머리보호구'])
@@ -167,7 +235,7 @@ const f_getEquips = items => {
   const equips = items.slice(0, 6).map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => types.find(t => t == e.type))
   const inventories = items.filter(e => !equips.find(q => q.id == e)).map(e => ({ id: e, ...s_database.value.items[e] }))
   const pickaxes = inventories.filter(e => e.type == '곡괭이').sort((a, b) => b.grade - a.grade).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
-  const inventory_gears = inventories.filter(e => types.find(t => e.type == t)).sort((a, b) => b.grade - a.grade).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
+  const inventory_gears = items.map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => types.find(t => e.type == t)).sort((a, b) => b.grade - a.grade).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
     .reduce((p, c) => {
       if (!p[c.type]) p[c.type] = {}
       if (p[c.type][c.id]) p[c.type][c.id].count++
@@ -199,7 +267,11 @@ const f_getEquips = items => {
   }
 }
 
+const c_handle = computed(() => {
+  return [ ...p_handle.value, ...p_icons.value ]
+})
 const f_deepcheck = (id, target, handlecache) => {
+  if (c_handle.value.find(e => e == target)) return false
   if (!s_database.value.items[target]?.recipies) return false
   let res = null
   s_database.value.items[target].recipies.forEach(recipy => {
@@ -221,7 +293,7 @@ const f_deepcheck = (id, target, handlecache) => {
 }
 const f_getUsedby = id => {
   const res = {}
-  const handlecache = p_handle.value.reduce((p, c) => (p[c] = true, p), {})
+  const handlecache = c_handle.value.reduce((p, c) => (p[c] = true, p), {})
   Object.keys(c_targets.value).forEach(target => {
     const req = f_deepcheck(id, target, handlecache)
     if (req) res[target] = req
@@ -304,6 +376,9 @@ const f_getUsedby = id => {
               border: 1px solid transparent;
               &.targeted {
                 border-color: rgb(89, 159, 98);
+              }
+              &.equiped {
+                border-color: rgb(94, 103, 234);
               }
               .grade {
                 width: 7px;
@@ -425,9 +500,10 @@ const f_getUsedby = id => {
               }
               .tree {
                 padding: 0 5px;
-                &:last-child {
-                  margin-bottom: 8px;
-                }
+              }
+              .margin {
+                width: 1px;
+                margin-bottom: 8px;
               }
             }
           }
