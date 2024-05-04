@@ -145,7 +145,7 @@ const c_grade_items = computed(() => {
     const search = _search?.trim().replace(/ /g, '')
     if (search) {
       const searchstring = (item.name + item.searchstring)?.trim().replace(/ /g, '')
-      if (searchstring.indexOf(search) >= 0) return true
+      if (searchstring.indexOf(search) >= 0 && types.find(e => e == item.type)) return true
     } else if (_grade_filters[item.grade] && item.type == _type_filter) return true
   }).map(([id, item]) => ({ id, ...item })).sort((a, b) => b.grade - a.grade).reduce((p, c) => {
     if (!p[grades[c.grade]]) p[grades[c.grade]] = {}
@@ -319,7 +319,7 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
           color: rgb(182, 186, 192);
           padding: 10px;
           border-radius: 5px;
-          border: 1px solid transparent;
+          border: 1px solid rgb(217, 94, 71);
           cursor: pointer;
           display: flex;
           .meta {

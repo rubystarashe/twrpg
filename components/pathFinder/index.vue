@@ -20,6 +20,18 @@
                 <template v-html="description"/>
               </div>
             </div>
+            <div class="coins">
+              <div class="coin" v-for="{ id, count } in p_coins">
+                <div class="grade">{{ grades[s_database.items[id].grade] }}</div>
+                <div class="name">{{ s_database.items[id].name }} <span class="count">{{ count }}개</span></div>
+              </div>
+            </div>
+            <div class="pickaxes">
+              <div v-for="{ name, grade } in f_getEquips(p_handle).pickaxes">
+                <div class="grade">{{ grades[grade] }}</div>
+                <div>{{ name }}</div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="section_title">인벤토리 ({{ f_getEquips(p_handle).counts }}/60)</div>
@@ -29,7 +41,9 @@
             <div class="geargroup" v-for="(items, type) in f_getEquips(p_handle).inventory_gears">
               <div class="type">{{ type }}</div>
               <div class="gears">
-                <div class="gear" v-for="{ name, grade } in items">
+                <div class="gear" v-for="{ name, grade, id } in items"
+                  :class="{ targeted: c_targets[id] }"
+                >
                   <div class="grade" :class="`grade_${grade}`"/>
                   <div class="name">{{ name }}</div>
                 </div>
@@ -42,7 +56,7 @@
               <div class="mob">{{ s_database.mobs[mob]?.name }}</div>
               <div class="items">
                 <div class="item" v-for="{ id, name, grade, count } in items"
-                  :class="{ noneeds: !f_getUsedby(id) }"
+                  :class="{ targeted: c_targets[id], noneeds: !c_targets[id] && !f_getUsedby(id) }"
                 >
                   <div class="itemmeta">
                     <div class="info">
@@ -56,16 +70,9 @@
                     :isTarget="true"
                     :tree="tree"
                   />
-                  <div class="trash" v-if="!f_getUsedby(id) || Object.keys(f_getUsedby(id)).length < count">!</div>
+                  <div class="trash" v-if="!c_targets[id] && (!f_getUsedby(id) || Object.keys(f_getUsedby(id)).length < count)">!</div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="category">재화</div>
-          <div class="coins">
-            <div class="coin" v-for="{ id, count } in p_coins">
-              <div class="grade">{{ grades[s_database.items[id].grade] }}</div>
-              <div class="name">{{ s_database.items[id].name }} <span class="count">{{ count }}개</span></div>
             </div>
           </div>
         </div>
@@ -145,10 +152,21 @@ Object.values(s_database.value.items).forEach(({ id, recipies }) => {
   }
 })
 
+const c_targets = computed(() => {
+  const res = {}
+  p_targetIndexes.value.forEach(index => {
+    p_targets.value[index]?.items?.forEach(item => {
+      res[item] = s_database.value.items[item]
+    })
+  })
+  res['I0OO'] = s_database.value.items['I0OO']
+  return res
+})
 const types = reactive(['무기', '방어구', '날개', '장신구', '머리보호구'])
 const f_getEquips = items => {
   const equips = items.slice(0, 6).map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => types.find(t => t == e.type))
   const inventories = items.filter(e => !equips.find(q => q.id == e)).map(e => ({ id: e, ...s_database.value.items[e] }))
+  const pickaxes = inventories.filter(e => e.type == '곡괭이').sort((a, b) => b.grade - a.grade).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
   const inventory_gears = inventories.filter(e => types.find(t => e.type == t)).sort((a, b) => b.grade - a.grade).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
     .reduce((p, c) => {
       if (!p[c.type]) p[c.type] = {}
@@ -156,7 +174,8 @@ const f_getEquips = items => {
       else p[c.type][c.id] = { ...c, count: 1 }
       return p
     }, {})
-  const inventory_mats = inventories.filter(e => (!types.find(t => e.type == t) && e.type != '재화') || usedby[e.id]).sort((a, b) => b.grade - a.grade)
+  
+  const inventory_mats = inventories.filter(e => !c_targets.value[e.id] && ((!types.find(t => e.type == t) && e.type != '재화') || usedby[e.id])).sort((a, b) => b.grade - a.grade)
     .sort((a, b) => {
       if (!a.droprates?.[0]?.group) return 1
       else if (!b.droprates?.[0]?.group) return -1
@@ -175,20 +194,11 @@ const f_getEquips = items => {
     inventories,
     inventory_gears,
     inventory_mats,
+    pickaxes,
     counts
   }
 }
 
-const c_targets = computed(() => {
-  const res = {}
-  p_targetIndexes.value.forEach(index => {
-    p_targets.value[index]?.items?.forEach(item => {
-      res[item] = s_database.value.items[item]
-    })
-  })
-  res['I0OO'] = s_database.value.items['I0OO']
-  return res
-})
 const f_deepcheck = (id, target, handlecache) => {
   if (!s_database.value.items[target]?.recipies) return false
   let res = null
@@ -245,7 +255,7 @@ const f_getUsedby = id => {
     bottom: 10px;
     left: 0;
     right: 4px;
-    padding: 0 50px;
+    padding: 0 80px;
     padding-top: 20px;
     box-sizing: border-box;
     overflow-y: scroll;
@@ -291,6 +301,10 @@ const f_getUsedby = id => {
               min-width: 150px;
               display: flex;
               align-items: center;
+              border: 1px solid transparent;
+              &.targeted {
+                border-color: rgb(89, 159, 98);
+              }
               .grade {
                 width: 7px;
                 height: 7px;
@@ -353,6 +367,11 @@ const f_getUsedby = id => {
                   opacity: .5;
                 }
               }
+              &.targeted {
+                .itemmeta {
+                  border-color: rgb(89, 159, 98);
+                }
+              }
               .itemmeta {
                 background: rgb(43, 45, 49);
                 box-sizing: border-box;
@@ -360,6 +379,7 @@ const f_getUsedby = id => {
                 margin-right: 5px;
                 margin-bottom: 5px;
                 border-radius: 10px;
+                border: 1px solid transparent;
                 min-width: 170px;
                 display: flex;
                 align-items: center;
