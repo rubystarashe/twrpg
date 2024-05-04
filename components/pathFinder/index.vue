@@ -46,16 +46,16 @@
         </div>
         <div>아이콘 파밍</div>
         <div @click="f_update_iconfarming(!p_iconfarming)">{{ p_iconfarming }}</div>
-        <div>{{ p_icons }}</div>
+        {{ p_icons }}
         <div>
-          <div v-for="(icons, grade) in _iconlist">
+          <div v-for="(icons, grade) in _iconlist"
+            v-show="grade == 'undefined' || !c_hasgrandicon"
+          >
             <div v-if="grade != 'undefined'">{{ grade }}</div>
             <div v-for="{ id, name, grade } in icons"
-              v-show="id == 'I02T' || !p_icons.find(e => e == 'I02T')"
               :class="{ handled: p_icons.find(e => e == id) }"
               @click="f_select_icon(id)"
             >
-              <div>{{ grade }}</div>
               <div>{{ name }}</div>
             </div>
           </div>
@@ -113,6 +113,7 @@
 const m_visible = defineModel('visible')
 
 const s_database = useState('database')
+const s_userdata = useState('userdata')
 
 const p_account = defineProp('account')
 const p_job = defineProp('job')
@@ -144,7 +145,14 @@ const f_select_icon = icon => {
   let indexes = [ ...p_icons.value ]
   if (i >= 0) indexes.splice(i, 1)
   else indexes.push(icon)
-  i_f_update_usertdata_icons(p_account.value, p_job.value, indexes)
+  if (icon == 'I02T') {
+    Object.entries(s_userdata.value?.[p_account.value]).forEach(([job, { icons }]) => {
+      let indexes = [ ...icons ]
+      if (i >= 0) indexes.splice(indexes.indexOf('I02T'), 1)
+      else indexes.push('I02T')
+      i_f_update_usertdata_icons(p_account.value, job, indexes)
+    })
+  } else i_f_update_usertdata_icons(p_account.value, p_job.value, indexes)
   e_refresh()
 }
 const f_update_iconfarming = boolean => {
@@ -162,26 +170,26 @@ const icons = [
   '뇌신 아이콘',
   '데스 핀드 아이콘',
   '암흑룡 아이콘',
-  '본 드래곤 아이콘',
   '주천사 아이콘',
-  '해골 왕 아이콘',
-  '좀비 로드 아이콘',
   '에인션트 엔트 아이콘',
-  '플레임 나이트메어 아이콘',
+  '좀비 로드 아이콘',
+  '해골 왕 아이콘',
+  '본 드래곤 아이콘',
   '터틀 로드 아이콘',
+  '플레임 나이트메어 아이콘',
   '커럽터 아이콘',
   '스피릿 비스트 아이콘',
   '매드 클라운 아이콘',
   '마왕 아이콘',
   '거미 제왕 아이콘',
   '서리한 아이콘',
-  '능천사 아이콘',
   '타천사 아이콘',
+  '능천사 아이콘',
   '문지기 아이콘',
-  '마법사 왕 아이콘',
   '데드렉트 아이콘',
-  '백작 아이콘',
+  '마법사 왕 아이콘',
   '잭 아이콘',
+  '백작 아이콘',
   '마나 에인션트 아이콘',
   '자이언트 골렘 아이콘',
   '라그나스 아이콘',
@@ -206,6 +214,10 @@ const _iconlist = Object.values(s_database.value.items).filter(e => e.type == '�
     p[grades[c.grade]].push(c)
     return p
   }, {})
+
+const c_hasgrandicon = computed(() => {
+  return !!Object.values(s_userdata.value?.[p_account.value] || {}).find(e => e.icons.find(e => e == 'I02T'))
+})
 
 const usedby = {}
 Object.values(s_database.value.items).forEach(({ id, recipies }) => {
@@ -285,7 +297,7 @@ const f_deepcheck = (id, target, handlecache) => {
           res = { target, under }
         }
       } else {
-        delete handlecache[mat.item]
+        if (s_database.value.items[mat.item].type != '아이콘') delete handlecache[mat.item]
       }
     })
   })
@@ -328,6 +340,7 @@ const f_getUsedby = id => {
     left: 0;
     right: 4px;
     padding: 0 80px;
+    padding-bottom: 100px;
     padding-top: 20px;
     box-sizing: border-box;
     overflow-y: scroll;
