@@ -1,34 +1,50 @@
 {
-  "name": "twrpg-replay-logger",
-  "version": "1.0.0",
-  "description": "",
+  "name": "twrpg_helper",
+  "version": "1.0.1",
+  "description": "helper application for twrpg map of warcraft 3",
   "main": "index.js",
   "scripts": {
-    "dev": "nuxt dev",
+    "dev": "set NODE_ENV=development& concurrently --kill-others \"nuxt dev\" \"electron .\"",
     "generate": "nuxt generate",
-    "start": "nuxt start",
-    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
+    "start": "electron-forge start",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
+    "electron": "electron .",
+    "pack": "nuxt generate && electron-builder --dir",
+    "dist": "nuxt generate && electron-builder"
   },
-  "author": "",
+  "type": "module",
+  "author": "rubystarashe",
   "license": "ISC",
-  "dependencies": {
-    "@voces/wc3maptranslator": "^4.0.3",
-    "assert": "^2.0.0",
-    "axios": "^0.27.2",
-    "browserify-zlib": "^0.2.0",
-    "buffer": "^6.0.3",
-    "events": "^3.3.0",
-    "nuxt": "^3.0.0-rc.8",
-    "nuxt3-pinia": "^1.0.7",
-    "process": "^0.11.10",
-    "process.nexttick": "^1.0.1",
-    "stream-browserify": "^3.0.0",
-    "util": "^0.12.4",
-    "w3gjs": "^2.5.0"
-  },
   "devDependencies": {
+    "@voces/wc3maptranslator": "^4.0.3",
+    "@vue-macros/nuxt": "^1.9.30",
+    "@vueuse/nuxt": "^10.9.0",
+    "concurrently": "^8.2.2",
+    "electron": "^30.0.2",
+    "electron-builder": "^24.13.3",
+    "nuxt": "^3.11.2",
     "push-dir": "^0.4.1",
     "sass": "^1.54.6",
     "scss": "^0.2.4"
+  },
+  "build": {
+    "appId": "com.example.twrpg_helper",
+    "productName": "twrpg_helper",
+    "files": [
+      "!.nuxt/**",
+      "!generator/**",
+      "!public/**",
+      "!legacy/**",
+      "!package/**",
+      "!app.vue",
+      "!components/**",
+      "!nuxt.config.js"
+    ],
+    "directories": {
+      "output": "package"
+    },
+    "win": {
+      "target": "nsis"
+    }
   }
 }

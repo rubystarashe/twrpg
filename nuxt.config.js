@@ -1,24 +1,15 @@
-module.exports = {
+export default {
   ssr: false,
   target: 'static',
-  router: {
-    base: '/twrpg/'
-  },
-  app: {
-    baseURL: '/twrpg',
-    buildAssetsDir: '/nuxt'
-  },
-  vite: {
-    define: {
-      'process.env': {}
-    },
-    resolve: {
-      alias: {
-        stream: 'stream-browserify',
-        zlib: 'browserify-zlib'
-      },
-      'process.env.NODE_DEBUG': {}
-    }
-  },
-  modules: ['nuxt3-pinia']
+  // router: {
+  //   base: '/twrpg/'
+  // },
+  // app: {
+  //   baseURL: '/twrpg',
+  //   buildAssetsDir: '/nuxt'
+  // },
+  modules: [
+    '@vue-macros/nuxt',
+    '@vueuse/nuxt'
+  ]
 }
