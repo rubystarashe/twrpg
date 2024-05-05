@@ -101,7 +101,7 @@ const f_savefile_parser = txt => {
     version,
     items,
     coins,
-    targets: (s_userdata.value?.[account]?.[job]?.targets || Object.entries(targets[s_selected_job.value] || {}).map(([name, d]) => ({ name, items: d.items.map(e => s_database.value.item_names[e].id), tags: d.tags }))),
+    targets: (s_userdata.value?.[account]?.[job]?.targets || Object.entries(targets[job] || {}).map(([name, d]) => ({ name, items: d.items.map(e => s_database.value.item_names[e].id), tags: d.tags }))),
     targetIndexes: s_userdata.value?.[account]?.[job]?.targetIndexes || [0],
     iconfarming: s_userdata.value?.[account]?.[job]?.iconfarming || false,
     icons: s_userdata.value?.[account]?.[job]?.icons || [],

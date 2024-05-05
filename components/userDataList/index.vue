@@ -1,13 +1,17 @@
 <template>
   <div class="usedaralist">
-    <div class="userdata" v-for="(account_data, account) in p_userdata">
+    <div class="userdata" v-for="([ account, account_data ]) in c_userdata">
       <div class="account">{{ account }}</div>
       <div class="jobs">
-        <div class="job" v-for="({ date, items }, job) in account_data"
+        <div class="job" v-for="([job, { date, items }]) in f_sort_accounts(account_data)"
           @click="e_select({ account, job })"
         >
           <div class="jobname">{{ job }}</div>
           <div class="updatedAt">{{ new Date(date).toLocaleDateString() }}</div>
+          <div class="score">
+              <div class="unit">장비점수</div>
+              <div class="data">{{ f_getScore(items) }}</div>
+            </div>
           <div class="items">
             <div class="item"
               v-for="{ name, type, grade } in f_getEquips(items)"
@@ -34,10 +38,37 @@ const grades = ['일반', '델티라마', '넵티노스', '그노시스', '알�
 
 const types = reactive(['무기', '방어구', '날개', '장신구', '머리보호구'])
 const f_getEquips = items => {
-  return items.slice(0, 6).map(e => s_database.value.items[e]).filter(e => types.find(t => t == e.type))
+  const equips = items.slice(0, 6).map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => types.find(t => t == e.type)).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
+  for (let i = equips.length - 1; i >= 0; i--) {
+    const index = equips.findIndex(e => e.type == equips[i].type)
+    if (index >= 0 && index != i) {
+      equips.splice(i, 1)
+      break
+    }
+  }
+  return equips
 }
 
 const e_select = defineEmit('selected')
+
+const f_getScore = items => {
+  const equips = items.slice(0, 6).map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => types.find(t => t == e.type)).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
+  for (let i = equips.length - 1; i >= 0; i--) {
+    const index = equips.findIndex(e => e.type == equips[i].type)
+    if (index >= 0 && index != i) {
+      equips.splice(i, 1)
+      break
+    }
+  }
+  return equips.reduce((p, c) => p += c.grade, 0)
+}
+const c_userdata = computed(() => {
+  return Object.entries(p_userdata.value)
+    .sort((a, b) => Object.values(b[1]).reduce((p, c) => p = c.date > p ? c.date : p, 0) - Object.values(a[1]).reduce((p, c) => p = c.date > p ? c.date : p,0))
+})
+const f_sort_accounts = accounts => {
+  return Object.entries(accounts).sort((a, b) => b[1].date - a[1].date).sort((a, b) => f_getScore(b[1].items) - f_getScore(a[1].items))
+}
 </script>
 
 <style lang="scss" scoped>
@@ -52,13 +83,16 @@ const e_select = defineEmit('selected')
     .jobs {
       display: flex;
       flex-wrap: wrap;
+      align-items: flex-start;
       .job {
+        position: relative;
         margin-right: 10px;
         margin-bottom: 10px;
         background: rgb(30, 31, 34);
         padding: 20px;
         border-radius: 5px;
         transition: background .3s;
+        min-width: 230px;
         cursor: pointer;
         &:hover {
           background: rgb(38, 39, 42);
@@ -75,6 +109,22 @@ const e_select = defineEmit('selected')
           font-size: 11px;
           margin-bottom: 20px;
         }
+        .score {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .unit {
+            font-size: 11px;
+          }
+          .data {
+            font-size: 24px;
+            margin-top: -2px;
+          }
+        }
         .items {
           .item {
             display: flex;
@@ -82,7 +132,7 @@ const e_select = defineEmit('selected')
             background: rgb(43, 45, 49);
             border-radius: 5px;
             box-sizing: border-box;
-            padding: 10px 20px;
+            padding: 10px 15px;
             margin-top: 10px;
             transition: background .3s;
             .grade {
@@ -91,6 +141,7 @@ const e_select = defineEmit('selected')
               border-radius: 50%;
               background: gray;
               margin-right: 10px;
+              flex-shrink: 0;
               &.grade_1 {
                 background: rgb(0, 158, 37);
               }
@@ -109,7 +160,7 @@ const e_select = defineEmit('selected')
             }
             .meta {
               .type {
-                font-size: 13px;
+                font-size: 12px;
                 color: rgb(182, 186, 192);
                 .gradename {
                   color: gray;
@@ -131,7 +182,7 @@ const e_select = defineEmit('selected')
                 }
               }
               .name {
-
+                font-size: 14px;
               }
             }
           }

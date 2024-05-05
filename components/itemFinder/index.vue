@@ -2,7 +2,7 @@
   <Transition name="fade">
     <div class="background_item_finder" v-show="m_visible">
       <div class="item_finder" ref="r_finder" @click.self="m_visible = false">
-        <div class="title">
+        <div class="title" @click="m_visible = false">
           <div class="account">{{ p_account }}</div>
           <div class="job">{{ p_job }}</div>
           <div class="target">{{ p_target.name }}</div>
@@ -31,7 +31,7 @@
                   <div class="description" v-html="description"/>
                   <!-- <div class="droprates">{{ droprates }}</div> -->
                 </div>
-                <div class="delete" @click="f_delete_target(id)">d</div>
+                <div class="delete" @click="f_delete_target(id)">삭제</div>
               </div>
             </div>
           </div>
@@ -88,6 +88,7 @@
                 >
                   <div v-if="c_handleitems[id]" class="handle">보유중</div>
                   <div v-if="c_targetitems[id]" class="target">목표 아이템</div>
+                  <div class="itemgrade" :class="`grade_${grade}`">{{ grades[grade] }}</div>
                   <div class="name">{{ name }} <span v-if="droprates?.length" class="tags">완제</span></div>
                   <div class="description" v-html="description"/>
                   <!-- <div class="droprates">{{ droprates }}</div> -->
@@ -117,7 +118,7 @@
             >
               <div class="grade" :class="`grade_${grade}`"/>
               <div class="name">{{ name }} <span v-if="droprates?.length" class="tags">완제</span></div>
-              <div class="delete" @click="f_delete_target(id)">d</div>
+              <div class="delete" @click="f_delete_target(id)">삭제</div>
             </div>
           </div>
         </div>
@@ -240,6 +241,7 @@ watch(() => _search, n => {
 
 watch([p_account, p_job, p_targetIndex], async (v) => {
   await nextTick()
+  _search = ''
   r_finder.scrollTo({
     top: 0,
     left: 0
@@ -361,7 +363,11 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
             margin-left: 10px;
             opacity: .5;
             height: 20px;
-            width: 20px;
+            width: 30px;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             &:hover {
               opacity: 1;
               color: rgb(217, 94, 71);
@@ -499,6 +505,25 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
             font-size: 14px;
             color: rgb(217, 94, 71);
           }
+          .itemgrade {
+            font-size: 14px;
+            color: gray;
+            &.grade_1 {
+              color: rgb(0, 158, 37);
+            }
+            &.grade_2 {
+              color: rgb(81, 143, 187);
+            }
+            &.grade_3 {
+              color: rgb(184, 28, 28);
+            }
+            &.grade_4 {
+              color: rgb(166, 207, 0);
+            }
+            &.grade_5 {
+              color: rgb(115, 60, 190);
+            }
+          }
           .name {
             font-size: 18px;
             .tags {
@@ -591,7 +616,11 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
             margin-left: 10px;
             opacity: .5;
             height: 20px;
-            width: 20px;
+            width: 30px;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             &:hover {
               opacity: 1;
               color: rgb(217, 94, 71);

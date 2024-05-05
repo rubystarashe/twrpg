@@ -55,7 +55,7 @@ Object.keys(items_origin).forEach(id => {
     items[key] = {
       id: key,
       name,
-      description: description.replace(`\r<br/>${searchstring}`, ''),
+      description: description.replace(`\r<br/>${searchstring}`, '').replace(/\[.*\]\<br\/\>/g, '').replace(/\<br\/\>▣ Lv..*/, '').trim(),
       searchstring,
       grade: gradelist[grade] || 0,
       type
@@ -297,6 +297,7 @@ dropdata.match(/(?<=call JVo)(.*)(?=\))/g).map(e => {
 })
 
 delete items['manh']
+delete items['I0RN']
 
 // 몹 정보
 const moblist = Object.entries(mobs).map(([id, name], index) => {

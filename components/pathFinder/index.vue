@@ -1,69 +1,153 @@
 <template>
   <Transition name="fade">
     <div class="background_pathfinder" v-show="m_visible">
-      <div class="pathfinder">
-        <div class="meta">
-          <div class="account">
-            <div class="banner"></div>
-            <div>{{ p_account }}</div>
-            <div>{{ p_job }}</div>
-            <div>{{ p_date }}</div>
+      <div class="pathfinder" ref="r_finder">
+        <div class="accountmeta">
+          <div class="left">
+            <div class="account" @click="m_visible = false">
+              <div class="banner"></div>
+              <div class="name">{{ p_account }}</div>
+              <div class="job">{{ p_job }}</div>
+              <div class="updatedAt">{{ new Date(p_date).toLocaleString() }}</div>
+              <div class="score">
+                <div class="unit">장비점수</div>
+                <div class="data">{{ f_getScore(f_getEquips(p_handle).equips) }}</div>
+              </div>
+            </div>
+            <div class="back" @click="m_visible = false">다른 캐릭터 선택</div>
           </div>
-          <div class="equips">
-            <div
-              class="equip"
-              v-for="{ name, grade, type, description } in f_getEquips(p_handle).equips"
-            >
-              <div><span>{{ grades[grade] }}</span> {{ type }}</div>
-              <div>{{ name }}</div>
-              <div>
-                <template v-html="description"/>
-              </div>
-            </div>
-            <div class="coins">
-              <div class="coin" v-for="{ id, count } in p_coins">
-                <div class="grade">{{ grades[s_database.items[id].grade] }}</div>
-                <div class="name">{{ s_database.items[id].name }} <span class="count">{{ count }}개</span></div>
-              </div>
-            </div>
-            <div class="pickaxes">
-              <div v-for="{ name, grade } in f_getEquips(p_handle).pickaxes">
+          <div>
+            <div class="section_title">장비 아이템</div>
+            <div class="equips">
+              <div
+                class="equip"
+                :class="`grade_${grade}`"
+                v-for="{ name, grade, type, description } in f_getEquips(p_handle).equips"
+              >
                 <div class="grade">{{ grades[grade] }}</div>
-                <div>{{ name }}</div>
+                <div class="type">{{ type }}</div>
+                <div class="name">{{ name }}</div>
+                <div class="description">
+                  <div v-html="description"/>
+                </div>
+              </div>
+              <div class="etcs">
+                <div class="etcitem pickaxe" v-for="{ name, grade } in f_getEquips(p_handle).pickaxes">
+                  <div class="etcmeta">
+                    <div class="grade" :class="`grade_${grade}`">{{ grades[grade] }}</div>
+                    <div class="name">{{ name }}</div>
+                  </div>
+                </div>
+                <div class="etcitem" v-for="{ id, count } in p_coins.sort((a, b) => s_database.items[b.id].grade - s_database.items[a.id].grade)">
+                  <div class="etcmeta">
+                    <div class="grade" :class="`grade_${s_database.items[id].grade}`">{{ grades[s_database.items[id].grade] }}</div>
+                    <div class="name">{{ s_database.items[id].name }}</div>
+                  </div>
+                  <div class="count">{{ count }}<span class="unit">개</span></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        
+        <div class="line"/>
         <div class="section_title">목표 아이템 그룹 선택</div>
-        <div v-for="({ name, items }, index) in p_targets"
-          :class="{ selected: p_targetIndexes.find(e => e == index) }"
-          @click="f_select_targetIndex(index)"
-        >
-          <div>{{ name }}</div>
-          <div>{{ items }}</div>
-          <div @click.stop="e_call_itemfinder({ account: p_account, job: p_job, index })">edit</div>
-        </div>
-        <div>아이콘 파밍</div>
-        <div @click="f_update_iconfarming(!p_iconfarming)">{{ p_iconfarming }}</div>
-        {{ p_icons }}
-        <div>
-          <div v-for="(icons, grade) in _iconlist"
-            v-show="grade == 'undefined' || !c_hasgrandicon"
+        <div class="targets">
+          <div v-for="({ name, tags, items }, index) in p_targets"
+            class="target"
+            :class="{ enabled: p_targetIndexes.findIndex(e => e == index) >= 0 }"
+            @click="f_select_targetIndex(index)"
           >
-            <div v-if="grade != 'undefined'">{{ grade }}</div>
-            <div v-for="{ id, name, grade } in icons"
-              :class="{ handled: p_icons.find(e => e == id) }"
-              @click="f_select_icon(id)"
-            >
-              <div>{{ name }}</div>
+            <div class="target_meta">
+              <div class="radio">
+                <div class="ball"/>
+              </div>
+              <div class="name">{{ name }}</div>
+              <div class="tags">
+                <div class="tag" v-for="tag in tags">#{{ tag }}</div>
+              </div>
+            </div>
+            <div class="items">
+              <div class="item" v-for="item in f_sort_items(items)">
+                <div class="grade" :class="`grade_${s_database.items[item].grade}`"/>
+                <div class="item_meta">
+                  <div class="type">{{ s_database.items[item].type }}</div>
+                  <div class="name">{{ s_database.items[item].name }}</div>
+                </div>
+              </div>
+              <div class="edit_wrapper">
+                <div class="edit" @click.stop="e_call_itemfinder({ account: p_account, job: p_job, index })">수정하기</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="iconfarming"
+          :class="{ enabled: p_iconfarming, finished: p_icons.includes('I02T') }"
+          @click="!p_icons.includes('I02T') ? f_update_iconfarming(!p_iconfarming) : null"
+        >
+          <div class="target_meta">
+            <div class="radio">
+              <div class="ball"/>
+            </div>
+            <div class="name">아이콘 파밍<span v-if="p_icons.includes('I02T')"> 완료</span></div>
+            <div class="description" v-if="!p_icons.includes('I02T')">
+              레전드 아이콘을 목표로 파밍 루트를 추가합니다
+            </div>
+            <div class="description" v-else>
+              같은 계정의 다른 캐릭터에도 적용됩니다
+            </div>
+          </div>
+          <div class="iconsection" v-if="p_iconfarming || p_icons.includes('I02T')">
+            <div class="iconsection_title">보유 아이콘 체크</div>
+            <div class="iconlist">
+              <div v-for="(icons, grade) in _iconlist"
+                v-show="grade == '레전드' || (!c_hasgrandicon)"
+              >
+                <div class="grade" v-if="grade != '레전드'">{{ grade }}</div>
+                <div class="icons">
+                  <div v-for="{ id, name, grade } in icons"
+                    class="icon"
+                    :class="{ handled: p_icons.find(e => e == id) }"
+                    @click.stop="f_select_icon(id)"
+                  >{{ name }}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
+        <div class="line"/>
+        <div class="section_title">목표 장비</div>
+        <div class="targetitemlist" ref="r_targetitemlist">
+          <div class="targetgroup" v-for="(items, type) in c_targetgearlist">
+            <div class="group">{{ type }}</div>
+            <div class="items" :class="{ limit: type == '기타' }">
+              <div class="item"
+                v-for="{ id, grade, name, handle, recipies } in items"
+                :class="{
+                  handled: handle, makeable: f_makeable(recipies)
+                }"
+              >
+                <div class="itemmeta">
+                  <div class="grade" :class="`grade_${grade}`"/>
+                  <div class="name">{{ name }}</div>
+                </div>
+                <PathFinderReqTree v-if="!handle"
+                  class="tree"
+                  :target="id"
+                  :handle="c_handle"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="line"/>
+        <div class="section_title">파밍 루트</div>
+
+        <div class="line"/>
         <div class="section_title">인벤토리 ({{ f_getEquips(p_handle).counts }}/60)</div>
         <div class="inventory">
-          <div class="category">장비류</div>
+          <div class="category">보유 장비</div>
           <div class="gearlist">
             <div class="geargroup" v-for="(items, type) in f_getEquips(p_handle).inventory_gears">
               <div class="type">{{ type }}</div>
@@ -77,9 +161,11 @@
               </div>
             </div>
           </div>
-          <div class="category">조합 재료</div>
+          <div class="category">보유 조합 재료</div>
           <div class="matlist">
-            <div class="matgroup" v-for="(items, mob) in f_getEquips(p_handle).inventory_mats">
+            <div class="matgroup" v-for="(items, mob) in f_getEquips(p_handle).inventory_mats"
+              :class="{ etc: mob == 'etc' }"
+            >
               <div class="mob">{{ s_database.mobs[mob]?.name }}</div>
               <div class="items">
                 <div class="item" v-for="{ id, name, grade, count } in items"
@@ -90,7 +176,7 @@
                       <div class="grade" :class="`grade_${grade}`"/>
                       <div class="name">{{ name }}</div>
                     </div>
-                    <div class="count">{{ count }}<span class="unit">개</span></div>
+                    <div class="count" v-if="count > 1">{{ count }}<span class="unit">개</span></div>
                   </div>
                   <PathFinderMatTree v-if="f_getUsedby(id)" v-for="tree in f_getUsedby(id)"
                     class="tree"
@@ -105,6 +191,23 @@
           </div>
         </div>
       </div>
+      <Transition name="fade">
+        <div class="mini_targets" v-if="_visible_mini_targets">
+          <div class="title">파밍 목표 그룹</div>
+          <div class="list">
+            <div v-for="({ name }, index) in p_targets"
+              class="item"
+              :class="{ enabled: p_targetIndexes.findIndex(e => e == index) >= 0 }"
+              @click="f_select_targetIndex(index)"
+            >{{ name }}</div>
+            <div
+              class="item iconfarming"
+              :class="{ enabled: p_iconfarming, finished: p_icons.includes('I02T') }"
+              @click="!p_icons.includes('I02T') ? f_update_iconfarming(!p_iconfarming) : (f_select_icon('I02T'), f_update_iconfarming(!p_iconfarming))"
+            >아이콘 파밍</div>
+          </div>
+        </div>
+      </Transition>
     </div>
   </Transition>
 </template>
@@ -210,6 +313,7 @@ const _iconlist = Object.values(s_database.value.items).filter(e => e.type == '�
     return { ...e, grade }
   })
   .reduce((p, c) => {
+    if (c.id == 'I02T') return (p['레전드'] = [ c ], p)
     if (!p[grades[c.grade]]) p[grades[c.grade]] = []
     p[grades[c.grade]].push(c)
     return p
@@ -244,7 +348,14 @@ const c_targets = computed(() => {
 })
 const types = reactive(['무기', '방어구', '날개', '장신구', '머리보호구'])
 const f_getEquips = items => {
-  const equips = items.slice(0, 6).map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => types.find(t => t == e.type))
+  const equips = items.slice(0, 6).map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => types.find(t => t == e.type)).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
+  for (let i = equips.length - 1; i >= 0; i--) {
+    const index = equips.findIndex(e => e.type == equips[i].type)
+    if (index >= 0 && index != i) {
+      equips.splice(i, 1)
+      break
+    }
+  }
   const inventories = items.filter(e => !equips.find(q => q.id == e)).map(e => ({ id: e, ...s_database.value.items[e] }))
   const pickaxes = inventories.filter(e => e.type == '곡괭이').sort((a, b) => b.grade - a.grade).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
   const inventory_gears = items.map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => types.find(t => e.type == t)).sort((a, b) => b.grade - a.grade).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
@@ -255,7 +366,7 @@ const f_getEquips = items => {
       return p
     }, {})
   
-  const inventory_mats = inventories.filter(e => !c_targets.value[e.id] && ((!types.find(t => e.type == t) && e.type != '재화') || usedby[e.id])).sort((a, b) => b.grade - a.grade)
+  const inventory_mats = items.map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => !c_targets.value[e.id] && ((!types.find(t => e.type == t) && e.type != '재화') || usedby[e.id])).sort((a, b) => b.grade - a.grade)
     .sort((a, b) => {
       if (!a.droprates?.[0]?.group) return 1
       else if (!b.droprates?.[0]?.group) return -1
@@ -312,6 +423,85 @@ const f_getUsedby = id => {
   })
   return Object.keys(res).length ? res : null
 }
+
+const f_getScore = items => {
+  return items.reduce((p, c) => p += c.grade, 0)
+}
+
+let r_finder = $ref()
+watch([p_account, p_job], async () => {
+  await nextTick()
+  r_finder.scrollTo({
+    top: 0,
+    left: 0
+  })
+})
+
+const f_sort_items = items => {
+  return [ ...items ].sort((a, b) => s_database.value.items[b].grade - s_database.value.items[a].grade)
+  .sort((a, b) => types.indexOf(s_database.value.items[a].type) - types.indexOf(s_database.value.items[b].type))
+}
+
+const c_targetgearlist = computed(() => {
+  const res = Object.values(c_targets.value)
+    .map(e => c_handle.value.find(h => h == e.id) ? (e.handle = true, e) : e)
+    .map(e => e.type == '곡괭이' ? (e.type = '기타', e) : e)
+    .sort((a, b) => b.grade - a.grade)
+    .sort((a, b) => {
+      if (a.type == '기타') return 1
+      return types.indexOf(a.type) - types.indexOf(b.type)
+    })
+    .reduce((p, c) => {
+      if (!p[c.type]) p[c.type] = {}
+      p[c.type][c.id] = c
+      return p
+    }, {})
+  if (res['아이콘']) {
+    delete res['아이콘']
+    icons.map(e => s_database.value.item_names[e]).filter(e => !c_handle.value.find(h => h == e.id))
+      .filter(e => e.recipies)
+      .forEach(e => res['기타'][e.id] = e)
+  }
+  return res
+})
+
+const f_makeable = recipies => {
+  if (!recipies) return false
+  return  Object.values(recipies.reduce((p, c) => {
+    c.forEach(({ item, count }) => {
+      if (!p[item]) p[item] = {
+        id: item,
+        name: s_database.value.items[item].name,
+        type: s_database.value.items[item].type,
+        grade: s_database.value.items[item].grade,
+        droprates: s_database.value.items[item].droprates,
+        recipies: s_database.value.items[item].recipies,
+        handle: p_handle.value.filter(e => e == item).length,
+        count: count,
+        stack: 1
+      }
+      else {
+        p[item].stack++
+      }
+    })
+    return p
+  }, {})).map(e => {
+    if (e.stack < recipies.length) e.sub = true
+    delete e.stack
+    return e
+  })
+  .sort((a, b) => a.recipies ? 1 : -1)
+  .sort((a, b) => a.sub ? 1 : -1)
+  .sort((a, b) => b.grade - a.grade)
+  .map(e => e.id).every(e => p_handle.value.find(h => h == e))
+}
+
+const scroll = useScroll(() => r_finder)
+let r_targetitemlist = $ref()
+let _visible_mini_targets = $ref(false)
+watch(scroll.y, n => {
+  _visible_mini_targets = r_targetitemlist.offsetTop < n
+})
 </script>
 
 <style lang="scss" scoped>
@@ -333,6 +523,12 @@ const f_getUsedby = id => {
   bottom: 0;
   background: rgb(50, 51, 56);
   border-radius: 10px;
+  .line {
+    width: 100%;
+    margin: 30px 0;
+    height: 1px;
+    background: rgb(63, 64, 70);
+  }
   .pathfinder {
     position: fixed;
     top: 45px;
@@ -344,20 +540,547 @@ const f_getUsedby = id => {
     padding-top: 20px;
     box-sizing: border-box;
     overflow-y: scroll;
-    .meta {
+    .accountmeta {
       display: flex;
+      .back {
+        color: rgb(182, 186, 192);
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        opacity: .7;
+        transition: opacity .2s;
+        &:hover {
+          opacity: 1;
+        }
+      }
       .account {
         flex-shrink: 0;
+        background: rgb(30, 31, 34);
+        margin-right: 20px;
+        box-sizing: border-box;
+        padding: 10px;
+        border-radius: 5px;
+        height: 300px;
+        min-width: 200px;
+        position: relative;
+        margin-top: 40px;
+        padding-right: 60px;
+        transition: background .3s;
+        cursor: pointer;
+        &:hover {
+          background: rgb(38, 39, 42);
+        }
+        .name {
+          font-size: 13px;
+        }
+        .job {
+          font-size: 20px;
+        }
+        .updatedAt {
+          font-size: 12px;
+          margin-top: 5px;
+        }
+        .score {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .unit {
+            font-size: 11px;
+          }
+          .data {
+            font-size: 24px;
+            margin-top: -2px;
+          }
+        }
       }
       .equips {
         display: flex;
         flex-wrap: wrap;
       }
     }
+    .targets {
+      display: flex;
+      flex-wrap: wrap;
+      .target {
+        display: flex;
+        background: rgb(43, 45, 49);
+        border-radius: 5px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        padding: 10px;
+        transition: background .1s;
+        border: 2px solid transparent;
+        cursor: pointer;
+        &:has(.edit:hover) {
+          background: rgb(43, 45, 49);
+        }
+        &.enabled {
+          background: rgb(59, 60, 65);
+          border-color: white;
+          &:has(.edit:hover) {
+            background: rgb(59, 60, 65);
+          }
+          .target_meta {
+            color: white;
+            .radio {
+              border-color: white;
+              .ball {
+                background: white;
+                opacity: 1;
+              }
+            }
+          }
+        }
+        &:hover {
+          background: rgb(67, 68, 74);
+        }
+        .target_meta {
+          color: rgb(182, 186, 192);
+          transition: color .1s;
+          margin-right: 20px;
+          margin-left: 5px;
+          margin-top: 5px;
+          .radio {
+            transition: all .1s;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid rgb(182, 186, 192);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .ball {
+              width: 18px;
+              height: 18px;
+              border-radius: 50%;
+              background: rgb(182, 186, 192);
+              opacity: 0;
+            }
+          }
+          .name {
+            font-size: 16px;
+            margin: 10px 0;
+          }
+          .tags {
+            opacity: 0.7;
+            .tag {
+              font-size: 12px;
+            }
+          }
+        }
+        .items {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          max-height: 250px;
+          .item {
+            background: rgb(38, 39, 42);
+            box-sizing: border-box;
+            padding: 10px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            height: 50px;
+            min-width: 170px;
+            display: flex;
+            align-items: center;
+            .grade {
+              font-size: 12px;
+              background: gray;
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              margin-right: 10px;
+              &.grade_1 {
+                background: rgb(0, 158, 37);
+              }
+              &.grade_2 {
+                background: rgb(81, 143, 187);
+              }
+              &.grade_3 {
+                background: rgb(184, 28, 28);
+              }
+              &.grade_4 {
+                background: rgb(166, 207, 0);
+              }
+              &.grade_5 {
+                background: rgb(115, 60, 190);
+              }
+            }
+            .item_meta {
+              .type {
+                font-size: 10px;
+                color: rgb(182, 186, 192);
+              }
+              .name {
+                font-size: 13px;
+                color: rgb(182, 186, 192);
+              }
+            }
+          }
+          .edit_wrapper {
+            box-sizing: border-box;
+            padding: 7px 20px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            min-width: 170px;
+            height: 50px;
+            .edit {
+              // background: rgb(78, 80, 87);
+              background: rgb(76, 83, 189);
+              width: 100%;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 5px;
+              border: 1px solid transparent;
+              transition: background .1s;
+              font-size: 13px;
+              &:hover {
+                // background: rgb(110, 111, 119);
+                background: rgb(94, 103, 324);
+              }
+            }
+          }
+        }
+      }
+    }
+    .iconfarming {
+      display: flex;
+      background: rgba(227, 182, 76, .1);
+      border-radius: 5px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      padding: 10px;
+      transition: background .1s;
+      border: 2px solid transparent;
+      cursor: pointer;
+      margin-top: 20px;
+      // &:has(.icon:hover) {
+      //   background: rgba(227, 182, 76, .1);
+      // }
+      &.enabled {
+        background: rgba(227, 182, 76, .2);
+        border-color: rgb(227, 182, 76);
+        // &:has(.icon:hover) {
+        //   background: rgba(227, 182, 76, .2);
+        // }
+        .target_meta {
+          color: white;
+          .radio {
+            border-color: rgb(227, 182, 76);
+            .ball {
+              background: rgb(227, 182, 76);
+              opacity: 1;
+            }
+          }
+        }
+      }
+      &:hover {
+        background: rgba(227, 182, 76, .2);
+      }
+      &.finished {
+        background: rgba(89, 159, 98, .2);
+        border-color: rgba(89, 159, 98);
+        .target_meta {
+          color: white;
+          .radio {
+            border-color: rgb(89, 159, 98);
+            .ball {
+              background: rgb(89, 159, 98);
+              opacity: 1;
+            }
+          }
+        }
+        .icon {
+          background: rgb(89, 159, 98) !important;
+        }
+      }
+      .target_meta {
+        color: rgb(182, 186, 192);
+        transition: color .1s;
+        margin-right: 20px;
+        margin-left: 5px;
+        margin-top: 5px;
+        min-width: 140px;
+        .radio {
+          transition: all .1s;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          border: 2px solid rgba(227, 182, 76, .5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .ball {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(227, 182, 76, .5);
+            opacity: 0;
+          }
+        }
+        .name {
+          font-size: 16px;
+          margin: 10px 0;
+        }
+        .description {
+          opacity: 0.7;
+          font-size: 12px;
+          margin-bottom: 10px;
+          word-break: keep-all;
+        }
+      }
+      .iconsection {
+        .iconsection_title {
+          font-size: 16px;
+          margin: 10px 0;
+        }
+        .iconlist {
+          .grade {
+            font-size: 14px;
+            opacity: .8;
+            margin: 5px 0;
+          }
+          .icons {
+            display: flex;
+            flex-wrap: wrap;
+            .icon {
+              background: rgba(227, 182, 76, .2);
+              box-sizing: border-box;
+              padding: 7px 10px;
+              margin-right: 5px;
+              margin-bottom: 5px;
+              border-radius: 5px;
+              border: 1px solid transparent;
+              display: flex;
+              align-items: center;
+              font-size: 13px;
+              transition: background .1s;
+              &.handled {
+                background: rgba(227, 182, 76, .8);
+              }
+              &:hover {
+                background: rgba(227, 182, 76, .6);
+              }
+            }
+          }
+        }
+      }
+    }
+    .equips {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      .equip {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        background: rgb(43, 45, 49);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid gray;
+        &.grade_1 {
+          border-color: rgb(0, 158, 37);
+          .grade {
+            color: rgb(0, 158, 37);
+          }
+        }
+        &.grade_2 {
+          border-color: rgb(0, 158, 37);
+          .grade {
+            color: rgb(81, 143, 187);
+          }
+        }
+        &.grade_3 {
+          border-color: rgb(184, 28, 28);
+          .grade {
+            color: rgb(184, 28, 28);
+          }
+        }
+        &.grade_4 {
+          border-color: rgb(166, 207, 0);
+          .grade {
+            color: rgb(166, 207, 0);
+          }
+        }
+        &.grade_5 {
+          border-color: rgb(115, 60, 190);
+          .grade {
+            color: rgb(115, 60, 190);
+          }
+        }
+        &:hover {
+          background: rgb(67, 68, 74);
+          color: white;
+        }
+        .grade {
+          font-size: 14px;
+          color: gray;
+        }
+        .type {
+          font-size: 16px;
+          color: rgb(182, 186, 192);
+        }
+        .name {
+          font-size: 18px;
+          margin-bottom: 10px;
+        }
+        .description {
+          font-size: 11px;
+          color: rgb(182, 186, 192);
+        }
+      }
+      .etcs {
+        .etcitem {
+          background: rgb(43, 45, 49);
+          box-sizing: border-box;
+          padding: 10px;
+          margin-right: 5px;
+          margin-bottom: 5px;
+          border-radius: 10px;
+          border: 1px solid transparent;
+          min-width: 170px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          &.pickaxe {
+            background: rgb(30, 31, 34);
+          }
+          .etcmeta {
+            .grade {
+              font-size: 12px;
+              &.grade_1 {
+                color: rgb(0, 158, 37);
+              }
+              &.grade_2 {
+                color: rgb(81, 143, 187);
+              }
+              &.grade_3 {
+                color: rgb(184, 28, 28);
+              }
+              &.grade_4 {
+                color: rgb(166, 207, 0);
+              }
+              &.grade_5 {
+                color: rgb(115, 60, 190);
+              }
+            }
+            .name {
+              font-size: 14px;
+              color: rgb(182, 186, 192);
+            }
+          }
+          .count {
+            font-size: 16px;
+            margin-left: 10px;
+            .unit {
+              font-size: 12px;
+              margin-left: 3px;
+            }
+          }
+        }
+      }
+    }
     .section_title {
       font-size: 24px;
       margin-top: 40px;
       margin-bottom: 20px;
+    }
+    .targetitemlist {
+      display: flex;
+      flex-wrap: wrap;
+      .targetgroup {
+        margin-right: 5px;
+        margin-bottom: 5px;
+        .group {
+          margin-bottom: 10px;
+          font-size: 14px;
+          opacity: .8;
+        }
+        .items {
+          display: flex;
+          flex-direction: column;
+          margin-right: 5px;
+          margin-bottom: 5px;
+          flex-wrap: wrap;
+          max-height: 1000px;
+          &.limit {
+            flex-wrap: wrap;
+            max-height: 750px;
+          }
+          .item {
+            position: relative;
+            margin-right: 5px;
+            margin-bottom: 10px;
+            &.makeable {
+              .itemmeta {
+                border-color: rgb(173, 255, 47);
+                .name {
+                  color: white;
+                }
+              }
+            }
+            &.handled {
+              .itemmeta {
+                border-color: rgb(89, 159, 98);
+                .name {
+                  color: white;
+                }
+              }
+            }
+          }
+          .itemmeta {
+            background: rgb(43, 45, 49);
+            box-sizing: border-box;
+            padding: 10px;
+            margin-right: 10px;
+            margin-bottom: 5px;
+            border-radius: 10px;
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            border: 1px solid transparent;
+            .grade {
+              width: 7px;
+              height: 7px;
+              border-radius: 50%;
+              margin-right: 5px;
+              background: gray;
+              &.grade_1 {
+                background: rgb(0, 158, 37);
+              }
+              &.grade_2 {
+                background: rgb(81, 143, 187);
+              }
+              &.grade_3 {
+                background: rgb(184, 28, 28);
+              }
+              &.grade_4 {
+                background: rgb(166, 207, 0);
+              }
+              &.grade_5 {
+                background: rgb(115, 60, 190);
+              }
+            }
+            .name {
+              font-size: 12px;
+              color: rgb(182, 186, 192);
+            }
+          }
+          .tree {
+            padding: 0 5px;
+          }
+        }
+      }
     }
     .inventory {
       .category {
@@ -374,8 +1097,13 @@ const f_getUsedby = id => {
           .type {
             margin-bottom: 10px;
             font-size: 14px;
+            opacity: .8;
           }
           .gears {
+            display: flex;
+            flex-direction: column;
+            max-height: 250px;
+            flex-wrap: wrap;
             .gear {
               background: rgb(43, 45, 49);
               box-sizing: border-box;
@@ -429,13 +1157,26 @@ const f_getUsedby = id => {
         .matgroup {
           margin-right: 5px;
           margin-bottom: 5px;
+          &.etc {
+            .items {
+              max-height: 400px;
+            }
+          }
           .mob {
             margin-bottom: 10px;
             font-size: 14px;
+            opacity: .8;
           }
           .items {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            margin-right: 10px;
+            margin-bottom: 10px;
             .item {
               position: relative;
+              margin-right: 5px;
+              margin-bottom: 5px;
               .trash {
                 position: absolute;
                 top: -2px;
@@ -521,6 +1262,66 @@ const f_getUsedby = id => {
             }
           }
         }
+      }
+    }
+  }
+}
+.mini_targets {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 15px;
+  background: rgb(43, 45, 49);
+  background: rgb(30, 31, 34);
+  padding: 20px 50px;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+  .title {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    .item {
+      margin-right: 10px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      background: rgb(43, 45, 49);
+      color: rgb(182, 186, 192);
+      transition: background .1s;
+      &.enabled {
+        color: white;
+        background: rgb(59, 60, 65);
+        border-color: white;
+      }
+      &:hover {
+        background: rgb(67, 68, 74);
+      }
+    }
+    .iconfarming {
+      background: rgba(227, 182, 76, .1);
+      color: rgb(182, 186, 192);
+      &.enabled {
+        background: rgba(227, 182, 76, .3);
+        border-color: rgb(227, 182, 76);
+        color: white;
+      }
+      &:hover {
+        background: rgba(227, 182, 76, .2);
+      }
+      &.finished {
+        background: rgba(89, 159, 98, .4);
+        border-color: rgba(89, 159, 98);
+        color: white;
       }
     }
   }
