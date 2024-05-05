@@ -97,7 +97,7 @@
             </div>
           </div>
           <div class="iconsection" v-if="p_iconfarming || p_icons.includes('I02T')">
-            <div class="iconsection_title">보유 아이콘 체크</div>
+            <div class="iconsection_title">보유중인 아이콘을 체크하세요</div>
             <div class="iconlist">
               <div v-for="(icons, grade) in _iconlist"
                 v-show="grade == '레전드' || (!c_hasgrandicon)"
@@ -116,7 +116,10 @@
         </div>
 
         <div class="line"/>
-        <div class="section_title">목표 장비</div>
+        <div class="section_title">파밍 루트</div>
+
+        <div class="line"/>
+        <div class="section_title">목표 장비 대시보드</div>
         <div class="targetitemlist" ref="r_targetitemlist">
           <div class="targetgroup" v-for="(items, type) in c_targetgearlist">
             <div class="group">{{ type }}</div>
@@ -142,10 +145,7 @@
         </div>
 
         <div class="line"/>
-        <div class="section_title">파밍 루트</div>
-
-        <div class="line"/>
-        <div class="section_title">인벤토리 ({{ f_getEquips(p_handle).counts }}/60)</div>
+        <div class="section_title">인벤토리 관리 ({{ f_getEquips(p_handle).counts }}/60)</div>
         <div class="inventory">
           <div class="category">보유 장비</div>
           <div class="gearlist">
@@ -342,7 +342,7 @@ const c_targets = computed(() => {
       res[item] = s_database.value.items[item]
     })
   })
-  res['I0OO'] = s_database.value.items['I0OO']
+  if (!p_handle.value.includes('I0OO')) res['I0OO'] = s_database.value.items['I0OO']
   if (p_iconfarming.value) res['I02T'] = s_database.value.items['I02T']
   return res
 })
@@ -448,7 +448,7 @@ const c_targetgearlist = computed(() => {
     .map(e => e.type == '곡괭이' ? (e.type = '기타', e) : e)
     .sort((a, b) => b.grade - a.grade)
     .sort((a, b) => {
-      if (a.type == '기타') return 1
+      if (a.type == '기타') return -1
       return types.indexOf(a.type) - types.indexOf(b.type)
     })
     .reduce((p, c) => {
@@ -458,7 +458,7 @@ const c_targetgearlist = computed(() => {
     }, {})
   if (res['아이콘']) {
     delete res['아이콘']
-    icons.map(e => s_database.value.item_names[e]).filter(e => !c_handle.value.find(h => h == e.id))
+    if (p_iconfarming.value && !p_icons.value.includes('I02T')) icons.map(e => s_database.value.item_names[e]).filter(e => !c_handle.value.find(h => h == e.id))
       .filter(e => e.recipies)
       .forEach(e => res['기타'][e.id] = e)
   }
@@ -500,7 +500,7 @@ const scroll = useScroll(() => r_finder)
 let r_targetitemlist = $ref()
 let _visible_mini_targets = $ref(false)
 watch(scroll.y, n => {
-  _visible_mini_targets = r_targetitemlist.offsetTop < n
+  _visible_mini_targets = r_targetitemlist.offsetTop - 500 < n
 })
 </script>
 
