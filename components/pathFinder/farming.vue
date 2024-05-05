@@ -1,22 +1,20 @@
 <template>
-  <div class="farming">
-    <div class="mob" v-for="(data, mob) in c_mobs"
-      v-show="Object.keys(data).length"
+  <table class="farming">
+    <tr class="test">
+      <td/>
+      <td v-for="(_, grade) in c_grids">{{ grades[grade] || '기타' }}</td>
+    </tr>
+    <tr class="mob" v-for="{ name, items } in c_mobs"
+      v-show="Object.keys(items).length"
     >
-      <div>{{ mob }}</div>
-      <div class="loots">
-        <div class="grade" v-for="(items, grade) in data">
-          <div>{{ grade }}</div>
-          <div class="items">
-            <div class="item" v-for="{ name, target, target_tree, handle } in items">
-              {{ name }}
-              {{ target.name }} {{ target_tree.map(e => e.name) }} {{ handle }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      <td class="meta">
+        <div>{{ name }}</div>
+      </td>
+      <td class="items" v-for="(_, grade) in c_grids">
+        <div v-for="{ name, target, target_nearest } in items[grade]">{{ name }} {{ target_nearest.name }}</div>
+      </td>
+    </tr>
+  </table>
 </template>
 
 <script setup>
@@ -44,7 +42,7 @@ const c_mobs = computed(() => {
   })
   let mats = []
   const deepcheck = (target, handlecache, origintarget, tree) => {
-    if (p_handle.value.find(e => e == target)) return false
+    if (p_handle.value.find(e => e == target.id)) return false
     if (origintarget.type == '아이콘') origintarget = { ...origintarget, type: '기타', grade: 99 }
     if (origintarget.type == '곡괭이') origintarget = { ...origintarget, type: '기타', grade: 99 }
     if (origintarget.type == '기타') origintarget = { ...origintarget, type: '기타', grade: 99 }
@@ -70,64 +68,87 @@ const c_mobs = computed(() => {
         if (item.type == '기타') item = { ...item, type: '기타', grade: 99 }
         if (handlecache.includes(item.id)) {
           handlecache.splice(handlecache.indexOf(item.id), 1)
-          mats.push({
-            ...item,
-            target: origintarget,
-            target_grade: origintarget.grade,
-            target_tree: tree.slice(1),
-            handle: true
-          })
+          // mats.push({
+          //   ...item,
+          //   target: origintarget,
+          //   target_grade: origintarget.grade,
+          //   target_tree: tree.slice(1),
+          //   handle: true
+          // })
         }
         else if (item.type != '기타' || tree.length == 1) deepcheck(item, handlecache, origintarget, [ item, ...tree ])
       })
     } else {
       if (handlecache.includes(target.id)) {
         handlecache.splice(handlecache.indexOf(target.id), 1)
-        mats.push({
-          ...target,
-          target: origintarget,
-          target_grade: origintarget.grade,
-          target_tree: tree.slice(1),
-          handle: true
-        })
+        // mats.push({
+        //   ...target,
+        //   target: origintarget,
+        //   target_grade: origintarget.grade,
+        //   target_tree: tree.slice(1),
+        //   handle: true
+        // })
       }
       else mats.push({
         ...target,
         target: origintarget,
         target_grade: origintarget.grade,
-        target_tree: tree.slice(1)
+        target_tree: tree.slice(1),
+        target_nearest: tree[1],
+        target_nearest_grade: tree[1].grade
       })
     }
   }
   targets.sort((a, b) => a.grade - b.grade).forEach(item => {
-    deepcheck(item, handlecache, item, [ item ])
+    if (!p_handle.value.find(e => e == item.id)) deepcheck(item, handlecache, item, [ item ])
   })
 
   mats = mats.filter(e => e.target_tree.filter(t => t.type == '기타').length < 2)
 
-  const res = {}
-  Object.values(mobs).forEach(({ name, drops }) => {
+  const res = []
+  Object.values(mobs).forEach(({ name, drops }, index) => {
     const items = mats.filter(e => drops.find(d => d.item == e.id))
-    res[name] = items.reduce((p, c) => {
-      if (!p[c.target_grade]) p[c.target_grade] = []
-      p[c.target_grade].push(c)
-      return p
-    }, {})
+    res.push({
+      name,
+      items: items.reduce((p, c) => {
+        if (!p[c.target_nearest_grade]) p[c.target_nearest_grade] = []
+        p[c.target_nearest_grade].push(c)
+        return p
+      }, {})
+    })
   })
 
+  return res.sort((a, b) => {
+    const aa = Object.keys(a.items).sort((a, b) => a - b)[0] || 0
+    const bb = Object.keys(b.items).sort((a, b) => a - b)[0] || 0
+    return aa - bb
+  })
+})
+
+const c_grids = computed(() => {
+  const res = {}
+  c_mobs.value.forEach(e => {
+    Object.keys(e.items).forEach(g => res[g] = [])
+  })
   return res
 })
 </script>
 
 <style lang="scss" scoped>
 .farming {
+  border-collapse: collapse;
+  td {
+    border: 1px solid black;
+    vertical-align: top;
+    text-align: left;
+  }
+  width: 100%;
+  .test {
+    position: sticky;
+    top: -40px;
+  }
   .mob {
-    .loots {
-      display: flex;
-      .grade {
 
-      }
-    }
   }
 }
 </style>
