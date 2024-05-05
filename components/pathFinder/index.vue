@@ -117,6 +117,10 @@
 
         <div class="line"/>
         <div class="section_title">파밍 루트</div>
+        <PathFinderFarming
+          :handle="c_handle"
+          :targets="c_targetgearlist"
+        />
 
         <div class="line"/>
         <div class="section_title">목표 장비 대시보드</div>
@@ -221,7 +225,6 @@ const s_userdata = useState('userdata')
 const p_account = defineProp('account')
 const p_job = defineProp('job')
 const p_date = defineProp('date')
-const p_history = defineProp('history')
 const p_handle = defineProp('handle')
 const p_coins = defineProp('coins')
 const p_targets = defineProp('targets')
@@ -402,13 +405,21 @@ const f_deepcheck = (id, target, handlecache) => {
       if (mat.item == id) {
         res = { target }
       }
-      if (!handlecache[mat.item]) {
+      // if (!handlecache[mat.item]) {
+      //   const under = f_deepcheck(id, mat.item, handlecache)
+      //   if (under) {
+      //     res = { target, under }
+      //   }
+      // } else {
+      //   if (s_database.value.items[mat.item].type != '아이콘') delete handlecache[mat.item]
+      // }
+      if (!handlecache.includes(mat.item)) {
         const under = f_deepcheck(id, mat.item, handlecache)
         if (under) {
           res = { target, under }
         }
       } else {
-        if (s_database.value.items[mat.item].type != '아이콘') delete handlecache[mat.item]
+        if (s_database.value.items[mat.item].type != '아이콘') handlecache.splice(handlecache.indexOf(mat.item), 1)
       }
     })
   })
@@ -416,7 +427,8 @@ const f_deepcheck = (id, target, handlecache) => {
 }
 const f_getUsedby = id => {
   const res = {}
-  const handlecache = c_handle.value.reduce((p, c) => (p[c] = true, p), {})
+  // const handlecache = c_handle.value.reduce((p, c) => (p[c] = true, p), {})
+  const handlecache = [ ...c_handle.value ]
   Object.keys(c_targets.value).forEach(target => {
     const req = f_deepcheck(id, target, handlecache)
     if (req) res[target] = req
@@ -527,6 +539,7 @@ watch(scroll.y, n => {
     width: 100%;
     margin: 30px 0;
     height: 1px;
+    flex-shrink: 0;
     background: rgb(63, 64, 70);
   }
   .pathfinder {
@@ -537,9 +550,12 @@ watch(scroll.y, n => {
     right: 4px;
     padding: 0 80px;
     padding-bottom: 100px;
-    padding-top: 20px;
+    padding-top: 40px;
     box-sizing: border-box;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     .accountmeta {
       display: flex;
       .back {
@@ -563,7 +579,7 @@ watch(scroll.y, n => {
         height: 300px;
         min-width: 200px;
         position: relative;
-        margin-top: 40px;
+        margin-top: 20px;
         padding-right: 60px;
         transition: background .3s;
         cursor: pointer;
@@ -992,8 +1008,8 @@ watch(scroll.y, n => {
     }
     .section_title {
       font-size: 24px;
-      margin-top: 40px;
-      margin-bottom: 20px;
+      margin-top: 20px;
+      margin-bottom: 30px;
     }
     .targetitemlist {
       display: flex;
@@ -1085,15 +1101,16 @@ watch(scroll.y, n => {
     .inventory {
       .category {
         font-size: 20px;
-        margin-top: 30px;
+        margin-top: 10px;
         margin-bottom: 10px;
       }
       .gearlist {
         display: flex;
         flex-wrap: wrap;
+        margin-bottom: 30px;
         .geargroup {
-          margin-right: 5px;
-          margin-bottom: 5px;
+          margin-right: 15px;
+          margin-bottom: 15px;
           .type {
             margin-bottom: 10px;
             font-size: 14px;
@@ -1276,6 +1293,7 @@ watch(scroll.y, n => {
   padding: 20px 50px;
   padding-bottom: 15px;
   box-sizing: border-box;
+  border-top: 1px solid rgb(63, 64, 70);
   .title {
     font-size: 14px;
     margin-bottom: 10px;

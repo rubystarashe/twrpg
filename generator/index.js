@@ -303,7 +303,7 @@ delete items['I0RN']
 const moblist = Object.entries(mobs).map(([id, name], index) => {
   const drops = []
   Object.entries(items).forEach(([item, { droprates }]) => {
-    if (droprates && droprates.find(e => e.group == id)) drops.push({ item, rate: droprates.find(e => e.group == id).rate })
+    if (droprates && droprates.find(e => e.group == id)) drops.push({ item, rate: droprates.find(e => e.group == id).rate, wishrate: droprates.find(e => e.group == id).wishrate })
   })
   return {
     id,

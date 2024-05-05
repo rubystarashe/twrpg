@@ -559,6 +559,7 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
     left: 0;
     right: 15px;
     pointer-events: none;
+    border-top: 1px solid rgb(63, 64, 70);
     .typelist {
       opacity: 0;
       transition: opacity .3s;

@@ -12,7 +12,6 @@
         :account="_pathFinder_meta.account"
         :job="_pathFinder_meta.job"
         :date="_pathFinder_meta.date"
-        :history="_pathFinder_meta.history"
         :handle="_pathFinder_meta.handle"
         :coins="_pathFinder_meta.coins"
         :targets="_pathFinder_meta.targets"
@@ -106,8 +105,7 @@ const f_savefile_parser = txt => {
     iconfarming: s_userdata.value?.[account]?.[job]?.iconfarming || false,
     icons: s_userdata.value?.[account]?.[job]?.icons || [],
     added: (s_userdata.value?.[account]?.[job]?.added || []),
-    removed: (s_userdata.value?.[account]?.[job]?.removed || []),
-    history: (s_userdata.value?.[account]?.[job]?.history || [])
+    removed: (s_userdata.value?.[account]?.[job]?.removed || [])
   }
 
   if (s_userdata.value?.[account]?.[job]) {
@@ -132,12 +130,6 @@ const f_savefile_parser = txt => {
       res[account][job].date = now
       res[account][job].added = added
       res[account][job].removed = removed
-
-      res[account][job].history.push({
-        date: now,
-        added,
-        removed
-      })
     }
   }
 
@@ -194,7 +186,6 @@ const _pathFinder_meta = reactive({
   account: '',
   job: '',
   date: 0,
-  history: [],
   handle: [],
   coins: [],
   targetIndexes: [],
@@ -205,7 +196,6 @@ const f_call_pathFinder = (account, job) => {
   _pathFinder_meta.account = account
   _pathFinder_meta.job = job
   _pathFinder_meta.date = f_data(account, job)?.date
-  _pathFinder_meta.history = f_data(account, job)?.history || []
   _pathFinder_meta.handle = f_data(account, job)?.items || []
   _pathFinder_meta.coins = f_data(account, job)?.coins || []
   _pathFinder_meta.targets = f_targets(account, job) || []

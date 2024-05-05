@@ -1035,19 +1035,23 @@
       "drops": [
         {
           "item": "btst",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "pinv",
-          "rate": 1.313
+          "rate": 1.313,
+          "wishrate": 1.75
         },
         {
           "item": "sreg",
-          "rate": 1.313
+          "rate": 1.313,
+          "wishrate": 1.75
         },
         {
           "item": "tret",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "rre1",
@@ -1055,7 +1059,8 @@
         },
         {
           "item": "I0M7",
-          "rate": 0.247
+          "rate": 0.247,
+          "wishrate": 0.33
         },
         {
           "item": "I0NZ",
@@ -1069,27 +1074,33 @@
       "drops": [
         {
           "item": "ratc",
-          "rate": 1.125
+          "rate": 1.125,
+          "wishrate": 1.5
         },
         {
           "item": "rat6",
-          "rate": 1.125
+          "rate": 1.125,
+          "wishrate": 1.5
         },
         {
           "item": "rat9",
-          "rate": 1.313
+          "rate": 1.313,
+          "wishrate": 1.75
         },
         {
           "item": "penr",
-          "rate": 1.313
+          "rate": 1.313,
+          "wishrate": 1.75
         },
         {
           "item": "nflg",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "ward",
-          "rate": 1.313
+          "rate": 1.313,
+          "wishrate": 1.75
         },
         {
           "item": "fgrg",
@@ -1097,15 +1108,18 @@
         },
         {
           "item": "gsou",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "I0EK",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "I0EL",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "I0NZ",
@@ -1123,27 +1137,33 @@
         },
         {
           "item": "belv",
-          "rate": 1.5
+          "rate": 1.5,
+          "wishrate": 2
         },
         {
           "item": "crys",
-          "rate": 1.5
+          "rate": 1.5,
+          "wishrate": 2
         },
         {
           "item": "stel",
-          "rate": 1.125
+          "rate": 1.125,
+          "wishrate": 1.5
         },
         {
           "item": "rde1",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "I08P",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "I0AS",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "I0NZ",
@@ -1157,19 +1177,23 @@
       "drops": [
         {
           "item": "ofir",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "shtm",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "srtl",
-          "rate": 1.5
+          "rate": 1.5,
+          "wishrate": 2
         },
         {
           "item": "pgin",
-          "rate": 1.5
+          "rate": 1.5,
+          "wishrate": 2
         },
         {
           "item": "pres",
@@ -1177,7 +1201,8 @@
         },
         {
           "item": "I0D2",
-          "rate": 1.125
+          "rate": 1.125,
+          "wishrate": 1.5
         },
         {
           "item": "I0NZ",
@@ -1195,19 +1220,23 @@
         },
         {
           "item": "I0E5",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "I0E6",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "I0E7",
-          "rate": 1.875
+          "rate": 1.875,
+          "wishrate": 2.5
         },
         {
           "item": "I0EG",
-          "rate": 1.125
+          "rate": 1.125,
+          "wishrate": 1.5
         },
         {
           "item": "I0NZ",
@@ -1221,11 +1250,13 @@
       "drops": [
         {
           "item": "kymn",
-          "rate": 0.75
+          "rate": 0.75,
+          "wishrate": 1
         },
         {
           "item": "shwd",
-          "rate": 1.125
+          "rate": 1.125,
+          "wishrate": 1.5
         },
         {
           "item": "shar",
@@ -1233,19 +1264,23 @@
         },
         {
           "item": "mcri",
-          "rate": 1.313
+          "rate": 1.313,
+          "wishrate": 1.75
         },
         {
           "item": "bzbf",
-          "rate": 1.125
+          "rate": 1.125,
+          "wishrate": 1.5
         },
         {
           "item": "I08N",
-          "rate": 1.313
+          "rate": 1.313,
+          "wishrate": 1.75
         },
         {
           "item": "I09N",
-          "rate": 0.75
+          "rate": 0.75,
+          "wishrate": 1
         },
         {
           "item": "I0NZ",
@@ -1259,7 +1294,8 @@
       "drops": [
         {
           "item": "ledg",
-          "rate": 0.52
+          "rate": 0.52,
+          "wishrate": 1.3
         },
         {
           "item": "infs",
@@ -1267,27 +1303,33 @@
         },
         {
           "item": "srbd",
-          "rate": 0.32
+          "rate": 0.32,
+          "wishrate": 0.8
         },
         {
           "item": "kygh",
-          "rate": 0.36
+          "rate": 0.36,
+          "wishrate": 0.9
         },
         {
           "item": "sprn",
-          "rate": 0.52
+          "rate": 0.52,
+          "wishrate": 1.3
         },
         {
           "item": "oslo",
-          "rate": 0.52
+          "rate": 0.52,
+          "wishrate": 1.3
         },
         {
           "item": "I09N",
-          "rate": 0.56
+          "rate": 0.56,
+          "wishrate": 1.4
         },
         {
           "item": "I0DG",
-          "rate": 0.36
+          "rate": 0.36,
+          "wishrate": 0.9
         },
         {
           "item": "I0O0",
@@ -1295,7 +1337,8 @@
         },
         {
           "item": "I0QH",
-          "rate": 0.132
+          "rate": 0.132,
+          "wishrate": 0.33
         }
       ],
       "index": 39
@@ -1305,23 +1348,28 @@
       "drops": [
         {
           "item": "ocor",
-          "rate": 0.4
+          "rate": 0.4,
+          "wishrate": 1
         },
         {
           "item": "phea",
-          "rate": 0.3
+          "rate": 0.3,
+          "wishrate": 0.75
         },
         {
           "item": "I02E",
-          "rate": 0.132
+          "rate": 0.132,
+          "wishrate": 0.33
         },
         {
           "item": "I0IG",
-          "rate": 0.44
+          "rate": 0.44,
+          "wishrate": 1.1
         },
         {
           "item": "I0IH",
-          "rate": 0.44
+          "rate": 0.44,
+          "wishrate": 1.1
         },
         {
           "item": "I0O0",
@@ -1339,23 +1387,28 @@
       "drops": [
         {
           "item": "phea",
-          "rate": 0.4
+          "rate": 0.4,
+          "wishrate": 1
         },
         {
           "item": "I02D",
-          "rate": 0.132
+          "rate": 0.132,
+          "wishrate": 0.33
         },
         {
           "item": "I0IE",
-          "rate": 0.44
+          "rate": 0.44,
+          "wishrate": 1.1
         },
         {
           "item": "I0IF",
-          "rate": 0.44
+          "rate": 0.44,
+          "wishrate": 1.1
         },
         {
           "item": "I0JS",
-          "rate": 0.4
+          "rate": 0.4,
+          "wishrate": 1
         },
         {
           "item": "I0O0",
@@ -1373,23 +1426,28 @@
       "drops": [
         {
           "item": "phea",
-          "rate": 0.5
+          "rate": 0.5,
+          "wishrate": 1.25
         },
         {
           "item": "I002",
-          "rate": 0.132
+          "rate": 0.132,
+          "wishrate": 0.33
         },
         {
           "item": "I0II",
-          "rate": 0.44
+          "rate": 0.44,
+          "wishrate": 1.1
         },
         {
           "item": "I0IJ",
-          "rate": 0.44
+          "rate": 0.44,
+          "wishrate": 1.1
         },
         {
           "item": "I0LX",
-          "rate": 0.4
+          "rate": 0.4,
+          "wishrate": 1
         },
         {
           "item": "I0O0",
@@ -1407,19 +1465,23 @@
       "drops": [
         {
           "item": "I02S",
-          "rate": 0.099
+          "rate": 0.099,
+          "wishrate": 0.33
         },
         {
           "item": "I0NU",
-          "rate": 0.33
+          "rate": 0.33,
+          "wishrate": 1.1
         },
         {
           "item": "I0NV",
-          "rate": 0.33
+          "rate": 0.33,
+          "wishrate": 1.1
         },
         {
           "item": "I0NW",
-          "rate": 0.33
+          "rate": 0.33,
+          "wishrate": 1.1
         },
         {
           "item": "I0O0",
@@ -1427,7 +1489,8 @@
         },
         {
           "item": "I0O3",
-          "rate": 0.3
+          "rate": 0.3,
+          "wishrate": 1
         },
         {
           "item": "I0P3",

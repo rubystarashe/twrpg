@@ -19,7 +19,8 @@ const createMainWindow = () => {
     width: 1280,
     height: 1080,
     titleBarStyle: 'hidden',
-    transparent: true,
+    // transparent: true,
+    show: false,
     webPreferences: {
       preload: path.join(app.getAppPath(), 'preload.js')
     }
@@ -33,6 +34,7 @@ const createMainWindow = () => {
   ipcMain.on('savefile', (e, m) => {
     if (listener_inited['savefile']) return
     listener_inited['savefile'] = true
+    windows.main.show()
     const savefilepath = path.join(os.homedir(), '/Documents/Warcraft III/CustomMapData/TWRPG/HeroSave.txt')
     if (fs.existsSync(savefilepath)) {
       windows.main.webContents.send('savefile', fs.readFileSync(savefilepath, 'utf-8'))
