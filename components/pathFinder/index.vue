@@ -79,6 +79,7 @@
                   <div class="edit" @click.stop="e_call_itemfinder({ account: p_account, job: p_job, index })">수정하기</div>
                 </div>
               </div>
+              <div class="reset" @click.stop="e_reset_targets(p_account, p_job, index)">초기화</div>
             </div>
           </div>
           <div class="iconfarming"
@@ -248,6 +249,7 @@ const p_icons = defineProp('icons')
 
 const e_call_itemfinder = defineEmit('callFinder')
 const e_refresh = defineEmit('refresh')
+const e_reset_targets = defineEmit('resetTarget')
 
 const i_f_update_usertdata_targetIndexes = inject('app:f_update_usertdata_targetIndexes')
 const f_select_targetIndex = index => {
@@ -484,7 +486,7 @@ const c_targetgearlist = computed(() => {
 
 const f_makeable = recipies => {
   if (!recipies) return false
-  return  Object.values(recipies.reduce((p, c) => {
+  const items = Object.values(recipies.reduce((p, c) => {
     c.forEach(({ item, count }) => {
       if (!p[item]) p[item] = {
         id: item,
@@ -510,7 +512,12 @@ const f_makeable = recipies => {
   .sort((a, b) => a.recipies ? 1 : -1)
   .sort((a, b) => a.sub ? 1 : -1)
   .sort((a, b) => b.grade - a.grade)
-  .map(e => e.id).every(e => p_handle.value.find(h => h == e))
+  return items.every(e => {
+    if (p_handle.value.find(h => h == e.id)) return true
+    else {
+      if (e.sub && p_handle.value.find(h => h == items.find(i => i.sub && i.id != e.id)?.id)) return true
+    }
+  })
 }
 
 let r_finder = $ref()
@@ -655,6 +662,7 @@ watch(scroll.y, n => {
         transition: background .1s;
         border: 2px solid transparent;
         cursor: pointer;
+        position: relative;
         &:has(.edit:hover) {
           background: rgb(43, 45, 49);
         }
@@ -787,6 +795,16 @@ watch(scroll.y, n => {
                 background: rgb(94, 103, 324);
               }
             }
+          }
+        }
+        .reset {
+          position: absolute;
+          bottom: 10px;
+          font-size: 11px;
+          cursor: pointer;
+          opacity: .3;
+          &:hover {
+            opacity: .8;
           }
         }
       }
@@ -1051,7 +1069,7 @@ watch(scroll.y, n => {
           margin-right: 5px;
           margin-bottom: 5px;
           flex-wrap: wrap;
-          max-height: 1000px;
+          max-height: 1300px;
           &.limit {
             flex-wrap: wrap;
             max-height: 750px;
@@ -1377,5 +1395,6 @@ watch(scroll.y, n => {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
 }
 </style>

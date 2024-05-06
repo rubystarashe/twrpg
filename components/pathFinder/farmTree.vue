@@ -1,6 +1,9 @@
 <template>
   <div class="farm_tree">
-    <div class="name" :class="{ makeable: c_makeable }">{{ p_tree[0].name }}<span class="target" v-if="p_tree.length == 1">목표</span>
+    <div class="name" :class="{ willmakeable: c_makeable.willmakeable, makeable: c_makeable.makeable }">
+      <span class="sub" v-if="sub">선택</span>
+      {{ p_tree[0]?.name }}
+      <span class="target" v-if="p_tree.length == 1">목표</span>
     </div>
     <div class="child" v-if="p_tree.length > 1">
       <div class="treeicon"/>
@@ -18,13 +21,39 @@ const p_tree = defineProp('tree')
 const p_isStart = defineProp('isStart')
 const p_handle = defineProp('handle')
 const p_mat = defineProp('mat')
+const p_sub = defineProp('sub')
 
 const c_makeable = computed(() => {
-  return p_tree.value[0].recipies.some(r => {
-    return r.every(e => {
-      if ([ ...p_handle.value, p_mat.value ].includes(e.item)) return true
+  const items = Object.values(p_tree.value?.[0]?.recipies.reduce((p, c) => {
+    c.forEach(({ item, count }) => {
+      if (!p[item]) p[item] = {
+        id: item,
+        count: count,
+        stack: 1
+      }
+      else {
+        p[item].stack++
+      }
     })
+    return p
+  }, {}) || []).map(e => {
+    if (e.stack < p_tree.value[0].recipies.length) e.sub = true
+    delete e.stack
+    return e
   })
+  const makeable = items.every(e => {
+    if (p_handle.value.includes(e.id)) return true
+    else {
+      if (e.sub && p_handle.value.find(h => h == items.find(i => i.sub && i.id != e.id)?.id)) return true
+    }
+  })
+  const willmakeable = items.every(e => {
+    if ([ ...p_handle.value, p_mat.value ].includes(e.id)) return true
+    else {
+      if (e.sub && [ ...p_handle.value, p_mat.value ].find(h => h == items.find(i => i.sub && i.id != e.id)?.id)) return true
+    }
+  })
+  return { willmakeable, makeable }
 })
 </script>
 
@@ -39,8 +68,16 @@ const c_makeable = computed(() => {
     align-items: center;
     font-size: 12px;
     flex-shrink: 0;
-    &.makeable {
+    &.willmakeable {
       color: rgb(94, 103, 234);
+    }
+    &.makeable {
+      color: rgb(173, 255, 47);
+    }
+    .sub {
+      color: rgb(94, 103, 234);
+      margin-right: 5px;
+      font-size: 10px;
     }
     .target {
       color: rgb(217, 94, 71);

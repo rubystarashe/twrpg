@@ -40,7 +40,8 @@
                 </div>
                 <div class="tree">
                   <PathFinderFarmTree
-                    v-for="{ target_tree } in arr"
+                    v-for="{ target_tree, sub } in arr"
+                    :sub="sub"
                     :mat="id"
                     :handle="p_handle"
                     :tree="target_tree"
@@ -67,7 +68,7 @@ const types = reactive(['무기', '방어구', '날개', '장신구', '머리보
 const grades = ['일반', '델티라마', '넵티노스', '그노시스', '알테이아', '아르카나']
 
 const c_mobs = computed(() => {
-  const handlecache = [ ...p_handle.value ]
+  let handlecache = [ ...p_handle.value ]
   const mobs = { ...s_database.value.mobs }
   delete mobs['etc']
 
@@ -80,15 +81,12 @@ const c_mobs = computed(() => {
       else targets.push(item)
     })
   })
-  let mats = []
-  const deepcheck = (target, handlecache, origintarget, tree) => {
-    if (p_handle.value.find(e => e == target.id)) return false
-    if (origintarget.type == '아이콘') origintarget = { ...origintarget, type: '기타', grade: 99 }
-    if (origintarget.type == '곡괭이') origintarget = { ...origintarget, type: '기타', grade: 99 }
-    if (origintarget.type == '기타') origintarget = { ...origintarget, type: '기타', grade: 99 }
-    if (s_database.value.items[target.id]?.recipies) {
+
+  const recipies = {}
+  const deepc = (target, origintarget, tree) => {
+    if (target.recipies && !p_handle.value.includes(target.id)) {
       const items = {}
-      s_database.value.items[target.id]?.recipies.forEach(recipy => {
+      target.recipies.forEach(recipy => {
         recipy.forEach(e => {
           if (!items[e.item]) items[e.item] = {
             id: e.item,
@@ -100,50 +98,44 @@ const c_mobs = computed(() => {
           }
         })
       })
-      const ritems = Object.values(items).map(e => ({ ...e, sub: s_database.value.items[target.id]?.recipies.length > e.stack ? true : false }))
-      ritems.forEach(e => {
-        let item = s_database.value.items[e.id]
-        if (item.type == '아이콘') item = { ...item, type: '기타', grade: 99 }
-        if (item.type == '곡괭이') item = { ...item, type: '기타', grade: 99 }
-        if (item.type == '기타') item = { ...item, type: '기타', grade: 99 }
-        if (handlecache.includes(item.id)) {
-          handlecache.splice(handlecache.indexOf(item.id), 1)
-          // mats.push({
-          //   ...item,
-          //   target: origintarget,
-          //   target_grade: origintarget.grade,
-          //   target_tree: tree.slice(1),
-          //   handle: true
-          // })
-        }
-        else if (item.type != '기타' || tree.length == 1) deepcheck(item, handlecache, origintarget, [ item, ...tree ])
-      })
-    } else {
-      if (handlecache.includes(target.id)) {
-        handlecache.splice(handlecache.indexOf(target.id), 1)
-        // mats.push({
-        //   ...target,
-        //   target: origintarget,
-        //   target_grade: origintarget.grade,
-        //   target_tree: tree.slice(1),
-        //   handle: true
-        // })
-      }
-      else mats.push({
-        ...target,
+      const itemsarr = Object.values(items).map(e => ({ ...e, sub: target.recipies.length > e.stack ? true : false }))
+      const recipy_array = itemsarr.map(e => ({
+        ...s_database.value.items[e.id],
+        sub: e.sub ? itemsarr.find(i => i.sub && e.id != i.id)?.id : null,
         target: origintarget,
         target_grade: origintarget.grade,
-        target_tree: tree.slice(1),
-        target_nearest: tree[1],
-        target_nearest_grade: tree[1].grade
+        target_tree: tree,
+        target_nearest: tree[0],
+        target_nearest_grade: tree[0].grade
+      }))
+      if (!recipies[target.grade]) recipies[target.grade] = []
+      recipies[target.grade].push({ ...target, recipy_array })
+      if (target.type != '기타') recipy_array.forEach(e => {
+        deepc(e, origintarget, [ e, ...tree ])
       })
     }
   }
   targets.sort((a, b) => a.grade - b.grade).forEach(item => {
-    if (!p_handle.value.find(e => e == item.id)) deepcheck(item, handlecache, item, [ item ])
+    if (!p_handle.value.find(e => e == item.id)) {
+      deepc(item, item, [ item ])
+    }
   })
-
-  mats = mats.filter(e => e.target_tree.filter(t => t.type == '기타').length < 2)
+  let mats = []
+  Object.entries(recipies).forEach(([ grade, recipy ]) => {
+    recipy.forEach(r => {
+      r.recipy_array.forEach(e => {
+        mats.push({ ...e, target_grade: grade })
+      })
+    })
+  })
+  mats = mats.filter(e => {
+    if (handlecache.includes(e.id)) {
+      handlecache.splice(handlecache.indexOf(e.id), 1)
+      if (e.sub) handlecache.splice(handlecache.indexOf(e.sub), 1)
+    } else {
+      return true
+    }
+  })
 
   const res = []
   Object.entries(mobs).forEach(([ mobid, { name, drops } ]) => {
@@ -196,11 +188,11 @@ const c_width = computed(() => {
 .farming {
   border-collapse: collapse;
   td {
-    border: 1px solid rgb(63, 64, 70);
     vertical-align: top;
     text-align: left;
     border-left: none;
     border-right: none;
+    border-top: 1px solid rgb(63, 64, 70);
   }
   width: 100%;
   min-width: v-bind('c_width');

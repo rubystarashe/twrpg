@@ -55,7 +55,6 @@ const createMainWindow = () => {
     windows.main.webContents.send('maximized', false)
   })
   windows.main.on('minimize', () => {
-    console.log('aaaa')
   })
   windows.main.on('restore', () => {
   })

@@ -3,7 +3,7 @@ import { Translator } from '@voces/wc3maptranslator'
 
 const { version: app_version } = JSON.parse(readFileSync('package.json', 'utf-8'))
 
-const version = '0.66f'
+const version = '0.66h'
 
 const translator = new Translator()
 
@@ -317,6 +317,7 @@ dropdata.match(regex.recipies).map(e => {
 
 delete items['manh']
 delete items['I0RN']
+delete items['I0RQ']
 
 // 몹 정보
 const moblist = Object.entries(mobs).map(([id, name], index) => {

@@ -23,6 +23,7 @@
         v-model:visible="_pathFinder_meta.visible"
         @callFinder="f_call_itemFinder($event.account, $event.job, $event.index)"
         @refresh="f_call_pathFinder(_pathFinder_meta.account, _pathFinder_meta.job)"
+        @resetTarget="f_reset_targets"
       />
       <ItemFinder
         :account="_itemFinder_meta.account"
@@ -204,6 +205,12 @@ const f_call_pathFinder = (account, job) => {
   _pathFinder_meta.icons = f_icons(account, job)
   _pathFinder_meta.iconfarming = f_data(account, job)?.iconfarming || false
   _pathFinder_meta.visible = true
+}
+
+
+const f_reset_targets = (account, job, index) => {
+  const target = Object.entries(targets[job] || {}).map(([name, d]) => ({ name, items: d.items.map(e => s_database.value.item_names[e].id), tags: d.tags }))[index]
+  f_update_usertdata_target(account, job, index, target)
 }
 </script>
 
