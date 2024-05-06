@@ -68,7 +68,11 @@ const types = reactive(['무기', '방어구', '날개', '장신구', '머리보
 const grades = ['일반', '델티라마', '넵티노스', '그노시스', '알테이아', '아르카나']
 
 const c_mobs = computed(() => {
-  let handlecache = [ ...p_handle.value ]
+  const handlecache = p_handle.value.reduce((p, c) => {
+    if (!p[c]) p[c] = 1
+    else p[c]++
+    return p
+  }, {})
   const mobs = { ...s_database.value.mobs }
   delete mobs['etc']
 
@@ -128,10 +132,12 @@ const c_mobs = computed(() => {
       })
     })
   })
-  mats = mats.filter(e => {
-    if (handlecache.includes(e.id)) {
-      handlecache.splice(handlecache.indexOf(e.id), 1)
-      if (e.sub) handlecache.splice(handlecache.indexOf(e.sub), 1)
+  mats = mats.sort((a, b) => a.target_nearest_grade - b.target_nearest_grade).filter(e => {
+    if (handlecache[e.id]) {
+      handlecache[e.id]--
+      if (e.sub) {
+        handlecache[e.sub]--
+      }
     } else {
       return true
     }
