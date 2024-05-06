@@ -32,13 +32,21 @@ const typelist = {
   "아이콘": 8
 }
 
-const regex = {
+const legacy_regex = {
   droprate: /(?<=call (jCo|jDo))((.*)(?=))/g,
   droprate2: /(?<=call jmo\()((.|\r|\n)*?)call jjo/g,
   droprate3: /(?<=call (jCo)\(IU,\(')(.*?)(?=')/,
   droprate4: /(?<=call jCo)((.|\r|\n)*?)(?=call jKo|call jjo|call jGo)/g,
   droprate5: /(?<=IU,\(')(.*?)(?=')/,
   recipies: /(?<=call JVo)(.*)(?=\))/g
+}
+const regex = {
+  droprate: /(?<=call (H9o|jeo))((.*)(?=))/g, // ('gsou'),((2.5)*1.)
+  droprate2: /(?<=call jAo\()((.|\r|\n)*?)call jVo/g, // ('belv'),((2.)*1.)
+  droprate3: /(?<=call (H9o)\(AU,\(')(.*?)(?=')/,
+  droprate4: /(?<=call H9o)((.|\r|\n)*?)(?=call jOo|call jVo|call jio)/g,
+  droprate5: /(?<=AU,\(')(.*?)(?=')/,
+  recipies: /(?<=call jZo)(.*)(?=\))/g
 }
 
 const types = {}

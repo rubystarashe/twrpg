@@ -8789,7 +8789,27 @@
       "description": "무한한 힘을 원하는가? 태초의 혼돈속으로 발을 들이거라 ..\r<br/>∴공격력 +10800\r<br/>∴힘 +600\r<br/>∴민첩성 +600\r<br/>∴주 스탯 +320\r<br/>∴스킬 데미지 +15%\r<br/>∴공격 시 확률로 진 혼돈의 일격 발동",
       "searchstring": "- 아르카나 급 무기 (근접) -\r",
       "grade": 5,
-      "type": "무기"
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I0AM",
+            "count": 1
+          },
+          {
+            "item": "tgxp",
+            "count": 1
+          },
+          {
+            "item": "I0R2",
+            "count": 1
+          },
+          {
+            "item": "I05Q",
+            "count": 1
+          }
+        ]
+      ]
     },
     "I01L": {
       "id": "I01L",
@@ -10061,15 +10081,7 @@
       "recipies": [
         [
           {
-            "item": "I0AM",
-            "count": 1
-          },
-          {
-            "item": "tgxp",
-            "count": 1
-          },
-          {
-            "item": "I05Q",
+            "item": "I01K",
             "count": 1
           },
           {
