@@ -21,6 +21,7 @@ const createMainWindow = () => {
     titleBarStyle: 'hidden',
     minWidth: 900,
     minHeight: 600,
+    title: "더월드 도우미",
     // transparent: true,
     show: false,
     webPreferences: {
