@@ -32,6 +32,15 @@ const typelist = {
   "아이콘": 8
 }
 
+const regex = {
+  droprate: /(?<=call (jCo|jDo))((.*)(?=))/g,
+  droprate2: /(?<=call jmo\()((.|\r|\n)*?)call jjo/g,
+  droprate3: /(?<=call (jCo)\(IU,\(')(.*?)(?=')/,
+  droprate4: /(?<=call jCo)((.|\r|\n)*?)(?=call jKo|call jjo|call jGo)/g,
+  droprate5: /(?<=IU,\(')(.*?)(?=')/,
+  recipies: /(?<=call JVo)(.*)(?=\))/g
+}
+
 const types = {}
 Object.keys(items_origin).forEach(id => {
   const name = Buffer.from(items_origin[id].find(e => e.id == 'unam').value, 'latin1').toString('utf-8').replace(/\|[A-z0-9]{9}/, '').replace(/\|r/g, '').replace(/[^ㄱ-ㅎ가-힣A-z\s]/g, '')
@@ -120,7 +129,7 @@ const mobs = {
 const dropdata = readFileSync('./generator/war3map.j', 'utf-8').split(/\n|\r/).join('\n')
 
 // 드랍률
-dropdata.match(/(?<=call (jCo|jDo))((.*)(?=))/g).map(e => {
+dropdata.match(regex.droprate).map(e => {
   const [ prefix, idstring, ratestring ] = e.split(',')
   const id = idstring.match(/(?<=')(.*)(?=')/)[0]
   const ratemethod = ratestring.match(/(\()(.*)(?=\))/)[0]
@@ -139,10 +148,10 @@ dropdata.match(/(?<=call (jCo|jDo))((.*)(?=))/g).map(e => {
 })
 
 // 소원 반영
-dropdata.match(/(?<=call jmo\()((.|\r|\n)*?)call jjo/g).map(e => {
+dropdata.match(regex.droprate2).map(e => {
   const arr = e.split(')\n')
   const rate = parseFloat(arr[0])
-  const items = arr.map(e => e.match(/(?<=call (jCo)\(IU,\(')(.*?)(?=')/)).filter(e => e).map(e => e[0])
+  const items = arr.map(e => e.match(regex.droprate3)).filter(e => e).map(e => e[0])
   return {
     rate,
     items
@@ -160,9 +169,9 @@ dropdata.match(/(?<=call jmo\()((.|\r|\n)*?)call jjo/g).map(e => {
 })
 
 // 드랍 몹 확인
-dropdata.match(/(?<=call jCo)((.|\r|\n)*?)(?=call jKo|call jjo|call jGo)/g).map(e => {
+dropdata.match(regex.droprate4).map(e => {
   const arr = e.split('\n').filter(e => e)
-  const groupitems = arr.map(e => e.match(/(?<=IU,\(')(.*?)(?=')/)).filter(e => e).map(e => e[0])
+  const groupitems = arr.map(e => e.match(regex.droprate5)).filter(e => e).map(e => e[0])
   const groupitem = groupitems[groupitems.length - 1]
   
   groupitems.forEach(id => {
@@ -283,7 +292,7 @@ items['I0DV'].droprates = [
 ]
 
 // 조합법
-dropdata.match(/(?<=call JVo)(.*)(?=\))/g).map(e => {
+dropdata.match(regex.recipies).map(e => {
   const [ idstring, ...materialstring ] = e.split(`,'`)
   const id = idstring.match(/(?<=')(.*)(?=')/)[0]
   const materials = materialstring.map(e => {
