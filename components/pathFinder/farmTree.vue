@@ -1,9 +1,9 @@
 <template>
   <div class="farm_tree">
     <div class="name" :class="{ willmakeable: c_makeable.willmakeable, makeable: c_makeable.makeable }">
-      <span class="sub" v-if="sub">선택</span>
       {{ p_tree[0]?.name }}
       <span class="target" v-if="p_tree.length == 1">목표</span>
+      <span class="sub" v-if="sub"><ruby>{{ s_database.items[sub].name }}<rt>교차재료</rt></ruby></span>
     </div>
     <div class="child" v-if="p_tree.length > 1">
       <div class="treeicon"/>
@@ -17,6 +17,8 @@
 </template>
 
 <script setup>
+const s_database = useState('database')
+
 const p_tree = defineProp('tree')
 const p_isStart = defineProp('isStart')
 const p_handle = defineProp('handle')
@@ -68,16 +70,24 @@ const c_makeable = computed(() => {
     align-items: center;
     font-size: 12px;
     flex-shrink: 0;
+    word-break: keep-all;
     &.willmakeable {
       color: rgb(94, 103, 234);
+      word-break: keep-all;
     }
     &.makeable {
       color: rgb(173, 255, 47);
+      word-break: keep-all;
     }
     .sub {
       color: rgb(94, 103, 234);
-      margin-right: 5px;
+      margin-left: 5px;
       font-size: 10px;
+      word-break: keep-all;
+      rt {
+        font-size: 8px;
+        word-break: keep-all;
+      }
     }
     .target {
       color: rgb(217, 94, 71);

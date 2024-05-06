@@ -36,7 +36,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="count">{{ arr.length }}<span>개</span></div>
+                  <div class="count">{{ arr.length }}<span class="unit">개</span></div>
                 </div>
                 <div class="tree">
                   <PathFinderFarmTree
@@ -114,7 +114,7 @@ const c_mobs = computed(() => {
       }))
       if (!recipies[target.grade]) recipies[target.grade] = []
       recipies[target.grade].push({ ...target, recipy_array })
-      if (target.type != '기타') recipy_array.forEach(e => {
+      if (target.name.indexOf('아이콘') < 0) recipy_array.forEach(e => {
         deepc(e, origintarget, [ e, ...tree ])
       })
     }
@@ -157,11 +157,12 @@ const c_mobs = computed(() => {
     })
   })
 
-  return res.sort((a, b) => {
-    const aa = Object.keys(a.items).sort((a, b) => a - b)[0] || 0
-    const bb = Object.keys(b.items).sort((a, b) => a - b)[0] || 0
-    return aa - bb
-  })
+  return res
+  // return res.sort((a, b) => {
+  //   const aa = Object.keys(a.items).sort((a, b) => a - b)[0] || 0
+  //   const bb = Object.keys(b.items).sort((a, b) => a - b)[0] || 0
+  //   return aa - bb
+  // })
 })
 
 const c_grids = computed(() => {

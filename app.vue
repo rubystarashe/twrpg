@@ -212,6 +212,9 @@ const f_reset_targets = (account, job, index) => {
   const target = Object.entries(targets[job] || {}).map(([name, d]) => ({ name, items: d.items.map(e => s_database.value.item_names[e].id), tags: d.tags }))[index]
   f_update_usertdata_target(account, job, index, target)
 }
+
+let _savedir = $ref()
+ipcRenderer.open('savedir', v => _savedir = v)
 </script>
 
 
