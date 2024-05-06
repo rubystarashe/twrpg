@@ -1,6 +1,8 @@
 import { readFileSync, writeFileSync } from 'fs'
 import { Translator } from '@voces/wc3maptranslator'
 
+const { version: app_version } = JSON.parse(readFileSync('package.json', 'utf-8'))
+
 const version = '0.66f'
 
 const translator = new Translator()
@@ -313,4 +315,4 @@ const moblist = Object.entries(mobs).map(([id, name], index) => {
   }
 }).reduce((p, c) => (p[c.id] = { name: c.name, drops: c.drops, index: c.index }, p), {})
 
-writeFileSync('./generator/data.json', JSON.stringify({ version, types, mobs: moblist, items }, 0, 2))
+writeFileSync('./generator/data.json', JSON.stringify({ app_version, version, types, mobs: moblist, items }, 0, 2))

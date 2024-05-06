@@ -285,7 +285,7 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
 .item_finder {
   position: fixed;
   top: 45px;
-  bottom: 10px;
+  bottom: 5px;
   left: 0;
   right: 4px;
   padding-top: 20px;

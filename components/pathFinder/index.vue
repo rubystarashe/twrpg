@@ -2,193 +2,204 @@
   <Transition name="fade">
     <div class="background_pathfinder" v-show="m_visible">
       <div class="pathfinder" ref="r_finder">
-        <div class="accountmeta">
-          <div class="left">
-            <div class="account" @click="m_visible = false">
-              <div class="banner"></div>
-              <div class="name">{{ p_account }}</div>
-              <div class="job">{{ p_job }}</div>
-              <div class="updatedAt">{{ new Date(p_date).toLocaleString() }}</div>
-              <div class="score">
-                <div class="unit">장비점수</div>
-                <div class="data">{{ f_getScore(f_getEquips(p_handle).equips) }}</div>
+        <div class="sticky_wrapper">
+          <div class="accountmeta">
+            <div class="left">
+              <div class="account" @click="m_visible = false">
+                <div class="banner"></div>
+                <div class="name">{{ p_account }}</div>
+                <div class="job">{{ p_job }}</div>
+                <div class="updatedAt">{{ new Date(p_date).toLocaleString() }}</div>
+                <div class="score">
+                  <div class="unit">장비점수</div>
+                  <div class="data">{{ f_getScore(f_getEquips(p_handle).equips) }}</div>
+                </div>
+              </div>
+              <div class="back" @click="m_visible = false">다른 캐릭터 선택</div>
+            </div>
+            <div>
+              <div class="section_title">장비 아이템</div>
+              <div class="equips">
+                <div
+                  class="equip"
+                  :class="`grade_${grade}`"
+                  v-for="{ name, grade, type, description } in f_getEquips(p_handle).equips"
+                >
+                  <div class="grade">{{ grades[grade] }}</div>
+                  <div class="type">{{ type }}</div>
+                  <div class="name">{{ name }}</div>
+                  <div class="description">
+                    <div v-html="description"/>
+                  </div>
+                </div>
+                <div class="etcs">
+                  <div class="etcitem pickaxe" v-for="{ name, grade } in f_getEquips(p_handle).pickaxes">
+                    <div class="etcmeta">
+                      <div class="grade" :class="`grade_${grade}`">{{ grades[grade] }}</div>
+                      <div class="name">{{ name }}</div>
+                    </div>
+                  </div>
+                  <div class="etcitem" v-for="{ id, count } in p_coins.sort((a, b) => s_database.items[b.id].grade - s_database.items[a.id].grade)">
+                    <div class="etcmeta">
+                      <div class="grade" :class="`grade_${s_database.items[id].grade}`">{{ grades[s_database.items[id].grade] }}</div>
+                      <div class="name">{{ s_database.items[id].name }}</div>
+                    </div>
+                    <div class="count">{{ count }}<span class="unit">개</span></div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="back" @click="m_visible = false">다른 캐릭터 선택</div>
           </div>
-          <div>
-            <div class="section_title">장비 아이템</div>
-            <div class="equips">
-              <div
-                class="equip"
-                :class="`grade_${grade}`"
-                v-for="{ name, grade, type, description } in f_getEquips(p_handle).equips"
-              >
-                <div class="grade">{{ grades[grade] }}</div>
-                <div class="type">{{ type }}</div>
+          <div class="line"/>
+          <div class="section_title">목표 아이템 그룹 선택</div>
+          <div class="targets">
+            <div v-for="({ name, tags, items }, index) in p_targets"
+              class="target"
+              :class="{ enabled: p_targetIndexes.findIndex(e => e == index) >= 0 }"
+              @click="f_select_targetIndex(index)"
+            >
+              <div class="target_meta">
+                <div class="radio">
+                  <div class="ball"/>
+                </div>
                 <div class="name">{{ name }}</div>
-                <div class="description">
-                  <div v-html="description"/>
+                <div class="tags">
+                  <div class="tag" v-for="tag in tags">#{{ tag }}</div>
                 </div>
               </div>
-              <div class="etcs">
-                <div class="etcitem pickaxe" v-for="{ name, grade } in f_getEquips(p_handle).pickaxes">
-                  <div class="etcmeta">
-                    <div class="grade" :class="`grade_${grade}`">{{ grades[grade] }}</div>
-                    <div class="name">{{ name }}</div>
+              <div class="items">
+                <div class="item" v-for="item in f_sort_items(items)">
+                  <div class="grade" :class="`grade_${s_database.items[item].grade}`"/>
+                  <div class="item_meta">
+                    <div class="type">{{ s_database.items[item].type }}</div>
+                    <div class="name">{{ s_database.items[item].name }}</div>
                   </div>
                 </div>
-                <div class="etcitem" v-for="{ id, count } in p_coins.sort((a, b) => s_database.items[b.id].grade - s_database.items[a.id].grade)">
-                  <div class="etcmeta">
-                    <div class="grade" :class="`grade_${s_database.items[id].grade}`">{{ grades[s_database.items[id].grade] }}</div>
-                    <div class="name">{{ s_database.items[id].name }}</div>
-                  </div>
-                  <div class="count">{{ count }}<span class="unit">개</span></div>
+                <div class="edit_wrapper">
+                  <div class="edit" @click.stop="e_call_itemfinder({ account: p_account, job: p_job, index })">수정하기</div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="line"/>
-        <div class="section_title">목표 아이템 그룹 선택</div>
-        <div class="targets">
-          <div v-for="({ name, tags, items }, index) in p_targets"
-            class="target"
-            :class="{ enabled: p_targetIndexes.findIndex(e => e == index) >= 0 }"
-            @click="f_select_targetIndex(index)"
+          <div class="iconfarming"
+            :class="{ enabled: p_iconfarming, finished: p_icons.includes('I02T') }"
+            @click="!p_icons.includes('I02T') ? f_update_iconfarming(!p_iconfarming) : null"
           >
             <div class="target_meta">
               <div class="radio">
                 <div class="ball"/>
               </div>
-              <div class="name">{{ name }}</div>
-              <div class="tags">
-                <div class="tag" v-for="tag in tags">#{{ tag }}</div>
+              <div class="name">아이콘 파밍<span v-if="p_icons.includes('I02T')"> 완료</span></div>
+              <div class="description" v-if="!p_icons.includes('I02T')">
+                레전드 아이콘을 목표로 파밍 루트를 추가합니다
+              </div>
+              <div class="description" v-else>
+                같은 계정의 다른 캐릭터에도 적용됩니다
               </div>
             </div>
-            <div class="items">
-              <div class="item" v-for="item in f_sort_items(items)">
-                <div class="grade" :class="`grade_${s_database.items[item].grade}`"/>
-                <div class="item_meta">
-                  <div class="type">{{ s_database.items[item].type }}</div>
-                  <div class="name">{{ s_database.items[item].name }}</div>
-                </div>
-              </div>
-              <div class="edit_wrapper">
-                <div class="edit" @click.stop="e_call_itemfinder({ account: p_account, job: p_job, index })">수정하기</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="iconfarming"
-          :class="{ enabled: p_iconfarming, finished: p_icons.includes('I02T') }"
-          @click="!p_icons.includes('I02T') ? f_update_iconfarming(!p_iconfarming) : null"
-        >
-          <div class="target_meta">
-            <div class="radio">
-              <div class="ball"/>
-            </div>
-            <div class="name">아이콘 파밍<span v-if="p_icons.includes('I02T')"> 완료</span></div>
-            <div class="description" v-if="!p_icons.includes('I02T')">
-              레전드 아이콘을 목표로 파밍 루트를 추가합니다
-            </div>
-            <div class="description" v-else>
-              같은 계정의 다른 캐릭터에도 적용됩니다
-            </div>
-          </div>
-          <div class="iconsection" v-if="p_iconfarming || p_icons.includes('I02T')">
-            <div class="iconsection_title">보유중인 아이콘을 체크하세요</div>
-            <div class="iconlist">
-              <div v-for="(icons, grade) in _iconlist"
-                v-show="grade == '레전드' || (!c_hasgrandicon)"
-              >
-                <div class="grade" v-if="grade != '레전드'">{{ grade }}</div>
-                <div class="icons">
-                  <div v-for="{ id, name, grade } in icons"
-                    class="icon"
-                    :class="{ handled: p_icons.find(e => e == id) }"
-                    @click.stop="f_select_icon(id)"
-                  >{{ name }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="line"/>
-        <div class="section_title">파밍 루트</div>
-        <PathFinderFarming
-          :handle="c_handle"
-          :targets="c_targetgearlist"
-        />
-
-        <div class="line"/>
-        <div class="section_title">목표 장비 대시보드</div>
-        <div class="targetitemlist" ref="r_targetitemlist">
-          <div class="targetgroup" v-for="(items, type) in c_targetgearlist">
-            <div class="group">{{ type }}</div>
-            <div class="items" :class="{ limit: type == '기타' }">
-              <div class="item"
-                v-for="{ id, grade, name, handle, recipies } in items"
-                :class="{
-                  handled: handle, makeable: f_makeable(recipies)
-                }"
-              >
-                <div class="itemmeta">
-                  <div class="grade" :class="`grade_${grade}`"/>
-                  <div class="name">{{ name }}</div>
-                </div>
-                <PathFinderReqTree v-if="!handle"
-                  class="tree"
-                  :target="id"
-                  :handle="c_handle"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="line"/>
-        <div class="section_title">인벤토리 관리 ({{ f_getEquips(p_handle).counts }}/60)</div>
-        <div class="inventory">
-          <div class="category">보유 장비</div>
-          <div class="gearlist">
-            <div class="geargroup" v-for="(items, type) in f_getEquips(p_handle).inventory_gears">
-              <div class="type">{{ type }}</div>
-              <div class="gears">
-                <div class="gear" v-for="{ name, grade, id } in items"
-                  :class="{ targeted: c_targets[id], equiped: f_getEquips(p_handle).equips.find(e => e.id == id) }"
+            <div class="iconsection" v-if="p_iconfarming || p_icons.includes('I02T')">
+              <div class="iconsection_title">보유중인 아이콘을 체크하세요</div>
+              <div class="iconlist">
+                <div v-for="(icons, grade) in _iconlist"
+                  v-show="grade == '레전드' || (!c_hasgrandicon)"
                 >
-                  <div class="grade" :class="`grade_${grade}`"/>
-                  <div class="name">{{ name }}</div>
+                  <div class="grade" v-if="grade != '레전드'">{{ grade }}</div>
+                  <div class="icons">
+                    <div v-for="{ id, name, grade } in icons"
+                      class="icon"
+                      :class="{ handled: p_icons.find(e => e == id) }"
+                      @click.stop="f_select_icon(id)"
+                    >{{ name }}</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="category">보유 조합 재료</div>
-          <div class="matlist">
-            <div class="matgroup" v-for="(items, mob) in f_getEquips(p_handle).inventory_mats"
-              :class="{ etc: mob == 'etc' }"
-            >
-              <div class="mob">{{ s_database.mobs[mob]?.name }}</div>
-              <div class="items">
-                <div class="item" v-for="{ id, name, grade, count } in items"
-                  :class="{ targeted: c_targets[id], noneeds: !c_targets[id] && !f_getUsedby(id) }"
+        </div>
+        
+        <div class="sticky_wrapper">
+          <div class="line"/>
+          <div class="section_title">파밍 루트</div>
+        </div>
+
+        <div ref="r_farming">
+
+          <PathFinderFarming
+            :handle="c_handle"
+            :targets="c_targetgearlist"
+            :float="_mini_targets_size"
+          />
+        </div>
+
+        <div class="sticky_wrapper">
+          <div class="line"/>
+          <div class="section_title">목표 장비 대시보드</div>
+          <div class="targetitemlist">
+            <div class="targetgroup" v-for="(items, type) in c_targetgearlist">
+              <div class="group">{{ type }}</div>
+              <div class="items" :class="{ limit: type == '기타' }">
+                <div class="item"
+                  v-for="{ id, grade, name, handle, recipies } in items"
+                  :class="{
+                    handled: handle, makeable: f_makeable(recipies)
+                  }"
                 >
                   <div class="itemmeta">
-                    <div class="info">
-                      <div class="grade" :class="`grade_${grade}`"/>
-                      <div class="name">{{ name }}</div>
-                    </div>
-                    <div class="count" v-if="count > 1">{{ count }}<span class="unit">개</span></div>
+                    <div class="grade" :class="`grade_${grade}`"/>
+                    <div class="name">{{ name }}</div>
                   </div>
-                  <PathFinderMatTree v-if="f_getUsedby(id)" v-for="tree in f_getUsedby(id)"
+                  <PathFinderReqTree v-if="!handle"
                     class="tree"
-                    :isTarget="true"
-                    :tree="tree"
+                    :target="id"
+                    :handle="c_handle"
                   />
-                  <div class="margin"/>
-                  <div class="trash" v-if="!c_targets[id] && (!f_getUsedby(id) || Object.keys(f_getUsedby(id)).length < count)">!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"/>
+          <div class="section_title">인벤토리 관리 ({{ f_getEquips(p_handle).counts }}/60)</div>
+          <div class="inventory">
+            <div class="category">보유 장비</div>
+            <div class="gearlist">
+              <div class="geargroup" v-for="(items, type) in f_getEquips(p_handle).inventory_gears">
+                <div class="type">{{ type }}</div>
+                <div class="gears">
+                  <div class="gear" v-for="{ name, grade, id } in items"
+                    :class="{ targeted: c_targets[id], equiped: f_getEquips(p_handle).equips.find(e => e.id == id) }"
+                  >
+                    <div class="grade" :class="`grade_${grade}`"/>
+                    <div class="name">{{ name }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="category">보유 조합 재료</div>
+            <div class="matlist">
+              <div class="matgroup" v-for="(items, mob) in f_getEquips(p_handle).inventory_mats"
+                :class="{ etc: mob == 'etc' }"
+              >
+                <div class="mob">{{ s_database.mobs[mob]?.name }}</div>
+                <div class="items">
+                  <div class="item" v-for="{ id, name, grade, count } in items"
+                    :class="{ targeted: c_targets[id], noneeds: !c_targets[id] && !f_getUsedby(id) }"
+                  >
+                    <div class="itemmeta">
+                      <div class="info">
+                        <div class="grade" :class="`grade_${grade}`"/>
+                        <div class="name">{{ name }}</div>
+                      </div>
+                      <div class="count" v-if="count > 1">{{ count }}<span class="unit">개</span></div>
+                    </div>
+                    <PathFinderMatTree v-if="f_getUsedby(id)" v-for="tree in f_getUsedby(id)"
+                      class="tree"
+                      :isTarget="true"
+                      :tree="tree"
+                    />
+                    <div class="margin"/>
+                    <div class="trash" v-if="!c_targets[id] && (!f_getUsedby(id) || Object.keys(f_getUsedby(id)).length < count)">!</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -196,7 +207,10 @@
         </div>
       </div>
       <Transition name="fade">
-        <div class="mini_targets" v-if="_visible_mini_targets">
+        <div class="mini_targets" v-show="_visible_mini_targets"
+          :class="{ visible: _visible_mini_targets }"
+          ref="r_mini_targets"
+        >
           <div class="title">파밍 목표 그룹</div>
           <div class="list">
             <div v-for="({ name }, index) in p_targets"
@@ -440,15 +454,6 @@ const f_getScore = items => {
   return items.reduce((p, c) => p += c.grade, 0)
 }
 
-let r_finder = $ref()
-watch([p_account, p_job], async () => {
-  await nextTick()
-  r_finder.scrollTo({
-    top: 0,
-    left: 0
-  })
-})
-
 const f_sort_items = items => {
   return [ ...items ].sort((a, b) => s_database.value.items[b].grade - s_database.value.items[a].grade)
   .sort((a, b) => types.indexOf(s_database.value.items[a].type) - types.indexOf(s_database.value.items[b].type))
@@ -508,11 +513,28 @@ const f_makeable = recipies => {
   .map(e => e.id).every(e => p_handle.value.find(h => h == e))
 }
 
+let r_finder = $ref()
 const scroll = useScroll(() => r_finder)
-let r_targetitemlist = $ref()
+let r_farming = $ref()
 let _visible_mini_targets = $ref(false)
+let r_mini_targets = $ref()
+let _mini_targets_size = $ref(0)
+let _watching_table = $ref('hidden')
+watch([p_account, p_job], async () => {
+  await nextTick()
+  r_finder.scrollTo({
+    top: 0,
+    left: 0
+  })
+  _mini_targets_size = 0
+  _watching_table = 'hidden'
+})
 watch(scroll.y, n => {
-  _visible_mini_targets = r_targetitemlist.offsetTop - 500 < n
+  _visible_mini_targets = r_farming.offsetTop - 500 < n
+  _mini_targets_size = r_mini_targets.offsetHeight - 40 + 'px'
+  if (r_farming.offsetTop - r_finder.clientHeight < n && r_farming.offsetHeight + r_farming.offsetTop > n) {
+    _watching_table = 'auto'
+  } else _watching_table = 'hidden'
 })
 </script>
 
@@ -545,8 +567,8 @@ watch(scroll.y, n => {
   .pathfinder {
     position: fixed;
     top: 45px;
-    bottom: 10px;
-    left: 0;
+    bottom: 5px;
+    left: 5px;
     right: 4px;
     padding: 0 80px;
     padding-bottom: 100px;
@@ -556,6 +578,7 @@ watch(scroll.y, n => {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow-x: v-bind('_watching_table');
     .accountmeta {
       display: flex;
       .back {
@@ -1294,6 +1317,10 @@ watch(scroll.y, n => {
   padding-bottom: 15px;
   box-sizing: border-box;
   border-top: 1px solid rgb(63, 64, 70);
+  pointer-events: none;
+  &.visible {
+    pointer-events: auto;
+  }
   .title {
     font-size: 14px;
     margin-bottom: 10px;
@@ -1343,5 +1370,12 @@ watch(scroll.y, n => {
       }
     }
   }
+}
+.sticky_wrapper {
+  position: sticky;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 </style>

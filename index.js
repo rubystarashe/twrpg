@@ -19,6 +19,8 @@ const createMainWindow = () => {
     width: 1280,
     height: 1080,
     titleBarStyle: 'hidden',
+    minWidth: 900,
+    minHeight: 600,
     // transparent: true,
     show: false,
     webPreferences: {
@@ -44,6 +46,31 @@ const createMainWindow = () => {
         windows.main.webContents.send('savefile', fs.readFileSync(savefilepath, 'utf-8'))
       }
     })
+  })
+
+  windows.main.on('maximize', () => {
+    windows.main.webContents.send('maximized', true)
+  })
+  windows.main.on('unmaximize', () => {
+    windows.main.webContents.send('maximized', false)
+  })
+  windows.main.on('minimize', () => {
+    console.log('aaaa')
+  })
+  windows.main.on('restore', () => {
+  })
+
+  ipcMain.on('minimize', (e, m) => {
+    windows.main.minimize()
+  })
+  ipcMain.on('maximize', (e, m) => {
+    windows.main.maximize()
+  })
+  ipcMain.on('unmaximize', (e, m) => {
+    windows.main.unmaximize()
+  })
+  ipcMain.on('close', (e, m) => {
+    windows.main.close()
   })
 }
 

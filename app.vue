@@ -1,8 +1,10 @@
 <template>
   <div class="app">
     <div class="titlebar">
-
+      <div class="title">더월드 도우미 - 맵버전 {{ version }}</div>
+      <WindowControl/>
     </div>
+    <div class="appversion">{{ app_version }}</div>
     <div class="content">
       <UserDataList
         :userdata="s_userdata"
@@ -36,7 +38,7 @@
 
 <script setup>
 import targets from './generator/targets.json'
-import { version, mobs, items } from './generator/data.json'
+import { app_version, version, mobs, items } from './generator/data.json'
 const item_names = Object.entries(items).reduce((p, c) => (p[c[1].name] = { id: c[0], ...c[1] }, p), {})
 const s_database = useState('database', () => reactive({ version, mobs, items, item_names }))
 
@@ -140,8 +142,7 @@ const f_savefile_parser = txt => {
   if (_pathFinder_meta.visible) f_call_pathFinder(account, job)
 }
 
-ipcRenderer.on('savefile', v => f_savefile_parser(v))
-
+ipcRenderer.open('savefile', v => f_savefile_parser(v))
 
 const c_accounts = computed(() => {
   return Object.keys(s_userdata.value)
@@ -210,9 +211,11 @@ const f_call_pathFinder = (account, job) => {
 <style lang="scss">
 body {
   margin: 0;
+  background: rgb(50, 51, 56);
 }
 ::-webkit-scrollbar {
-    width: 8px;  
+    width: 8px;
+    height: 8px;
 }
 ::-webkit-scrollbar-thumb {
     background: rgba(26, 27, 30);
@@ -227,7 +230,6 @@ body {
 <style lang="scss" scoped>
 .app {
   position: fixed;
-  border-radius: 10px;
   overflow: hidden;
   height: 100%;
   width: 100%;
@@ -235,7 +237,6 @@ body {
   color: white;
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
   .titlebar {
     flex-shrink: 0;
     background: rgb(30, 31, 34);
@@ -244,6 +245,21 @@ body {
     -webkit-user-select: none;
     -webkit-app-region: drag;
     z-index: 99999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      font-size: 14px;
+      opacity: .7;
+      margin-left: 10px;
+    }
+  }
+  .appversion {
+    position: absolute;
+    top: 45px;
+    left: 5px;
+    font-size: 11px;
+    opacity: .5;
   }
   .content {
     width: calc(100% - 4px);
