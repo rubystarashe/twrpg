@@ -23,10 +23,11 @@ const createMainWindow = () => {
     minHeight: 600,
     title: "더월드 도우미",
     // transparent: true,
-    // show: false,
+    show: false,
     webPreferences: {
       preload: path.join(app.getAppPath(), 'preload.js')
-    }
+    },
+    icon: path.join(app.getAppPath(), 'icon.png')
   })
 
   protocol.handle('app', req => {
@@ -39,31 +40,38 @@ const createMainWindow = () => {
     listener_inited['savefile'] = true
     windows.main.show()
 
-    try {
-      const savefilepath = path.join(os.homedir(), '/Documents/Warcraft III/CustomMapData/TWRPG/HeroSave.txt')
-      if (fs.existsSync(savefilepath)) {
-        windows.main.webContents.send('savedir', savefilepath)
-        windows.main.webContents.send('savefile', fs.readFileSync(savefilepath, 'utf-8'))
-      }
-      fs.watchFile(savefilepath, { interval: 500 }, ({ size }) => {
-        if (size) {
+    let savedir = null
+    const getPath = () => {
+      try {
+        const savefilepath = path.join(os.homedir(), '/Documents/Warcraft III/CustomMapData/TWRPG/HeroSave.txt')
+        if (fs.existsSync(savefilepath)) {
+          savedir = savefilepath
+          windows.main.webContents.send('savedir', savefilepath)
           windows.main.webContents.send('savefile', fs.readFileSync(savefilepath, 'utf-8'))
+          fs.watchFile(savefilepath, { interval: 500 }, ({ size }) => {
+            if (size) {
+              windows.main.webContents.send('savefile', fs.readFileSync(savefilepath, 'utf-8'))
+            }
+          })
         }
-      })
-    } catch (e) {}
+      } catch (e) {}
 
-    try {
-      const one_savefilepath = path.join(os.homedir(), '/OneDrive/문서/Warcraft III/CustomMapData/TWRPG/HeroSave.txt')
-      if (fs.existsSync(one_savefilepath)) {
-        windows.main.webContents.send('savedir', one_savefilepath)
-        windows.main.webContents.send('savefile', fs.readFileSync(one_savefilepath, 'utf-8'))
-      }
-      fs.watchFile(one_savefilepath, { interval: 500 }, ({ size }) => {
-        if (size) {
+      try {
+        const one_savefilepath = path.join(os.homedir(), '/OneDrive/문서/Warcraft III/CustomMapData/TWRPG/HeroSave.txt')
+        if (fs.existsSync(one_savefilepath)) {
+          savedir = one_savefilepath
+          windows.main.webContents.send('savedir', one_savefilepath)
           windows.main.webContents.send('savefile', fs.readFileSync(one_savefilepath, 'utf-8'))
+          fs.watchFile(one_savefilepath, { interval: 500 }, ({ size }) => {
+            if (size) {
+              windows.main.webContents.send('savefile', fs.readFileSync(one_savefilepath, 'utf-8'))
+            }
+          })
         }
-      })
-    } catch (e) {}
+      } catch (e) {}
+      if (!savedir) setTimeout(() => getPath())
+    }
+    getPath()
   })
 
   windows.main.on('maximize', () => {

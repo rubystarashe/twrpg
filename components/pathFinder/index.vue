@@ -51,6 +51,21 @@
             </div>
           </div>
           <div class="line"/>
+          <div class="section_title">보유 장비</div>
+          <div class="gearlist">
+            <div class="geargroup" v-for="(items, type) in f_getEquips(p_handle).inventory_gears">
+              <div class="type">{{ type }}</div>
+              <div class="gears">
+                <div class="gear" v-for="{ name, grade, id } in items"
+                  :class="{ targeted: c_targets[id], equiped: f_getEquips(p_handle).equips.find(e => e.id == id) }"
+                >
+                  <div class="grade" :class="`grade_${grade}`"/>
+                  <div class="name">{{ name }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="line"/>
           <div class="section_title">목표 아이템 그룹 선택</div>
           <div class="targets">
             <div v-for="({ name, tags, items }, index) in p_targets"
@@ -162,21 +177,7 @@
           <div class="line"/>
           <div class="section_title">인벤토리 관리 ({{ f_getEquips(p_handle).counts }}/60)</div>
           <div class="inventory">
-            <div class="category">보유 장비</div>
-            <div class="gearlist">
-              <div class="geargroup" v-for="(items, type) in f_getEquips(p_handle).inventory_gears">
-                <div class="type">{{ type }}</div>
-                <div class="gears">
-                  <div class="gear" v-for="{ name, grade, id } in items"
-                    :class="{ targeted: c_targets[id], equiped: f_getEquips(p_handle).equips.find(e => e.id == id) }"
-                  >
-                    <div class="grade" :class="`grade_${grade}`"/>
-                    <div class="name">{{ name }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="category">보유 조합 재료</div>
+            <!-- <div class="category">보유 조합 재료</div> -->
             <div class="matlist">
               <div class="matgroup" v-for="(items, mob) in f_getEquips(p_handle).inventory_mats"
                 :class="{ etc: mob == 'etc' }"
@@ -1150,76 +1151,75 @@ const f_ismakable = id => {
         }
       }
     }
-    .inventory {
-      .category {
-        font-size: 20px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-      .gearlist {
-        display: flex;
-        flex-wrap: wrap;
-        margin-bottom: 30px;
-        .geargroup {
-          margin-right: 15px;
-          margin-bottom: 15px;
-          .type {
-            margin-bottom: 10px;
-            font-size: 14px;
-            opacity: .8;
-          }
-          .gears {
+    .gearlist {
+      display: flex;
+      flex-wrap: wrap;
+      .geargroup {
+        margin-right: 15px;
+        margin-bottom: 15px;
+        .type {
+          margin-bottom: 10px;
+          font-size: 14px;
+          opacity: .8;
+        }
+        .gears {
+          display: flex;
+          flex-direction: column;
+          max-height: 250px;
+          flex-wrap: wrap;
+          .gear {
+            background: rgb(43, 45, 49);
+            box-sizing: border-box;
+            padding: 10px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border-radius: 10px;
+            min-width: 150px;
             display: flex;
-            flex-direction: column;
-            max-height: 250px;
-            flex-wrap: wrap;
-            .gear {
-              background: rgb(43, 45, 49);
-              box-sizing: border-box;
-              padding: 10px;
+            align-items: center;
+            border: 1px solid transparent;
+            &.targeted {
+              border-color: rgb(89, 159, 98);
+            }
+            &.equiped {
+              border-color: rgb(94, 103, 234);
+            }
+            .grade {
+              width: 7px;
+              height: 7px;
+              border-radius: 50%;
               margin-right: 5px;
-              margin-bottom: 5px;
-              border-radius: 10px;
-              min-width: 150px;
-              display: flex;
-              align-items: center;
-              border: 1px solid transparent;
-              &.targeted {
-                border-color: rgb(89, 159, 98);
+              background: gray;
+              &.grade_1 {
+                background: rgb(0, 158, 37);
               }
-              &.equiped {
-                border-color: rgb(94, 103, 234);
+              &.grade_2 {
+                background: rgb(81, 143, 187);
               }
-              .grade {
-                width: 7px;
-                height: 7px;
-                border-radius: 50%;
-                margin-right: 5px;
-                background: gray;
-                &.grade_1 {
-                  background: rgb(0, 158, 37);
-                }
-                &.grade_2 {
-                  background: rgb(81, 143, 187);
-                }
-                &.grade_3 {
-                  background: rgb(184, 28, 28);
-                }
-                &.grade_4 {
-                  background: rgb(166, 207, 0);
-                }
-                &.grade_5 {
-                  background: rgb(115, 60, 190);
-                }
+              &.grade_3 {
+                background: rgb(184, 28, 28);
               }
-              .name {
-                font-size: 12px;
-                color: rgb(182, 186, 192);
+              &.grade_4 {
+                background: rgb(166, 207, 0);
               }
+              &.grade_5 {
+                background: rgb(115, 60, 190);
+              }
+            }
+            .name {
+              font-size: 12px;
+              color: rgb(182, 186, 192);
             }
           }
         }
       }
+    }
+    .category {
+      font-size: 20px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .inventory {
       .matlist {
         display: flex;
         flex-wrap: wrap;

@@ -29,7 +29,7 @@
   },
   "build": {
     "appId": "com.example.twrpg_helper",
-    "productName": "twrpg_helper",
+    "productName": "더월드 도우미",
     "files": [
       "!.nuxt/**",
       "!generator/**",
