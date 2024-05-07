@@ -315,9 +315,11 @@ dropdata.match(regex.recipies).map(e => {
   }
 })
 
+// 더미 데이터 제거
 delete items['manh']
 delete items['I0RN']
 delete items['I0RQ']
+delete items['I0S7']
 
 // 몹 정보
 const moblist = Object.entries(mobs).map(([id, name], index) => {
