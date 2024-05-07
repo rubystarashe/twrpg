@@ -213,7 +213,7 @@
           :class="{ visible: _visible_mini_targets }"
           ref="r_mini_targets"
         >
-          <div class="title">파밍 목표 그룹</div>
+          <div class="title">인벤토리 ({{ f_getEquips(p_handle).counts }}/60)</div>
           <div class="list">
             <div v-for="({ name }, index) in p_targets"
               class="item"
