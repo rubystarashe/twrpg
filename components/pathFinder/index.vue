@@ -467,7 +467,7 @@ const f_getScore = items => {
 }
 
 const f_sort_items = items => {
-  return [ ...items ].sort((a, b) => s_database.value.items[b].grade - s_database.value.items[a].grade)
+  return [ ...items ].filter(e => s_database.value.items[e]).sort((a, b) => s_database.value.items[b].grade - s_database.value.items[a].grade)
   .sort((a, b) => types.indexOf(s_database.value.items[a].type) - types.indexOf(s_database.value.items[b].type))
 }
 

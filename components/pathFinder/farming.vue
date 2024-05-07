@@ -159,6 +159,8 @@ const c_mobs = computed(() => {
       }
     })
 
+  console.log(mats)
+
   const res = []
   Object.entries(mobs).forEach(([ mobid, { name, drops } ]) => {
     const items = mats.filter(e => drops.find(d => d.item == e.id))

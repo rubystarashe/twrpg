@@ -23,7 +23,7 @@ const createMainWindow = () => {
     minHeight: 600,
     title: "더월드 도우미",
     // transparent: true,
-    show: false,
+    // show: false,
     webPreferences: {
       preload: path.join(app.getAppPath(), 'preload.js')
     }

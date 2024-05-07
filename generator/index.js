@@ -3,6 +3,8 @@ import { Translator } from '@voces/wc3maptranslator'
 
 const { version: app_version } = JSON.parse(readFileSync('package.json', 'utf-8'))
 
+const targets = JSON.parse(readFileSync('./generator/targets.json', 'utf-8'))
+
 const version = '0.66h'
 
 const translator = new Translator()
@@ -316,10 +318,18 @@ dropdata.match(regex.recipies).map(e => {
 })
 
 // 더미 데이터 제거
-delete items['manh']
-delete items['I0RN']
-delete items['I0RQ']
-delete items['I0S7']
+const items_array = Object.values(items)
+Object.values(items).forEach(e => {
+  if (items_array.filter(i => i.name == e.name).length >= 2 && !e.recipies) delete items[e.id]
+})
+
+Object.entries(targets).forEach(([ job, data ]) => {
+  Object.entries(data).forEach(([ preset, { items } ]) => {
+    items.forEach(e => {
+      if (!items_array.find(i => i.name == e)) console.log(job, preset, e)
+    })
+  })
+})
 
 // 몹 정보
 const moblist = Object.entries(mobs).map(([id, name], index) => {

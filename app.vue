@@ -90,11 +90,13 @@ provide('app:f_update_select', f_update_select)
 const f_savefile_parser = txt => {
   const [n1, n2, n3, acccountstring, versionstring, vv, jobstring, l, ...itemsstring ] = txt.split('\n')
 
-  const account = acccountstring.match(/(?<="아이디: )(.*)(?=")/)[0]
+  let account = acccountstring.match(/(?<="아이디: )(.*)(?=")/)[0]
   const version = versionstring.match(s_lang.value == 'en' ? /(?<="Played Version: )(.*)(?=")/ : /(?<="플레이 버전: )(.*)(?=")/)[0]
   const job = jobstring.match(s_lang.value == 'en' ? /(?<="Class: )(.*)(?=")/ : /(?<="직업: )(.*)(?=")/)[0]
-  const items = itemsstring.map(e => e.match(/(?<="[0-9]*\.\s)(.*)(?=")/)?.[0]).filter(e => e).map(e => item_names[e]?.id).filter(e => e)
+  const items = itemsstring.map(e => e.match(/(?<="[0-9]*\.\s)(.*)(?=")/)?.[0]).filter(e => e && !/ x.*/g.test(e)).map(e => item_names[e].id).filter(e => e)
   const coins = itemsstring.map(e => e.match(/(?<="[0-9]*\.\s)(.*)(?=")/)?.[0]).filter(e => e).map(e => ({ ...item_names[e.replace(/ x.*/g, '')], count: parseInt(e.match(/ x.*/g)?.[0]?.replace(' x', '') || 1) })).filter(e => e.type == '재화').map(e => ({ id: e.id, count: e.count }))
+
+  account = Object.keys(s_userdata.value).find(e => e.toUpperCase() == account.toUpperCase()) || account
 
   const res = {}
   res[account] = { ...(s_userdata.value[account] || {}) }
@@ -103,7 +105,7 @@ const f_savefile_parser = txt => {
     version,
     items,
     coins,
-    targets: (s_userdata.value?.[account]?.[job]?.targets || Object.entries(targets[job] || {}).map(([name, d]) => ({ name, items: d.items.map(e => s_database.value.item_names[e].id), tags: d.tags }))),
+    targets: (s_userdata.value?.[account]?.[job]?.targets || Object.entries(targets[job] || {}).map(([name, d]) => ({ name, items: d.items.filter(e => s_database.value.item_names[e]).map(e => s_database.value.item_names[e].id), tags: d.tags }))),
     targetIndexes: s_userdata.value?.[account]?.[job]?.targetIndexes || [0],
     iconfarming: s_userdata.value?.[account]?.[job]?.iconfarming || false,
     icons: s_userdata.value?.[account]?.[job]?.icons || [],
