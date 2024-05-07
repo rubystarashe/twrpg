@@ -269,6 +269,7 @@ const f_select_icon = icon => {
   let indexes = [ ...p_icons.value ]
   if (i >= 0) indexes.splice(i, 1)
   else indexes.push(icon)
+
   if (icon == 'I02T') {
     Object.entries(s_userdata.value?.[p_account.value]).forEach(([job, { icons }]) => {
       let indexes = [ ...icons ]
@@ -413,7 +414,19 @@ const f_getEquips = items => {
 }
 
 const c_handle = computed(() => {
-  return [ ...p_handle.value, ...p_icons.value ]
+  let icons = [ ...p_icons.value ]
+  const getlowericons = ic => {
+    ic.forEach(e => {
+      s_database.value.items[e].recipies?.forEach(r => {
+        const arr = r.map(e => e.item).filter(e => s_database.value.items[e].type =='아이콘')
+        icons = icons.concat(arr)
+        getlowericons(arr)
+      })
+    })
+  }
+  getlowericons(icons)
+  
+  return [ ...p_handle.value, ...icons ]
 })
 const f_deepcheck = (id, target, handlecache, counts) => {
   if (c_handle.value.find(e => e == target)) return false
@@ -498,7 +511,10 @@ const c_targetgearlist = computed(() => {
     delete res['아이콘']
     if (p_iconfarming.value && !p_icons.value.includes('I02T')) icons.map(e => s_database.value.item_names[e]).filter(e => !c_handle.value.find(h => h == e.id))
       .filter(e => e.recipies)
-      .forEach(e => res['기타'][e.id] = e)
+      .forEach(e => {
+        if (!res['기타']) res['기타'] = {}
+        res['기타'][e.id] = e
+      })
   }
   return res
 })
