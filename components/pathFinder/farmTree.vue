@@ -1,6 +1,6 @@
 <template>
   <div class="farm_tree">
-    <div class="name" :class="{ willmakeable: c_makeable.willmakeable, makeable: c_makeable.makeable }">
+    <div class="name" :class="{ willmakeable: c_makeable.willmakeable, makeable: c_makeable.makeable && !p_parentnotready }">
       {{ p_tree[0]?.name }}
       <span class="target" v-if="p_tree.length == 1">목표</span>
       <span class="sub" v-if="sub"><ruby>{{ s_database.items[sub].name }}<rt>교차재료</rt></ruby></span>
@@ -11,6 +11,7 @@
         :mat="p_tree[0].id"
         :tree="p_tree.slice(1)"
         :handle="[ ...p_handle, p_tree[0].id ]"
+        :parentnotready="!c_makeable.makeable"
       />
     </div>
   </div>
@@ -24,6 +25,7 @@ const p_isStart = defineProp('isStart')
 const p_handle = defineProp('handle')
 const p_mat = defineProp('mat')
 const p_sub = defineProp('sub')
+const p_parentnotready = defineProp('parentnotready')
 
 const c_makeable = computed(() => {
   const items = Object.values(p_tree.value?.[0]?.recipies.reduce((p, c) => {

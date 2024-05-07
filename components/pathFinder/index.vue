@@ -142,7 +142,7 @@
                 <div class="item"
                   v-for="{ id, grade, name, handle, recipies } in items"
                   :class="{
-                    handled: handle, makeable: f_makeable(recipies)
+                    handled: handle, makeable: f_ismakable(id)
                   }"
                 >
                   <div class="itemmeta">
@@ -193,13 +193,14 @@
                       </div>
                       <div class="count" v-if="count > 1">{{ count }}<span class="unit">개</span></div>
                     </div>
-                    <PathFinderMatTree v-if="f_getUsedby(id)" v-for="tree in f_getUsedby(id)"
+                    <PathFinderMatTree v-if="f_getUsedby(id)?.tree" v-for="tree in f_getUsedby(id)?.tree"
                       class="tree"
                       :isTarget="true"
                       :tree="tree"
+                      :handle="p_handle"
                     />
                     <div class="margin"/>
-                    <div class="trash" v-if="!c_targets[id] && (!f_getUsedby(id) || Object.keys(f_getUsedby(id)).length < count)">!</div>
+                    <div class="trash" v-if="!c_targets[id] && (!f_getUsedby(id) || f_getUsedby(id).counts < count)">!</div>
                   </div>
                 </div>
               </div>
@@ -385,7 +386,8 @@ const f_getEquips = items => {
       return p
     }, {})
   
-  const inventory_mats = items.map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => !c_targets.value[e.id] && ((!types.find(t => e.type == t) && e.type != '재화') || usedby[e.id])).sort((a, b) => b.grade - a.grade)
+  const inventory_mats = items.map(e => ({ id: e, ...s_database.value.items[e] }))
+    .filter(e => e.id != 'I0OO' && !c_targets.value[e.id] && ((!types.find(t => e.type == t) && e.type != '재화') || usedby[e.id])).sort((a, b) => b.grade - a.grade)
     .sort((a, b) => {
       if (!a.droprates?.[0]?.group) return 1
       else if (!b.droprates?.[0]?.group) return -1
@@ -412,7 +414,7 @@ const f_getEquips = items => {
 const c_handle = computed(() => {
   return [ ...p_handle.value, ...p_icons.value ]
 })
-const f_deepcheck = (id, target, handlecache) => {
+const f_deepcheck = (id, target, handlecache, counts) => {
   if (c_handle.value.find(e => e == target)) return false
   if (!s_database.value.items[target]?.recipies) return false
   let res = null
@@ -430,11 +432,13 @@ const f_deepcheck = (id, target, handlecache) => {
       //   if (s_database.value.items[mat.item].type != '아이콘') delete handlecache[mat.item]
       // }
       if (!handlecache.includes(mat.item)) {
-        const under = f_deepcheck(id, mat.item, handlecache)
+        const under = f_deepcheck(id, mat.item, handlecache, counts)
         if (under) {
           res = { target, under }
         }
       } else {
+        if (!counts[mat.item]) counts[mat.item] = 1
+        else counts[mat.item]++
         if (s_database.value.items[mat.item].type != '아이콘') handlecache.splice(handlecache.indexOf(mat.item), 1)
       }
     })
@@ -446,10 +450,16 @@ const f_getUsedby = id => {
   // const handlecache = c_handle.value.reduce((p, c) => (p[c] = true, p), {})
   const handlecache = [ ...c_handle.value ]
   Object.keys(c_targets.value).forEach(target => {
-    const req = f_deepcheck(id, target, handlecache)
-    if (req) res[target] = req
+    const counts = {}
+    const req = f_deepcheck(id, target, handlecache, counts)
+    if (req) res[target] = { ...req, counts }
   })
-  return Object.keys(res).length ? res : null
+  let counts = 0
+  Object.values(res).forEach(e => {
+    counts += e.counts[id]
+  })
+  
+  return Object.keys(res).length ? { tree: res, counts } : null
 }
 
 const f_getScore = items => {
@@ -463,8 +473,16 @@ const f_sort_items = items => {
 
 const c_targetgearlist = computed(() => {
   const res = Object.values(c_targets.value)
-    .map(e => c_handle.value.find(h => h == e.id) ? (e.handle = true, e) : e)
-    .map(e => e.type == '곡괭이' ? (e.type = '기타', e) : e)
+    .map(e => {
+      const res = { ...e }
+      if (c_handle.value.find(h => h == e.id)) res.handle = true
+      return res
+    })
+    .map(e => {
+      const res = { ...e }
+      if (e.type == '곡괭이') res.type = '기타'
+      return res
+    })
     .sort((a, b) => b.grade - a.grade)
     .sort((a, b) => {
       if (a.type == '기타') return -1
@@ -483,42 +501,6 @@ const c_targetgearlist = computed(() => {
   }
   return res
 })
-
-const f_makeable = recipies => {
-  if (!recipies) return false
-  const items = Object.values(recipies.reduce((p, c) => {
-    c.forEach(({ item, count }) => {
-      if (!p[item]) p[item] = {
-        id: item,
-        name: s_database.value.items[item].name,
-        type: s_database.value.items[item].type,
-        grade: s_database.value.items[item].grade,
-        droprates: s_database.value.items[item].droprates,
-        recipies: s_database.value.items[item].recipies,
-        handle: p_handle.value.filter(e => e == item).length,
-        count: count,
-        stack: 1
-      }
-      else {
-        p[item].stack++
-      }
-    })
-    return p
-  }, {})).map(e => {
-    if (e.stack < recipies.length) e.sub = true
-    delete e.stack
-    return e
-  })
-  .sort((a, b) => a.recipies ? 1 : -1)
-  .sort((a, b) => a.sub ? 1 : -1)
-  .sort((a, b) => b.grade - a.grade)
-  return items.every(e => {
-    if (p_handle.value.find(h => h == e.id)) return true
-    else {
-      if (e.sub && p_handle.value.find(h => h == items.find(i => i.sub && i.id != e.id)?.id)) return true
-    }
-  })
-}
 
 let r_finder = $ref()
 const scroll = useScroll(() => r_finder)
@@ -543,6 +525,35 @@ watch(scroll.y, n => {
     _watching_table = 'auto'
   } else _watching_table = 'hidden'
 })
+
+
+
+const f_ismakable = id => {
+  const item = s_database.value.items[id]
+  if (!item.recipies) return false
+  const req = {}
+  item.recipies.forEach(recipy => {
+    recipy.forEach(e => {
+      if (!req[e.item]) req[e.item] = {
+        id: e.item,
+        count: 1
+      }
+      else req[e.item].count++
+    })
+  })
+  const arr = Object.values(req).reduce((p, c) => {
+    if (c.count < item.recipies.length) p.push({ ...c, sub: true })
+    else p.push(c)
+    return p
+  }, [])
+  return arr.every(e => {
+    if (p_handle.value.includes(e.id)) return true
+    else if (e.sub) {
+      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+    }
+    else if (s_database.value.items[e.id].recipies && f_ismakable(e.id)) return true
+  })
+}
 </script>
 
 <style lang="scss" scoped>

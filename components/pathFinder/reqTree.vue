@@ -4,7 +4,7 @@
       <div class="card">
         <!-- <div>{{ grade }}</div> -->
         <div class="sub" v-if="sub">선택</div>
-        <div class="name" :class="{ handle, makeable: f_makeable(recipies) }">{{ name }}</div>
+        <div class="name" :class="{ handle, makeable: f_ismakable(id) }">{{ name }}</div>
         <div class="count" v-if="count > 1">{{ count }}개</div>
       </div>
       <div class="handlecount" v-if="handle && handle != count">{{ handle }}개 보유</div>
@@ -56,38 +56,65 @@ const c_recipies = computed(() => {
   .sort((a, b) => b.grade - a.grade)
 })
 
-const c_makeable = computed(() => {
-  return c_recipies.value.map(e => e.id).some(e => p_handle.value.find(h => h == e))
-})
-const f_makeable = recipies => {
-  if (!recipies) return false
-  return  Object.values(recipies.reduce((p, c) => {
-    c.forEach(({ item, count }) => {
-      if (!p[item]) p[item] = {
-        id: item,
-        name: s_database.value.items[item].name,
-        type: s_database.value.items[item].type,
-        grade: s_database.value.items[item].grade,
-        droprates: s_database.value.items[item].droprates,
-        recipies: s_database.value.items[item].recipies,
-        handle: p_handle.value.filter(e => e == item).length,
-        count: count,
-        stack: 1
+// const c_makeable = computed(() => {
+//   return c_recipies.value.map(e => e.id).some(e => p_handle.value.find(h => h == e))
+// })
+// const f_makeable = recipies => {
+//   if (!recipies) return false
+//   return  Object.values(recipies.reduce((p, c) => {
+//     c.forEach(({ item, count }) => {
+//       if (!p[item]) p[item] = {
+//         id: item,
+//         name: s_database.value.items[item].name,
+//         type: s_database.value.items[item].type,
+//         grade: s_database.value.items[item].grade,
+//         droprates: s_database.value.items[item].droprates,
+//         recipies: s_database.value.items[item].recipies,
+//         handle: p_handle.value.filter(e => e == item).length,
+//         count: count,
+//         stack: 1
+//       }
+//       else {
+//         p[item].stack++
+//       }
+//     })
+//     return p
+//   }, {})).map(e => {
+//     if (e.stack < recipies.length) e.sub = true
+//     delete e.stack
+//     return e
+//   })
+//   .sort((a, b) => a.recipies ? 1 : -1)
+//   .sort((a, b) => a.sub ? 1 : -1)
+//   .sort((a, b) => b.grade - a.grade)
+//   .map(e => e.id).every(e => p_handle.value.find(h => h == e))
+// }
+
+const f_ismakable = id => {
+  const item = s_database.value.items[id]
+  if (!item.recipies) return false
+  const req = {}
+  item.recipies.forEach(recipy => {
+    recipy.forEach(e => {
+      if (!req[e.item]) req[e.item] = {
+        id: e.item,
+        count: 1
       }
-      else {
-        p[item].stack++
-      }
+      else req[e.item].count++
     })
-    return p
-  }, {})).map(e => {
-    if (e.stack < recipies.length) e.sub = true
-    delete e.stack
-    return e
   })
-  .sort((a, b) => a.recipies ? 1 : -1)
-  .sort((a, b) => a.sub ? 1 : -1)
-  .sort((a, b) => b.grade - a.grade)
-  .map(e => e.id).every(e => p_handle.value.find(h => h == e))
+  const arr = Object.values(req).reduce((p, c) => {
+    if (c.count < item.recipies.length) p.push({ ...c, sub: true })
+    else p.push(c)
+    return p
+  }, [])
+  return arr.every(e => {
+    if (p_handle.value.includes(e.id)) return true
+    else if (e.sub) {
+      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+    }
+    else if (s_database.value.items[e.id].recipies && f_ismakable(e.id)) return true
+  })
 }
 </script>
 

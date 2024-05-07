@@ -22,7 +22,10 @@
         <td class="items" v-for="(_, grade) in c_grids">
           <div class="itemwrapper">
             <div class="itemarea">
-              <div class="item" v-for="(arr, id) in f_compress_items(items[grade])">
+              <div class="item"
+                v-for="(arr, id) in f_compress_items(items[grade])"
+                v-show="f_getNeedsCount(arr)"
+              >
                 <div class="meta">
                   <div class="info">
                     <div class="grade" :class="`grade_${s_database.items[id].grade}`"/>
@@ -36,7 +39,8 @@
                       </div>
                     </div>
                   </div>
-                  <div class="count">{{ arr.length }}<span class="unit">개</span></div>
+                  <div class="count" v-if="f_getHandleCount(arr)"><ruby class="ruby">{{ f_getNeedsCount(arr) }}<span class="unit">개</span><rt>{{ f_getHandleCount(arr) }} 개 보유</rt></ruby></div>
+                  <div class="count" v-else>{{ f_getNeedsCount(arr) }}<span class="unit">개</span></div>
                 </div>
                 <div class="tree">
                   <PathFinderFarmTree
@@ -132,16 +136,28 @@ const c_mobs = computed(() => {
       })
     })
   })
-  mats = mats.sort((a, b) => a.target_nearest_grade - b.target_nearest_grade).filter(e => {
-    if (handlecache[e.id]) {
-      handlecache[e.id]--
-      if (e.sub) {
-        handlecache[e.sub]--
+  // mats = mats.sort((a, b) => a.target_nearest_grade - b.target_nearest_grade).filter(e => {
+  //   if (handlecache[e.id]) {
+  //     handlecache[e.id]--
+  //     if (e.sub) {
+  //       handlecache[e.sub]--
+  //     }
+  //   } else {
+  //     return true
+  //   }
+  // })
+  mats = mats.sort((a, b) => a.target_nearest_grade - b.target_nearest_grade)
+    .map(e => {
+      if (handlecache[e.id]) {
+        handlecache[e.id]--
+        if (e.sub) {
+          handlecache[e.sub]--
+        }
+        return { ...e, handle: true }
+      } else {
+        return { ...e, handle: false }
       }
-    } else {
-      return true
-    }
-  })
+    })
 
   const res = []
   Object.entries(mobs).forEach(([ mobid, { name, drops } ]) => {
@@ -175,11 +191,12 @@ const c_grids = computed(() => {
 
 
 const f_compress_items = items => {
-  return items?.reduce((p, c) => {
+  const res = items?.reduce((p, c) => {
     if (!p[c.id]) p[c.id] = []
     p[c.id].push(c)
     return p
   }, {})
+  return res
 }
 
 const f_getdrops = (item, mob) => {
@@ -189,6 +206,13 @@ const f_getdrops = (item, mob) => {
 const c_width = computed(() => {
   return 100 + Object.keys(c_grids.value).length * 200 + 'px'
 })
+
+const f_getNeedsCount = (arr = []) => {
+  return arr.filter(e => !e.handle).length
+}
+const f_getHandleCount = (arr = []) => {
+  return arr.filter(e => e.handle).length
+}
 </script>
 
 <style lang="scss" scoped>

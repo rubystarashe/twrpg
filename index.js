@@ -54,7 +54,7 @@ const createMainWindow = () => {
 
     try {
       const one_savefilepath = path.join(os.homedir(), '/OneDrive/문서/Warcraft III/CustomMapData/TWRPG/HeroSave.txt')
-      if (fs.existsSync(savefilepath)) {
+      if (fs.existsSync(one_savefilepath)) {
         windows.main.webContents.send('savedir', one_savefilepath)
         windows.main.webContents.send('savefile', fs.readFileSync(one_savefilepath, 'utf-8'))
       }
