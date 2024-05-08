@@ -39,8 +39,13 @@
                       </div>
                     </div>
                   </div>
-                  <div class="count" v-if="f_getHandleCount(arr)"><ruby class="ruby">{{ f_getNeedsCount(arr) }}<span class="unit">개</span><rt>{{ f_getHandleCount(arr) }} 개 보유</rt></ruby></div>
-                  <div class="count" v-else>{{ f_getNeedsCount(arr) }}<span class="unit">개</span></div>
+                  <!-- <div class="count" v-if="f_getHandleCount(arr)"><ruby class="ruby">{{ f_getNeedsCount(arr) }}<span class="unit">개</span><rt>{{ f_getHandleCount(arr) }} 개 보유</rt></ruby></div> -->
+                  <!-- <div class="count" v-if="f_getHandleCount2(id)"><ruby class="ruby">{{ f_getNeedsCount(arr) }}<span class="unit">개</span><rt>{{ f_getHandleCount2(id) }} 개 보유</rt></ruby></div>
+                  <div class="count" v-else>{{ f_getNeedsCount(arr) }}<span class="unit">개</span></div> -->
+                  <!-- <div class="count"><ruby class="ruby">{{ f_getNeedsCount(arr) }}<span class="unit">개</span><rt>필요</rt></ruby></div> -->
+                  
+                  <div class="count" v-if="f_getHandleCount2(id)"><ruby class="ruby"><span class="needs">{{ f_getHandleCount(arr) }}</span><span class="slash">/</span>{{ f_getHandleCount(arr) + f_getNeedsCount(arr) }}<rt>{{ f_getHandleCount2(id) }} 개 보유중</rt></ruby></div>
+                  <div class="count" v-else><span class="needs">{{ f_getHandleCount(arr) }}</span><span class="slash">/</span>{{ f_getHandleCount(arr) + f_getNeedsCount(arr) }}</div>
                 </div>
                 <div class="tree">
                   <PathFinderFarmTree
@@ -114,7 +119,8 @@ const c_mobs = computed(() => {
         target_grade: origintarget.grade,
         target_tree: tree,
         target_nearest: tree[0],
-        target_nearest_grade: tree[0].grade
+        target_nearest_grade: tree[0].grade,
+        need_counts: e.count
       }))
       if (!recipies[target.grade]) recipies[target.grade] = []
       recipies[target.grade].push({ ...target, recipy_array })
@@ -147,17 +153,16 @@ const c_mobs = computed(() => {
   //   }
   // })
   mats = mats.sort((a, b) => a.target_nearest_grade - b.target_nearest_grade)
-    .map(e => {
-      if (handlecache[e.id]) {
-        handlecache[e.id]--
-        if (e.sub) {
-          handlecache[e.sub]--
-        }
-        return { ...e, handle: true }
-      } else {
-        return { ...e, handle: false }
+  mats.forEach((e, i) => {
+    if (handlecache[e.id]) {
+      handlecache[e.id]--
+      if (e.sub) {
+        handlecache[e.sub]--
       }
-    })
+      if (!mats[i].handle) e.handle = 1
+      else mats[i].handle++
+    }
+  })
 
   const res = []
   Object.entries(mobs).forEach(([ mobid, { name, drops } ]) => {
@@ -208,10 +213,13 @@ const c_width = computed(() => {
 })
 
 const f_getNeedsCount = (arr = []) => {
-  return arr.filter(e => !e.handle).length
+  return arr.reduce((p, c) => (p += (c.need_counts - (c.handle || 0)), p), 0)
 }
 const f_getHandleCount = (arr = []) => {
-  return arr.filter(e => e.handle).length
+  return arr.reduce((p, c) => (p += (c.handle || 0), p), 0)
+}
+const f_getHandleCount2 = id => {
+  return p_handle.value.filter(e => e == id).length
 }
 </script>
 
@@ -364,9 +372,20 @@ const f_getHandleCount = (arr = []) => {
             font-size: 13px;
             margin-left: 10px;
             flex-shrink: 0;
+            .needs {
+              color: rgb(182, 186, 192);
+            }
             .unit {
               font-size: 10px;
               margin-left: 3px;
+            }
+            .slash {
+              margin: 0 3px;
+              font-size: 10px;
+              opacity: .3;
+            }
+            rt {
+              opacity: .3;
             }
           }
         }

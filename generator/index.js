@@ -53,7 +53,7 @@ const regex = {
 
 const types = {}
 Object.keys(items_origin).forEach(id => {
-  const name = Buffer.from(items_origin[id].find(e => e.id == 'unam').value, 'latin1').toString('utf-8').replace(/\|[A-z0-9]{9}/, '').replace(/\|r/g, '').replace(/[^ㄱ-ㅎ가-힣A-z\s]/g, '')
+  const name = Buffer.from(items_origin[id].find(e => e.id == 'unam').value, 'latin1').toString('utf-8').replace(/\|[A-z0-9]{9}/, '').replace(/\|r/g, '').replace(/[^ㄱ-ㅎ가-힣A-z0-1+\s]/g, '')
   const description = Buffer.from(items_origin[id].find(e => e.id == 'utub').value, 'latin1').toString('utf-8')?.replace(/\|c[A-z0-9]{8}/g, '').replace(/\|r/g, '').replace('∴클릭 시 관련 조합법을 확인', '').replace('∴Click to check any related recipes', '').replace(/\n/g, '<br/>')
   const searchstring = description?.split('<br/>')?.find(e => e?.indexOf('-') >= 0)
   const key = id.replace(/:[A-z0-9]*/, '')
@@ -320,7 +320,7 @@ dropdata.match(regex.recipies).map(e => {
 // 더미 데이터 제거
 const items_array = Object.values(items)
 Object.values(items).forEach(e => {
-  if (items_array.filter(i => i.name == e.name).length >= 2 && !e.recipies) delete items[e.id]
+  if (items_array.filter(i => i.name == e.name).length >= 2 && !e.droprates && !e.recipies) delete items[e.id]
 })
 
 Object.entries(targets).forEach(([ job, data ]) => {

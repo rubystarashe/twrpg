@@ -1590,6 +1590,10 @@
       "name": "영혼수확자 스티릭스",
       "drops": [
         {
+          "item": "rlif",
+          "rate": 0.4
+        },
+        {
           "item": "I02V",
           "rate": 0.6
         },
@@ -1614,6 +1618,20 @@
     }
   },
   "items": {
+    "rlif": {
+      "id": "rlif",
+      "name": "그림 사이드",
+      "description": "육신으로부터 영혼을 단절시키는 기이한 무구\r<br/>∴공격력 +9400\r<br/>∴주 스탯 +960\r<br/>∴스킬 데미지 +15%\r<br/>∴암흑 속성 효율 +5%\r<br/>∴스킬 시전 시 그림 리퍼 발동\r<br/>∴사용 시 컬링 발동",
+      "searchstring": "- 아르카나 급 무기 (공용) -\r",
+      "grade": 5,
+      "type": "무기",
+      "droprates": [
+        {
+          "rate": 0.4,
+          "group": "I0QE"
+        }
+      ]
+    },
     "cnob": {
       "id": "cnob",
       "name": "사탕 주머니",
@@ -5759,7 +5777,7 @@
     },
     "fgun": {
       "id": "fgun",
-      "name": "사탕 담긴 배낭 ",
+      "name": "사탕 담긴 배낭 +1",
       "description": "매우 가벼운 가방\r<br/>∴공격력 +3000\r<br/>∴모든 스탯 +275\r<br/>∴HP 재생률 +80\r<br/>∴마법 방어력 +10%",
       "searchstring": "- 델티라마 급 무기 (배낭) -\r",
       "grade": 1,
@@ -5899,7 +5917,7 @@
     },
     "gemt": {
       "id": "gemt",
-      "name": "강력한 힘의 배낭 ",
+      "name": "강력한 힘의 배낭 +1",
       "description": "상당히 무거운 가방\r<br/>∴공격력 +3800\r<br/>∴힘 +310\r<br/>∴스킬 데미지 +5%\r<br/>∴받는 데미지 -15%",
       "searchstring": "- 델티라마 급 무기 (배낭) -\r",
       "grade": 1,
@@ -6260,6 +6278,12 @@
     "rhe3": {
       "id": "rhe3",
       "name": "할로윈 골렘 토큰",
+      "description": "[Collectible]\r<br/>배낭의 외형을 변경합니다.",
+      "grade": 0
+    },
+    "rdis": {
+      "id": "rdis",
+      "name": "바다바다 소녀 1 토큰",
       "description": "[Collectible]\r<br/>배낭의 외형을 변경합니다.",
       "grade": 0
     },
@@ -8245,7 +8269,7 @@
     },
     "I06B": {
       "id": "I06B",
-      "name": "제 차 신마대전",
+      "name": "제 1차 신마대전",
       "description": "[Book]\r<br/>저자: 알 수 없음",
       "grade": 0
     },
@@ -10045,7 +10069,7 @@
     },
     "I07N": {
       "id": "I07N",
-      "name": "잭 펌킨 투구 ",
+      "name": "잭 펌킨 투구 +1",
       "description": "할로윈을 즐깁시다 ~\r<br/>∴방어력 +75\r<br/>∴힘 +65\r<br/>∴민첩성 +80\r<br/>∴HP 재생률 +20\r<br/>∴MP 재생률 +15",
       "searchstring": "- 델티라마 급 머리보호구 -\r",
       "grade": 1,
@@ -10065,7 +10089,7 @@
     },
     "I07P": {
       "id": "I07P",
-      "name": "잭 펌킨 후드 ",
+      "name": "잭 펌킨 후드 +1",
       "description": "할로윈을 즐깁시다 ~\r<br/>∴방어력 +60\r<br/>∴지능 +95\r<br/>∴HP 재생률 +15\r<br/>∴MP 재생률 +15",
       "searchstring": "- 델티라마 급 머리보호구 -\r",
       "grade": 1,

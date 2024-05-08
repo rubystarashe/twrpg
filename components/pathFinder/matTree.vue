@@ -1,7 +1,7 @@
 <template>
 <div class="mat_tree">
   <div class="name"
-    :class="{ usedby: !p_tree.under, makable: f_ismakable(s_database.items[p_tree.target]) }"
+    :class="{ usedby: !p_tree.under, willmakeable: f_iswillmakable(p_tree.target) == 1, makable: f_ismakable(p_tree.target) }"
   ><span v-if="p_isTarget" class="target">목표</span>{{ s_database.items[p_tree.target].name }}<span v-if="!p_tree.under" class="mat">재료</span></div>
   <div class="child" v-if="p_tree.under">
     <div class="treeicon"/>
@@ -41,33 +41,67 @@ const f_deepcheck = recipies => {
     else if (e.sub) {
       if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
     }
-    else if (s_database.value.items[e.id].recipies && f_deepcheck(s_database.value.items[e.id].recipies)) return true
+    else if (s_database.value.items[e.id]?.recipies && f_deepcheck(s_database.value.items[e.id]?.recipies)) return true
   })
 }
-const f_ismakable = item => {
-  if (!item.recipies) return false
+const f_ismakable = id => {
+  const item = s_database.value.items[id]
+  if (!item?.recipies) return false
   const req = {}
   item.recipies.forEach(recipy => {
     recipy.forEach(e => {
       if (!req[e.item]) req[e.item] = {
         id: e.item,
-        count: 1
+        count: e.count,
+        stack: 1
       }
-      else req[e.item].count++
+      else req[e.item].stack++
     })
   })
   const arr = Object.values(req).reduce((p, c) => {
-    if (c.count < item.recipies.length) p.push({ ...c, sub: true })
+    if (c.stack < item.recipies.length) p.push({ ...c, sub: true })
     else p.push(c)
     return p
   }, [])
   return arr.every(e => {
-    if (p_handle.value.includes(e.id)) return true
+    if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
     else if (e.sub) {
       if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
     }
-    else if (s_database.value.items[e.id].recipies && f_deepcheck(s_database.value.items[e.id].recipies)) return true
+    else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
   })
+}
+const f_iswillmakable = id => {
+  const item = s_database.value.items[id]
+  if (!item?.recipies) return false
+  const req = {}
+  item.recipies.forEach(recipy => {
+    recipy.forEach(e => {
+      if (!req[e.item]) req[e.item] = {
+        id: e.item,
+        count: e.count,
+        stack: 1
+      }
+      else req[e.item].stack++
+    })
+  })
+  const arr = Object.values(req).reduce((p, c) => {
+    if (c.stack < item.recipies.length) p.push({ ...c, sub: true })
+    else p.push(c)
+    return p
+  }, [])
+  let counts = 0
+  arr.forEach(e => {
+    if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
+    else if (e.sub) {
+      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+    }
+    else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
+    else {
+      counts += e.count - p_handle.value.filter(h => h == e.id).length
+    }
+  })
+  return counts
 }
 </script>
 
@@ -81,13 +115,20 @@ const f_ismakable = item => {
     align-items: center;
     font-size: 12px;
     &.usedby {
-      color: white;
+      color: rgb(202, 205, 210);
+      word-break: keep-all;
+    }
+    &.willmakeable {
+      color: rgb(94, 103, 234);
+      word-break: keep-all;
     }
     &.makable {
       color: rgb(173, 255, 47);
+      word-break: keep-all;
     }
     .target {
       color: rgb(217, 94, 71);
+      word-break: keep-all;
       margin-right: 5px;
       font-size: 10px;
     }

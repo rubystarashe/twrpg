@@ -93,7 +93,7 @@ const f_savefile_parser = txt => {
   let account = acccountstring.match(/(?<="아이디: )(.*)(?=")/)[0]
   const version = versionstring.match(s_lang.value == 'en' ? /(?<="Played Version: )(.*)(?=")/ : /(?<="플레이 버전: )(.*)(?=")/)[0]
   const job = jobstring.match(s_lang.value == 'en' ? /(?<="Class: )(.*)(?=")/ : /(?<="직업: )(.*)(?=")/)[0]
-  const items = itemsstring.map(e => e.match(/(?<="[0-9]*\.\s)(.*)(?=")/)?.[0]).filter(e => e && !/ x.*/g.test(e)).map(e => item_names[e].id).filter(e => e)
+  const items = itemsstring.map(e => e.match(/(?<="[0-9]*\.\s)(.*)(?=")/)?.[0]).filter(e => e && !/ x.*/g.test(e)).map(e => item_names[e]?.id).filter(e => e)
   const coins = itemsstring.map(e => e.match(/(?<="[0-9]*\.\s)(.*)(?=")/)?.[0]).filter(e => e).map(e => ({ ...item_names[e.replace(/ x.*/g, '')], count: parseInt(e.match(/ x.*/g)?.[0]?.replace(' x', '') || 1) })).filter(e => e.type == '재화').map(e => ({ id: e.id, count: e.count }))
 
   account = Object.keys(s_userdata.value).find(e => e.toUpperCase() == account.toUpperCase()) || account

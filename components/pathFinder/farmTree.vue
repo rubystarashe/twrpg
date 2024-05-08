@@ -27,6 +27,33 @@ const p_mat = defineProp('mat')
 const p_sub = defineProp('sub')
 const p_parentnotready = defineProp('parentnotready')
 
+const f_ismakable = id => {
+  const item = s_database.value.items[id]
+  if (!item?.recipies) return false
+  const req = {}
+  item.recipies.forEach(recipy => {
+    recipy.forEach(e => {
+      if (!req[e.item]) req[e.item] = {
+        id: e.item,
+        count: e.count,
+        stack: 1
+      }
+      else req[e.item].stack++
+    })
+  })
+  const arr = Object.values(req).reduce((p, c) => {
+    if (c.stack < item.recipies.length) p.push({ ...c, sub: true })
+    else p.push(c)
+    return p
+  }, [])
+  return arr.every(e => {
+    if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
+    else if (e.sub) {
+      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+    }
+    else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
+  })
+}
 const c_makeable = computed(() => {
   const items = Object.values(p_tree.value?.[0]?.recipies.reduce((p, c) => {
     c.forEach(({ item, count }) => {
@@ -46,16 +73,16 @@ const c_makeable = computed(() => {
     return e
   })
   const makeable = items.every(e => {
-    if (p_handle.value.includes(e.id)) return true
+    if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
     else {
       if (e.sub && p_handle.value.find(h => h == items.find(i => i.sub && i.id != e.id)?.id)) return true
+      else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
     }
   })
   const willmakeable = items.every(e => {
-    if ([ ...p_handle.value, p_mat.value ].includes(e.id)) return true
-    else {
-      if (e.sub && [ ...p_handle.value, p_mat.value ].find(h => h == items.find(i => i.sub && i.id != e.id)?.id)) return true
-    }
+    if ([ ...p_handle.value, p_mat.value ].filter(h => h == e.id).length >= e.count) return true
+    else if (e.sub && [ ...p_handle.value, p_mat.value ].find(h => h == items.find(i => i.sub && i.id != e.id)?.id)) return true
+    else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
   })
   return { willmakeable, makeable }
 })

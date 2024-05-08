@@ -4,10 +4,12 @@
       <div class="card">
         <!-- <div>{{ grade }}</div> -->
         <div class="sub" v-if="sub">선택</div>
-        <div class="name" :class="{ handle, makeable: f_ismakable(id) }">{{ name }}</div>
+        <div class="name" :class="{ handle: handle >= count, willmakeable: f_iswillmakable(id) == 1, makeable: f_ismakable(id) }">{{ name }}</div>
         <div class="count" v-if="count > 1">{{ count }}개</div>
       </div>
-      <div class="handlecount" v-if="handle && handle != count">{{ handle }}개 보유</div>
+      <div class="handlecount" v-if="handle > 1 || (handle && handle != count)"
+        :class="{ handle: handle >= count }"
+      >{{ handle }}개 보유</div>
       <div class="child" v-if="recipies && !handle && type != '아이콘'">
         <div class="treeicon"/>
         <PathFinderReqTree
@@ -92,29 +94,62 @@ const c_recipies = computed(() => {
 
 const f_ismakable = id => {
   const item = s_database.value.items[id]
-  if (!item.recipies) return false
+  if (!item?.recipies) return false
   const req = {}
   item.recipies.forEach(recipy => {
     recipy.forEach(e => {
       if (!req[e.item]) req[e.item] = {
         id: e.item,
-        count: 1
+        count: e.count,
+        stack: 1
       }
-      else req[e.item].count++
+      else req[e.item].stack++
     })
   })
   const arr = Object.values(req).reduce((p, c) => {
-    if (c.count < item.recipies.length) p.push({ ...c, sub: true })
+    if (c.stack < item.recipies.length) p.push({ ...c, sub: true })
     else p.push(c)
     return p
   }, [])
   return arr.every(e => {
-    if (p_handle.value.includes(e.id)) return true
+    if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
     else if (e.sub) {
       if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
     }
-    else if (s_database.value.items[e.id].recipies && f_ismakable(e.id)) return true
+    else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
   })
+}
+const f_iswillmakable = id => {
+  const item = s_database.value.items[id]
+  if (!item?.recipies) return false
+  const req = {}
+  item.recipies.forEach(recipy => {
+    recipy.forEach(e => {
+      if (!req[e.item]) req[e.item] = {
+        id: e.item,
+        count: e.count,
+        stack: 1
+      }
+      else req[e.item].stack++
+    })
+  })
+  const arr = Object.values(req).reduce((p, c) => {
+    if (c.stack < item.recipies.length) p.push({ ...c, sub: true })
+    else p.push(c)
+    return p
+  }, [])
+  let counts = 0
+  arr.forEach(e => {
+    if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
+    else if (e.sub) {
+      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+    }
+    else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
+    else {
+      counts += e.count - p_handle.value.filter(h => h == e.id).length
+    }
+  })
+  return counts
 }
 </script>
 
@@ -131,6 +166,9 @@ const f_ismakable = id => {
       .name {
         display: flex;
         align-items: center;
+        &.willmakeable {
+          color: rgb(94, 103, 234);
+        }
         &.makeable {
           color: rgb(173, 255, 47);
         }
@@ -151,6 +189,10 @@ const f_ismakable = id => {
       font-size: 10px;
       margin-bottom: 3px;
       margin-top: -3px;
+      color: rgb(182, 186, 192);
+      &.handle {
+        color: white;
+      }
     }
     .child{
       padding-left: 5px;
