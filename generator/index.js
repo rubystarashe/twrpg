@@ -94,7 +94,7 @@ const mobs = {
   'ssil': '매머드',
   'I0DV': '킹콩',
   'I0BT': '피의 망령',
-  'I0BT': '박쥐 괴인',
+  'I0BT2': '박쥐 괴인',
   'I046': '다크나이트',
   'nspi': '라그나스',
   'blba': '이블 라바',
@@ -300,6 +300,94 @@ items['I0DV'].droprates = [
     group: "I0DV"
   }
 ]
+
+// 박쥐괴인
+// 돌갑주
+items['rhe1'].droprates = [
+  {
+    rate: 25,
+    group: "I0BT2"
+  }
+]
+// 박쥐 날개
+items['rspd'].droprates = [
+  {
+    rate: 25,
+    group: "I0BT2"
+  }
+]
+// 박쥐괴인 & 피의 망령
+// 블러드 오브
+items['I0BR'].droprates = [
+  {
+    rate: 25,
+    group: "I0BT"
+  },
+  {
+    rate: 25,
+    group: "I0BT2"
+  }
+]
+// 망자의 반지
+items['I0BT'].droprates = [
+  {
+    rate: 25,
+    group: "I0BT"
+  },
+  {
+    rate: 25,
+    group: "I0BT2"
+  }
+]
+// 피의 가면
+items['I0C3'].droprates = [
+  {
+    rate: 25,
+    group: "I0BT"
+  },
+  {
+    rate: 25,
+    group: "I0BT2"
+  }
+]
+
+// 봉인된 무기
+// 뇌전의 검 이르베스
+items['I080'].droprates = [
+  {
+    rate: 7.5,
+    group: "lnrn"
+  }
+]
+// 불의 장검 리오레우스
+items['I081'].droprates = [
+  {
+    rate: 7.5,
+    group: "lnrn"
+  }
+]
+// 대지의 봉 벤지아나
+items['I082'].droprates = [
+  {
+    rate: 7.5,
+    group: "lnrn"
+  }
+]
+// 바람의 궁 피레스
+items['I09M'].droprates = [
+  {
+    rate: 7.5,
+    group: "lnrn"
+  }
+]
+// 강철의 탄환 레투스
+items['I0F7'].droprates = [
+  {
+    rate: 7.5,
+    group: "lnrn"
+  }
+]
+
 
 // 조합법
 dropdata.match(regex.recipies).map(e => {

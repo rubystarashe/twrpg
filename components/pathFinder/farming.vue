@@ -12,7 +12,7 @@
         </td>
       </tr>
       <tr class="mob" v-for="({ name, items, id: mobid }) in c_mobs"
-        v-show="Object.keys(items).length"
+        v-show="f_gettofarming(items)"
       >
         <td class="mobmeta">
           <div class="mobmetawrapper">
@@ -203,6 +203,13 @@ const f_compress_items = items => {
   }, {})
   return res
 }
+const f_gettofarming = items => {
+  let count = 0
+  Object.values(items).forEach(e => {
+    count += f_getNeedsCount(e) - f_getHandleCount(e)
+  })
+  return count > 0
+}
 
 const f_getdrops = (item, mob) => {
   return item.droprates.filter(e => e.group == mob)
@@ -281,15 +288,17 @@ const f_getHandleCount2 = id => {
       left: -80px;
       z-index: 10;
       .mobmetawrapper {
-        width: 180px;
+        width: 160px;
         height: 100%;
         box-sizing: border-box;
         padding: 10px;
         display: flex;
         align-items: flex-start;
+        word-break: keep-all;
         .name {
           padding: 10px 20px;
           font-size: 14px;
+          line-height: 20px;
           box-sizing: border-box;
           display: flex;
           align-items: center;

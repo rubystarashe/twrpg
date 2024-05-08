@@ -99,7 +99,8 @@
           </div>
           <div class="iconfarming"
             :class="{ enabled: p_iconfarming, finished: p_icons.includes('I02T') }"
-            @click="!p_icons.includes('I02T') ? f_update_iconfarming(!p_iconfarming) : null"
+            @click="!p_icons.includes('I02T') ? f_update_iconfarming(!p_iconfarming, true) : null"
+            ref="r_iconfarming"
           >
             <div class="target_meta">
               <div class="radio">
@@ -123,7 +124,7 @@
                   <div class="icons">
                     <div v-for="{ id, name, grade } in icons"
                       class="icon"
-                      :class="{ handled: p_icons.find(e => e == id) }"
+                      :class="{ handled: f_iconhandled(id) }"
                       @click.stop="f_select_icon(id)"
                     >{{ name }}</div>
                   </div>
@@ -266,7 +267,8 @@ const f_select_targetIndex = index => {
 }
 const i_f_update_usertdata_icons = inject('app:f_update_usertdata_icons')
 const i_f_update_usertdata_iconfarming = inject('app:f_update_usertdata_iconfarming')
-const f_select_icon = icon => {
+let r_iconfarming = $ref()
+const f_select_icon = async icon => {
   const i = p_icons.value.indexOf(icon)
   let indexes = [ ...p_icons.value ]
   if (i >= 0) indexes.splice(i, 1)
@@ -279,12 +281,34 @@ const f_select_icon = icon => {
       else indexes.push('I02T')
       i_f_update_usertdata_icons(p_account.value, job, indexes)
     })
+  } else if (icon == 'I0MD') {
+    Object.entries(s_userdata.value?.[p_account.value]).forEach(([job, { icons }]) => {
+      let indexes = [ ...icons ]
+      if (i >= 0) indexes.splice(indexes.indexOf('I0MD'), 1)
+      else indexes.push('I0MD')
+      i_f_update_usertdata_icons(p_account.value, job, indexes)
+    })
   } else i_f_update_usertdata_icons(p_account.value, p_job.value, indexes)
   e_refresh()
 }
-const f_update_iconfarming = boolean => {
+const f_update_iconfarming = async (boolean, scrollmove) => {
+  const lastscroll = scroll.y.value
   i_f_update_usertdata_iconfarming(p_account.value, p_job.value, boolean)
   e_refresh()
+
+  await nextTick()
+  r_finder.scrollTo({
+    left: 0,
+    top: lastscroll
+  })
+  setTimeout(() => {
+    if (scroll.y?.value > r_iconfarming.offsetTop && scrollmove) {
+      r_finder.scrollTo({
+        left: 0,
+        top: lastscroll
+      })
+    }
+  })
 }
 
 const icons = [
@@ -605,6 +629,21 @@ const f_iswillmakable = id => {
     }
   })
   return counts
+}
+
+const f_iconhandled = id => {
+  let icons = [ ...p_icons.value ]
+  const getlowericons = ic => {
+    ic.forEach(e => {
+      s_database.value.items[e].recipies?.forEach(r => {
+        const arr = r.map(e => e.item).filter(e => s_database.value.items[e].type =='아이콘')
+        icons = icons.concat(arr)
+        getlowericons(arr)
+      })
+    })
+  }
+  getlowericons(icons)
+  return icons.includes(id)
 }
 </script>
 

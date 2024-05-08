@@ -60,6 +60,15 @@
                   @click="_type_filter = type"
                 >{{ type }}</div>
               </div>
+              <div class="attrs">
+                <div class="attr" v-for="{ name, filters } in attrs">
+                  <div class="attrtype">{{ name }}</div>
+                  <div class="attrfilter" v-for="(filter, attr) in filters"
+                    :class="{ selected: _attr_filters[attr] }"
+                    @click="_attr_filters[attr] ? delete _attr_filters[attr] : _attr_filters[attr] = filter"
+                  >{{ attr }}</div>
+                </div>
+              </div>
               <div class="grades">
                 <div
                   v-for="(grade, index) in grades"
@@ -136,10 +145,59 @@ const m_visible = defineModel('visible')
 const s_database = useState('database')
 
 const grades = ['일반', '델티라마', '넵티노스', '그노시스', '알테이아', '아르카나']
-const _grade_filters = reactive([false, false, false, false, false, true])
+const _grade_filters = reactive([false, false, false, false, true, true])
 
-const types = reactive(['무기', '방어구', '날개', '장신구', '머리보호구'])
-const _type_filter = $ref('무기')
+const types = reactive(['전체', '무기', '방어구', '날개', '장신구', '머리보호구'])
+const _type_filter = $ref('전체')
+
+const attrs = [
+  {
+    name: '스탯',
+    filters: {
+      '힘': [ '힘 +' ],
+      '민첩성': [ '민첩성 +' ],
+      '지능': [ '지능 +' ],
+      '주 스탯': [ '주 스탯 +' ],
+      '모든 스탯': [ '방어력 +' ]
+    }
+  },
+  {
+    name: '공격',
+    filters: {
+      '스킬 데미지': [ '스킬 데미지 +', '스킬 데미지 &' ],
+      '공격력': [ '공격력 +' ],
+      '공격 속도': [ '공격 속도 +' ],
+      '치명타 확률': [ '치명타 확률 +' ],
+      '치명타 배수': [ '치명타 배수 +' ],
+      '지속 데미지': [ '지속 데미지 +' ],
+      '공격 강화': [ '스킬 시전 시 다음 공격을', '거리 이동 시' ],
+      '방어력 감소': [ '방어력 감소' ],
+      '최대 마나': [ 'MP +' ],
+      '속성 효율': [ '속성 효율 ' ]
+    }
+  },
+  {
+    name: '방어',
+    filters: {
+      '최대 체력': [ 'HP +' ],
+      '방어력': [ '방어력 +' ],
+      '피해 감소': [ '받는 데미지 -', '데미지 감소률 ', '데미지 감소율 ' ],
+      '마법 피해 감소': [ '마법 방어력 ' ],
+      '마법 방어': [ '주기 마법 방어' ]
+    }
+  },
+  {
+    name: '보조',
+    filters: {
+      '회복량': [ '회복량 +', '회복량 1' ],
+      '아군 강화': [ '주변 아군' ],
+      '이동 속도': [ '이동 속도 +' ],
+      '일정 주기 강화': [ '초마다' ],
+      '소환': [ ' 소환' ]
+    }
+  }
+]
+const _attr_filters = reactive({})
 
 const c_grade_items = computed(() => {
   return Object.entries(s_database.value.items).filter(([id, item]) => {
@@ -147,7 +205,12 @@ const c_grade_items = computed(() => {
     if (search) {
       const searchstring = (item.name + item.searchstring)?.trim().replace(/ /g, '')
       if (searchstring.indexOf(search) >= 0 && types.find(e => e == item.type)) return true
-    } else if (_grade_filters[item.grade] && item.type == _type_filter) return true
+    } else if (_grade_filters[item.grade] && (item.type == _type_filter || _type_filter == '전체')) {
+      if (!Object.keys(_attr_filters).length) return true
+      else {
+        return Object.values(_attr_filters).some(e => item.description.indexOf(e) >= 0)
+      }
+    }
   }).map(([id, item]) => ({ id, ...item })).sort((a, b) => b.grade - a.grade).reduce((p, c) => {
     if (!p[grades[c.grade]]) p[grades[c.grade]] = {}
     p[grades[c.grade]][c.id] = c
@@ -224,6 +287,13 @@ watch(() => _type_filter, () => {
     top: to,
     left: 0,
     behavior: "smooth"
+  })
+})
+watch(_attr_filters, () => {
+  const to = r_itemlist.offsetTop - _mini_targetlist_size - 100
+  if (scroll.y.value >to) r_finder.scrollTo({
+    top: to,
+    left: 0
   })
 })
 
@@ -432,6 +502,7 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
     display: flex;
     transition-property: filter, opacity;
     transition-duration: .3s;
+    width: 370px;
     &.searching {
       filter: blur(10px);
       pointer-events: none;
@@ -464,6 +535,30 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
         margin: 5px;
         font-size: 18px;
         padding: 5px;
+        cursor: pointer;
+      }
+      .selected {
+        opacity: 1;
+      }
+    }
+    .attrs {
+      display: flex;
+      flex-shrink: 0;
+      flex-direction: column;
+      padding: 10px;
+      box-sizing: border-box;
+      .attrtype {
+        opacity: .5;
+        margin: 5px;
+        font-size: 18px;
+        padding: 5px;
+        padding-bottom: 0px;
+      }
+      .attrfilter {
+        opacity: .5;
+        margin-left: 15px;
+        font-size: 12px;
+        padding: 2.5px;
         cursor: pointer;
       }
       .selected {
