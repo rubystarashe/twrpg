@@ -388,6 +388,21 @@ items['I0F7'].droprates = [
   }
 ]
 
+// 망령의 실
+items['sora'].droprates = [
+  {
+    rate: 5,
+    group: "wcyc"
+  }
+]
+// 스캐럽 본
+items['sor2'].droprates = [
+  {
+    rate: 5,
+    group: "wcyc"
+  }
+]
+
 
 // 조합법
 dropdata.match(regex.recipies).map(e => {

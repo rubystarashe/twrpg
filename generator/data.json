@@ -609,6 +609,10 @@
         {
           "item": "I0AZ",
           "rate": 7.5
+        },
+        {
+          "item": "I0F7",
+          "rate": 7.5
         }
       ],
       "index": 21
@@ -4217,10 +4221,6 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.1,
-          "group": "I0AB"
-        },
-        {
           "rate": 5,
           "group": "wcyc"
         }
@@ -4234,10 +4234,6 @@
       "grade": 1,
       "type": "재료",
       "droprates": [
-        {
-          "rate": 0.1,
-          "group": "sor2"
-        },
         {
           "rate": 5,
           "group": "wcyc"
@@ -14980,7 +14976,13 @@
       "description": "만물은 총알 앞에서 평등하다!\r<br/>∴공격력 +3200\r<br/>∴민첩성 +180\r<br/>∴8초마다 다음 공격을 강철의 탄환으로 강화",
       "searchstring": "- 델티라마 급 무기 (총) -\r",
       "grade": 1,
-      "type": "무기"
+      "type": "무기",
+      "droprates": [
+        {
+          "rate": 7.5,
+          "group": "lnrn"
+        }
+      ]
     },
     "I0F8": {
       "id": "I0F8",

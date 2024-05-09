@@ -22,11 +22,16 @@
         <td class="items" v-for="(_, grade) in c_grids">
           <div class="itemwrapper">
             <div class="itemarea">
-              <div class="item"
+              <!-- <div class="item"
                 v-for="(arr, id) in f_compress_items(items[grade])"
                 v-show="f_getNeedsCount(arr)"
+              > -->
+              <div class="item"
+                v-for="(arr, id) in f_compress_items(items[grade])"
               >
-                <div class="meta">
+                <div class="meta"
+                  :class="{ full: !f_getNeedsCount(arr) }"
+                >
                   <div class="info">
                     <div class="grade" :class="`grade_${s_database.items[id].grade}`"/>
                     <div class="name">
@@ -43,7 +48,6 @@
                   <!-- <div class="count" v-if="f_getHandleCount2(id)"><ruby class="ruby">{{ f_getNeedsCount(arr) }}<span class="unit">개</span><rt>{{ f_getHandleCount2(id) }} 개 보유</rt></ruby></div>
                   <div class="count" v-else>{{ f_getNeedsCount(arr) }}<span class="unit">개</span></div> -->
                   <!-- <div class="count"><ruby class="ruby">{{ f_getNeedsCount(arr) }}<span class="unit">개</span><rt>필요</rt></ruby></div> -->
-                  
                   <div class="count" v-if="f_getHandleCount2(id)"><ruby class="ruby"><span class="needs">{{ f_getHandleCount(arr) }}</span><span class="slash">/</span>{{ f_getHandleCount(arr) + f_getNeedsCount(arr) }}<rt>{{ f_getHandleCount2(id) }} 개 보유중</rt></ruby></div>
                   <div class="count" v-else><span class="needs">{{ f_getHandleCount(arr) }}</span><span class="slash">/</span>{{ f_getHandleCount(arr) + f_getNeedsCount(arr) }}</div>
                 </div>
@@ -103,7 +107,7 @@ const c_mobs = computed(() => {
         recipy.forEach(e => {
           if (!items[e.item]) items[e.item] = {
             id: e.item,
-            count: e.count,
+            count: e.count || 1,
             stack: 1
           }
           else {
@@ -120,7 +124,7 @@ const c_mobs = computed(() => {
         target_tree: tree,
         target_nearest: tree[0],
         target_nearest_grade: tree[0].grade,
-        need_counts: e.count
+        need_counts: e.count || 1
       }))
       if (!recipies[target.grade]) recipies[target.grade] = []
       recipies[target.grade].push({ ...target, recipy_array })
@@ -154,13 +158,18 @@ const c_mobs = computed(() => {
   // })
   mats = mats.sort((a, b) => a.target_nearest_grade - b.target_nearest_grade)
   mats.forEach((e, i) => {
-    if (handlecache[e.id]) {
+    if (handlecache[e.id] > 0) {
       handlecache[e.id]--
       if (e.sub) {
+        if (handlecache[e.sub] > 0) {
+          // console.log(e)
+          e.need_counts--
+        }
+        handlecache[e.id]++
         handlecache[e.sub]--
       }
-      if (!mats[i].handle) e.handle = 1
-      else mats[i].handle++
+      if (!mats[i].handle) e.handle = 0
+      mats[i].handle++
     }
   })
 
@@ -206,7 +215,7 @@ const f_compress_items = items => {
 const f_gettofarming = items => {
   let count = 0
   Object.values(items).forEach(e => {
-    count += f_getNeedsCount(e) - f_getHandleCount(e)
+    count += f_getNeedsCount(e)
   })
   return count > 0
 }
@@ -345,6 +354,9 @@ const f_getHandleCount2 = id => {
           align-items: center;
           justify-content: space-between;
           flex-shrink: 0;
+          &.full {
+            border-color: white;
+          }
           .info {
             display: flex;
             align-items: center;
