@@ -80,14 +80,13 @@ const s_database = useState('database')
 const types = reactive(['무기', '방어구', '날개', '장신구', '머리보호구'])
 const grades = ['일반', '델티라마', '넵티노스', '그노시스', '알테이아', '아르카나']
 
-const c_mobs = computed(() => {
+
+const c_mats = computed(() => {
   const handlecache = p_handle.value.reduce((p, c) => {
     if (!p[c]) p[c] = 1
     else p[c]++
     return p
   }, {})
-  const mobs = { ...s_database.value.mobs }
-  delete mobs['etc']
 
   const targets = []
   Object.values(p_targets.value).forEach(items => {
@@ -165,17 +164,23 @@ const c_mobs = computed(() => {
           // console.log(e)
           e.need_counts--
         }
-        handlecache[e.id]++
-        handlecache[e.sub]--
+        // handlecache[e.id]++
+        // handlecache[e.sub]--
       }
       if (!mats[i].handle) e.handle = 0
       mats[i].handle++
     }
   })
+  return mats
+})
+const c_mobs = computed(() => {
+  
+  const mobs = { ...s_database.value.mobs }
+  delete mobs['etc']
 
   const res = []
   Object.entries(mobs).forEach(([ mobid, { name, drops } ]) => {
-    const items = mats.filter(e => drops.find(d => d.item == e.id))
+    const items = c_mats.value.filter(e => drops.find(d => d.item == e.id))
     res.push({
       id: mobid,
       name,
@@ -229,7 +234,10 @@ const c_width = computed(() => {
 })
 
 const f_getNeedsCount = (arr = []) => {
-  return arr.reduce((p, c) => (p += (c.need_counts - (c.handle || 0)), p), 0)
+  return arr.reduce((p, c) => {
+    p += (c.need_counts - (c.handle || 0))
+    return p
+  }, 0)
 }
 const f_getHandleCount = (arr = []) => {
   return arr.reduce((p, c) => (p += (c.handle || 0), p), 0)
