@@ -14,6 +14,8 @@
       <tr class="mob" v-for="({ name, items, id: mobid }) in c_mobs"
         v-show="f_gettofarming(items)"
       >
+      <!-- <tr class="mob" v-for="({ name, items, id: mobid }) in c_mobs"
+      > -->
         <td class="mobmeta">
           <div class="mobmetawrapper">
             <div class="name">{{ name }}</div>
@@ -30,7 +32,7 @@
                 v-for="(arr, id) in f_compress_items(items[grade])"
               >
                 <div class="meta"
-                  :class="{ full: !f_getNeedsCount(arr) }"
+                  :class="{ full: f_getNeedsCount(arr) <= 0 }"
                 >
                   <div class="info">
                     <div class="grade" :class="`grade_${s_database.items[id].grade}`"/>
@@ -48,8 +50,8 @@
                   <!-- <div class="count" v-if="f_getHandleCount2(id)"><ruby class="ruby">{{ f_getNeedsCount(arr) }}<span class="unit">개</span><rt>{{ f_getHandleCount2(id) }} 개 보유</rt></ruby></div>
                   <div class="count" v-else>{{ f_getNeedsCount(arr) }}<span class="unit">개</span></div> -->
                   <!-- <div class="count"><ruby class="ruby">{{ f_getNeedsCount(arr) }}<span class="unit">개</span><rt>필요</rt></ruby></div> -->
-                  <div class="count" v-if="f_getHandleCount2(id)"><ruby class="ruby"><span class="needs">{{ f_getHandleCount(arr) }}</span><span class="slash">/</span>{{ f_getHandleCount(arr) + f_getNeedsCount(arr) }}<rt>{{ f_getHandleCount2(id) }} 개 보유중</rt></ruby></div>
-                  <div class="count" v-else><span class="needs">{{ f_getHandleCount(arr) }}</span><span class="slash">/</span>{{ f_getHandleCount(arr) + f_getNeedsCount(arr) }}</div>
+                  <div class="count" v-if="f_getHandleCount2(id)"><ruby class="ruby"><span class="needs">{{ f_getHandleCount(arr) }}</span><span class="slash">/</span>{{ (f_getHandleCount(arr) + f_getNeedsCount2(arr)) || f_getHandleCount(arr) }}<rt>{{ f_getHandleCount2(id) }} 개 보유중</rt></ruby></div>
+                  <div class="count" v-else><span class="needs">{{ f_getHandleCount(arr) }}</span><span class="slash">/</span>{{ f_getHandleCount(arr) + f_getNeedsCount2(arr) }}</div>
                 </div>
                 <div class="tree">
                   <PathFinderFarmTree
@@ -99,45 +101,66 @@ const c_mats = computed(() => {
   })
 
   const recipies = {}
+  const targethandlecache = [ ...p_handle.value ]
   const deepc = (target, origintarget, tree) => {
-    if (target.recipies && !p_handle.value.includes(target.id)) {
-      const items = {}
-      target.recipies.forEach(recipy => {
-        recipy.forEach(e => {
-          if (!items[e.item]) items[e.item] = {
-            id: e.item,
-            count: e.count || 1,
-            stack: 1
-          }
-          else {
-            items[e.item].stack++
-          }
+    if (target.recipies) {
+      if (targethandlecache.includes(target.id)) {
+        targethandlecache.splice(targethandlecache.indexOf(target.id), 1)
+      }
+      else {
+        const items = {}
+        target.recipies.forEach(recipy => {
+          recipy.forEach(e => {
+            if (!items[e.item]) items[e.item] = {
+              id: e.item,
+              count: e.count || 1,
+              stack: 1
+            }
+            else {
+              items[e.item].stack++
+            }
+          })
         })
-      })
-      const itemsarr = Object.values(items).map(e => ({ ...e, sub: target.recipies.length > e.stack ? true : false }))
-      const recipy_array = itemsarr.map(e => ({
-        ...s_database.value.items[e.id],
-        sub: e.sub ? itemsarr.find(i => i.sub && e.id != i.id)?.id : null,
-        target: origintarget,
-        target_grade: origintarget.grade,
-        target_tree: tree,
-        target_nearest: tree[0],
-        target_nearest_grade: tree[0].grade,
-        need_counts: e.count || 1
-      }))
-      if (!recipies[target.grade]) recipies[target.grade] = []
-      recipies[target.grade].push({ ...target, recipy_array })
-      if (target.name.indexOf('아이콘') < 0) recipy_array.forEach(e => {
-        deepc(e, origintarget, [ e, ...tree ])
-      })
+        const itemsarr = Object.values(items).map(e => ({ ...e, sub: target.recipies.length > e.stack ? true : false }))
+        const recipy_array = itemsarr.map(e => ({
+          ...s_database.value.items[e.id],
+          sub: e.sub ? itemsarr.find(i => i.sub && e.id != i.id)?.id : null,
+          target: origintarget,
+          target_grade: origintarget.grade,
+          target_tree: tree,
+          target_nearest: tree[0],
+          target_nearest_grade: tree[0].grade,
+          need_counts: e.count || 1
+        }))
+        if (!recipies[target.grade]) recipies[target.grade] = []
+        recipies[target.grade].push({ ...target, recipy_array })
+        // if (target.name.indexOf('아이콘') < 0) recipy_array.forEach(e => {
+        //   deepc(e, origintarget, [ e, ...tree ])
+        // })
+        recipy_array.forEach(e => {
+          if (e.name.indexOf('아이콘') < 0) deepc(e, origintarget, [ e, ...tree ])
+        })
+      }
     }
   }
+  let mats = []
   targets.sort((a, b) => a.grade - b.grade).forEach(item => {
     if (!p_handle.value.find(e => e == item.id)) {
       deepc(item, item, [ item ])
     }
+    if (!item.recipies) {
+      mats.push({
+        ...item,
+        target: item,
+        target_grade: item.grade,
+        target_tree: [],
+        target_nearest: item,
+        target_nearest_grade: item.grade,
+        need_counts: 1,
+        handle: 0
+      })
+    }
   })
-  let mats = []
   Object.entries(recipies).forEach(([ grade, recipy ]) => {
     recipy.forEach(r => {
       r.recipy_array.forEach(e => {
@@ -162,7 +185,13 @@ const c_mats = computed(() => {
       if (e.sub) {
         if (handlecache[e.sub] > 0) {
           // console.log(e)
-          e.need_counts--
+          // e.need_counts--
+          // if (!e.sub_counts) e.sub_counts = 0
+          e.sub_counts++
+          // console.log(e.sub, mats.findIndex(m => m.id == e.sub))
+          mats[mats.findIndex(m => m.id == e.sub)].need_counts--
+        } else {
+          // mats[mats.findIndex(m => m.id == e.sub)].need_counts--
         }
         // handlecache[e.id]++
         // handlecache[e.sub]--
@@ -220,9 +249,9 @@ const f_compress_items = items => {
 const f_gettofarming = items => {
   let count = 0
   Object.values(items).forEach(e => {
-    count += f_getNeedsCount(e)
+    count += f_getNeedsCount2(e)
   })
-  return count > 0
+  return count
 }
 
 const f_getdrops = (item, mob) => {
@@ -236,6 +265,14 @@ const c_width = computed(() => {
 const f_getNeedsCount = (arr = []) => {
   return arr.reduce((p, c) => {
     p += (c.need_counts - (c.handle || 0))
+    // if (c.sub_counts) p -= c.sub_counts
+    return p
+  }, 0)
+}
+const f_getNeedsCount2 = (arr = []) => {
+  return arr.reduce((p, c) => {
+    p += (c.need_counts - (c.handle || 0))
+    if (c.sub_counts) p -= c.sub_counts
     return p
   }, 0)
 }

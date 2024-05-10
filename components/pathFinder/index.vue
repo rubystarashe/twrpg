@@ -188,7 +188,7 @@
                 <div class="mob">{{ s_database.mobs[mob]?.name }}</div>
                 <div class="items">
                   <div class="item" v-for="{ id, name, grade, count } in items"
-                    :class="{ targeted: c_targets[id], noneeds: !c_targets[id] && !f_getUsedby(id) }"
+                    :class="{ targeted: c_targets[id], noneeds: !c_targets[id] && !f_getUsedby(id).counts }"
                   >
                     <div class="itemmeta">
                       <div class="info">
@@ -204,7 +204,7 @@
                       :handle="p_handle"
                     />
                     <div class="margin"/>
-                    <div class="trash" v-if="!c_targets[id] && (!f_getUsedby(id) || f_getUsedby(id).counts < count)">!</div>
+                    <div class="trash" v-if="(!f_getUsedby(id) || f_getUsedby(id).counts < count)">!</div>
                   </div>
                 </div>
               </div>
@@ -415,7 +415,7 @@ const f_getEquips = items => {
     }, {})
   
   const inventory_mats = items.map(e => ({ id: e, ...s_database.value.items[e] }))
-    .filter(e => e.id != 'I0OO' && !c_targets.value[e.id] && ((!types.find(t => e.type == t) && e.type != '재화') || usedby[e.id])).sort((a, b) => b.grade - a.grade)
+    .filter(e => e.id != 'I0OO' && ((!types.find(t => e.type == t) && e.type != '재화') || usedby[e.id])).sort((a, b) => b.grade - a.grade)
     .sort((a, b) => {
       if (!a.droprates?.[0]?.group) return 1
       else if (!b.droprates?.[0]?.group) return -1
@@ -485,22 +485,155 @@ const f_deepcheck = (id, target, handlecache, counts) => {
   })
   return res
 }
+const f_deepcheck2 = (id, target, origintarget, handlecache, counts) => {
+  // if (c_handle.value.find(e => e == target)) return false
+  if (!s_database.value.items[target]?.recipies) return false
+  let res = null
+  s_database.value.items[target].recipies.forEach(recipy => {
+    recipy.forEach(mat => {
+      if (mat.item == id) {
+        res = { target }
+      }
+      if (!handlecache.includes(mat.item)) {
+        const under = f_deepcheck2(id, mat.item, origintarget, handlecache, counts)
+        if (under) {
+          res = { target, under }
+        }
+      } else {
+        if (s_database.value.items[mat.item].type != '아이콘') handlecache.splice(handlecache.indexOf(mat.item), 1)
+      }
+    })
+  })
+  return res
+}
 const f_getUsedby = id => {
   const res = {}
   // const handlecache = c_handle.value.reduce((p, c) => (p[c] = true, p), {})
   const handlecache = [ ...c_handle.value ]
-  Object.keys(c_targets.value).forEach(target => {
-    const counts = {}
-    const req = f_deepcheck(id, target, handlecache, counts)
-    if (req) res[target] = { ...req, counts }
+  c_mats.value.filter(e => e.id == id).forEach(mat => {
+    const req = f_deepcheck2(id, mat.target.id, mat.target.id, handlecache)
+    if (req) res[mat.target.id] = { ...req }
   })
-  let counts = 0
-  Object.values(res).forEach(e => {
-    counts += e.counts[id]
-  })
-  
-  return Object.keys(res).length ? { tree: res, counts } : null
+  return { tree: res, counts: c_mats.value.filter(e => e.id == id).length }
 }
+
+const c_mats = computed(() => {
+  const handlecache = p_handle.value.reduce((p, c) => {
+    if (!p[c]) p[c] = 1
+    else p[c]++
+    return p
+  }, {})
+
+  const targets = []
+  Object.values(c_targets.value).forEach(item => {
+    if (item.type == '아이콘') targets.push({ ...item, type: '기타', grade: 99 })
+    else if (item.type == '곡괭이') targets.push({ ...item, type: '기타', grade: 99 })
+    else if (item.type == '기타') targets.push({ ...item, type: '기타', grade: 99 })
+    else targets.push(item)
+  })
+
+  const recipies = {}
+  const targethandlecache = [ ...p_handle.value ]
+  const deepc = (target, origintarget, tree) => {
+    if (target.recipies) {
+      if (targethandlecache.includes(target.id)) {
+        targethandlecache.splice(targethandlecache.indexOf(target.id), 1)
+      }
+      else {
+        const items = {}
+        target.recipies.forEach(recipy => {
+          recipy.forEach(e => {
+            if (!items[e.item]) items[e.item] = {
+              id: e.item,
+              count: e.count || 1,
+              stack: 1
+            }
+            else {
+              items[e.item].stack++
+            }
+          })
+        })
+        const itemsarr = Object.values(items).map(e => ({ ...e, sub: target.recipies.length > e.stack ? true : false }))
+        const recipy_array = itemsarr.map(e => ({
+          ...s_database.value.items[e.id],
+          sub: e.sub ? itemsarr.find(i => i.sub && e.id != i.id)?.id : null,
+          target: origintarget,
+          target_grade: origintarget.grade,
+          target_tree: tree,
+          target_nearest: tree[0],
+          target_nearest_grade: tree[0].grade,
+          need_counts: e.count || 1
+        }))
+        if (!recipies[target.grade]) recipies[target.grade] = []
+        recipies[target.grade].push({ ...target, recipy_array })
+        // if (target.name.indexOf('아이콘') < 0) recipy_array.forEach(e => {
+        //   deepc(e, origintarget, [ e, ...tree ])
+        // })
+        recipy_array.forEach(e => {
+          if (e.name.indexOf('아이콘') < 0) deepc(e, origintarget, [ e, ...tree ])
+        })
+      }
+    }
+  }
+  let mats = []
+  targets.sort((a, b) => a.grade - b.grade).forEach(item => {
+    if (!p_handle.value.find(e => e == item.id)) {
+      deepc(item, item, [ item ])
+    }
+    if (!item.recipies) {
+      mats.push({
+        ...item,
+        target: item,
+        target_grade: item.grade,
+        target_tree: [],
+        target_nearest: item,
+        target_nearest_grade: item.grade,
+        need_counts: 1,
+        handle: 0
+      })
+    }
+  })
+  Object.entries(recipies).forEach(([ grade, recipy ]) => {
+    recipy.forEach(r => {
+      r.recipy_array.forEach(e => {
+        mats.push({ ...e, target_grade: grade })
+      })
+    })
+  })
+  // mats = mats.sort((a, b) => a.target_nearest_grade - b.target_nearest_grade).filter(e => {
+  //   if (handlecache[e.id]) {
+  //     handlecache[e.id]--
+  //     if (e.sub) {
+  //       handlecache[e.sub]--
+  //     }
+  //   } else {
+  //     return true
+  //   }
+  // })
+  mats = mats.sort((a, b) => a.target_nearest_grade - b.target_nearest_grade)
+  mats.forEach((e, i) => {
+    if (handlecache[e.id] > 0) {
+      handlecache[e.id]--
+      if (e.sub) {
+        if (handlecache[e.sub] > 0) {
+          // console.log(e)
+          // e.need_counts--
+          // if (!e.sub_counts) e.sub_counts = 0
+          e.sub_counts++
+          // console.log(e.sub, mats.findIndex(m => m.id == e.sub))
+          mats[mats.findIndex(m => m.id == e.sub)].need_counts--
+        } else {
+          // mats[mats.findIndex(m => m.id == e.sub)].need_counts--
+        }
+        // handlecache[e.id]++
+        // handlecache[e.sub]--
+      }
+      if (!mats[i].handle) e.handle = 0
+      mats[i].handle++
+    }
+  })
+  return mats
+})
 
 const f_getScore = items => {
   return items.reduce((p, c) => p += c.grade, 0)

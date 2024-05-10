@@ -1,6 +1,7 @@
 <template>
   <div class="farm_tree">
-    <div class="name" :class="{ willmakeable: c_makeable.willmakeable, makeable: c_makeable.makeable && !p_parentnotready }">
+    <!-- <div class="name" :class="{ willmakeable: c_makeable.willmakeable, makeable: c_makeable.makeable && !p_parentnotready }"> -->
+    <div class="name" :class="{ willmakeable: p_isStart ? f_iswillmakable(p_tree[0]?.id) == 1 : c_makeable.willmakeable, makeable: c_makeable.makeable && !p_parentnotready }">
       {{ p_tree[0]?.name }}
       <span class="target" v-if="p_tree.length == 1">목표</span>
       <span class="sub" v-if="sub"><ruby>{{ s_database.items[sub].name }}<rt>교차재료</rt></ruby></span>
@@ -54,8 +55,40 @@ const f_ismakable = id => {
     else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
   })
 }
+const f_iswillmakable = id => {
+  const item = s_database.value.items[id]
+  if (!item?.recipies) return false
+  const req = {}
+  item.recipies.forEach(recipy => {
+    recipy.forEach(e => {
+      if (!req[e.item]) req[e.item] = {
+        id: e.item,
+        count: e.count,
+        stack: 1
+      }
+      else req[e.item].stack++
+    })
+  })
+  const arr = Object.values(req).reduce((p, c) => {
+    if (c.stack < item.recipies.length) p.push({ ...c, sub: true })
+    else p.push(c)
+    return p
+  }, [])
+  let counts = 0
+  arr.forEach(e => {
+    if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
+    else if (e.sub) {
+      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+    }
+    else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
+    else {
+      counts += e.count - p_handle.value.filter(h => h == e.id).length
+    }
+  })
+  return counts
+}
 const c_makeable = computed(() => {
-  const items = Object.values(p_tree.value?.[0]?.recipies.reduce((p, c) => {
+  const items = Object.values(p_tree.value?.[0]?.recipies?.reduce((p, c) => {
     c.forEach(({ item, count }) => {
       if (!p[item]) p[item] = {
         id: item,
@@ -72,6 +105,7 @@ const c_makeable = computed(() => {
     delete e.stack
     return e
   })
+  if (!items) return {}
   const makeable = items.every(e => {
     if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
     else {

@@ -93,6 +93,20 @@
       ],
       "index": 5
     },
+    "polabear": {
+      "name": "자이언트 폴라베어",
+      "drops": [
+        {
+          "item": "rnsp",
+          "rate": 40
+        },
+        {
+          "item": "I08O",
+          "rate": 40
+        }
+      ],
+      "index": 6
+    },
     "ssil": {
       "name": "매머드",
       "drops": [
@@ -109,7 +123,7 @@
           "rate": 30
         }
       ],
-      "index": 6
+      "index": 7
     },
     "I0DV": {
       "name": "킹콩",
@@ -127,7 +141,7 @@
           "rate": 30
         }
       ],
-      "index": 7
+      "index": 8
     },
     "I0BT": {
       "name": "피의 망령",
@@ -161,7 +175,7 @@
           "rate": 25
         }
       ],
-      "index": 8
+      "index": 9
     },
     "I0BT2": {
       "name": "박쥐 괴인",
@@ -187,11 +201,15 @@
           "rate": 25
         }
       ],
-      "index": 9
+      "index": 10
     },
     "I046": {
       "name": "다크나이트",
       "drops": [
+        {
+          "item": "sor1",
+          "rate": 25
+        },
         {
           "item": "I040",
           "rate": 1
@@ -205,7 +223,7 @@
           "rate": 1
         }
       ],
-      "index": 10
+      "index": 11
     },
     "nspi": {
       "name": "라그나스",
@@ -239,7 +257,7 @@
           "rate": 0.75
         }
       ],
-      "index": 11
+      "index": 12
     },
     "blba": {
       "name": "이블 라바",
@@ -265,7 +283,7 @@
           "rate": 25
         }
       ],
-      "index": 12
+      "index": 13
     },
     "gvsm": {
       "name": "촉수 지배자",
@@ -303,7 +321,7 @@
           "rate": 0.75
         }
       ],
-      "index": 13
+      "index": 14
     },
     "I0OV": {
       "name": "바다의 수호자",
@@ -325,7 +343,7 @@
           "rate": 25
         }
       ],
-      "index": 14
+      "index": 15
     },
     "dtsb": {
       "name": "자이언트 골렘",
@@ -361,36 +379,6 @@
         {
           "item": "I0G7",
           "rate": 0.75
-        }
-      ],
-      "index": 15
-    },
-    "wcyc": {
-      "name": "매드클라운",
-      "drops": [
-        {
-          "item": "sora",
-          "rate": 5
-        },
-        {
-          "item": "sor2",
-          "rate": 5
-        },
-        {
-          "item": "soul",
-          "rate": 5
-        },
-        {
-          "item": "ram1",
-          "rate": 5
-        },
-        {
-          "item": "wcyc",
-          "rate": 0.005
-        },
-        {
-          "item": "I0GA",
-          "rate": 0.25
         }
       ],
       "index": 16
@@ -909,6 +897,36 @@
       ],
       "index": 29
     },
+    "wcyc": {
+      "name": "매드클라운",
+      "drops": [
+        {
+          "item": "sora",
+          "rate": 5
+        },
+        {
+          "item": "sor2",
+          "rate": 5
+        },
+        {
+          "item": "soul",
+          "rate": 5
+        },
+        {
+          "item": "ram1",
+          "rate": 5
+        },
+        {
+          "item": "wcyc",
+          "rate": 0.005
+        },
+        {
+          "item": "I0GA",
+          "rate": 0.25
+        }
+      ],
+      "index": 30
+    },
     "ccmd": {
       "name": "스피릿 비스트",
       "drops": [
@@ -941,7 +959,7 @@
           "rate": 5
         }
       ],
-      "index": 30
+      "index": 31
     },
     "rugt": {
       "name": "커럽터 렉터스",
@@ -987,7 +1005,7 @@
           "rate": 3.75
         }
       ],
-      "index": 31
+      "index": 32
     },
     "shdt": {
       "name": "플레임 나이트메어",
@@ -1025,7 +1043,7 @@
           "rate": 5
         }
       ],
-      "index": 32
+      "index": 33
     },
     "wshs": {
       "name": "터틀 로드",
@@ -1067,7 +1085,7 @@
           "rate": 5
         }
       ],
-      "index": 33
+      "index": 34
     },
     "rre1": {
       "name": "본 드래곤",
@@ -1106,7 +1124,7 @@
           "rate": 0.5
         }
       ],
-      "index": 34
+      "index": 35
     },
     "fgrg": {
       "name": "해골왕 데스페리아",
@@ -1165,7 +1183,7 @@
           "rate": 0.5
         }
       ],
-      "index": 35
+      "index": 36
     },
     "pomn": {
       "name": "좀비 로드",
@@ -1209,7 +1227,7 @@
           "rate": 0.6
         }
       ],
-      "index": 36
+      "index": 37
     },
     "pres": {
       "name": "에인션트 엔트",
@@ -1248,7 +1266,7 @@
           "rate": 0.6
         }
       ],
-      "index": 37
+      "index": 38
     },
     "sneg": {
       "name": "주천사 사미엘",
@@ -1282,7 +1300,7 @@
           "rate": 0.7
         }
       ],
-      "index": 38
+      "index": 39
     },
     "shar": {
       "name": "암흑룡 이르베르트",
@@ -1326,7 +1344,7 @@
           "rate": 0.75
         }
       ],
-      "index": 39
+      "index": 40
     },
     "infs": {
       "name": "데스 핀드",
@@ -1380,7 +1398,7 @@
           "wishrate": 0.33
         }
       ],
-      "index": 40
+      "index": 41
     },
     "I0P0": {
       "name": "뇌신 발토라",
@@ -1419,7 +1437,7 @@
           "rate": 0.005
         }
       ],
-      "index": 41
+      "index": 42
     },
     "I0P1": {
       "name": "화신 이프리트",
@@ -1458,7 +1476,7 @@
           "rate": 0.005
         }
       ],
-      "index": 42
+      "index": 43
     },
     "I0P2": {
       "name": "해신 네레이드",
@@ -1497,7 +1515,7 @@
           "rate": 0.005
         }
       ],
-      "index": 43
+      "index": 44
     },
     "I0P3": {
       "name": "지하군주 아가레스",
@@ -1536,7 +1554,7 @@
           "rate": 0.005
         }
       ],
-      "index": 44
+      "index": 45
     },
     "I0R6": {
       "name": "공작 라자루스",
@@ -1566,7 +1584,7 @@
           "rate": 0.01
         }
       ],
-      "index": 45
+      "index": 46
     },
     "I0R7": {
       "name": "지신 가이아",
@@ -1596,7 +1614,7 @@
           "rate": 0.01
         }
       ],
-      "index": 46
+      "index": 47
     },
     "I0GH": {
       "name": "고대 마도 기계",
@@ -1622,7 +1640,7 @@
           "rate": 0.15
         }
       ],
-      "index": 47
+      "index": 48
     },
     "I0QE": {
       "name": "영혼수확자 스티릭스",
@@ -1652,7 +1670,7 @@
           "rate": 0.01
         }
       ],
-      "index": 48
+      "index": 49
     }
   },
   "items": {
@@ -4109,7 +4127,8 @@
       "type": "날개",
       "droprates": [
         {
-          "rate": 40
+          "rate": 40,
+          "group": "polabear"
         }
       ]
     },
@@ -4122,7 +4141,8 @@
       "type": "머리보호구",
       "droprates": [
         {
-          "rate": 25
+          "rate": 25,
+          "group": "I046"
         }
       ]
     },
@@ -10811,7 +10831,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 40
+          "rate": 40,
+          "group": "polabear"
         }
       ]
     },

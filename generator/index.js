@@ -91,6 +91,7 @@ const mobs = {
   'I0Q3': '자이언트 터틀',
   'ciri': '킹크랩',
   'I0DT': '바다코끼리',
+  'polabear': '자이언트 폴라베어',
   'ssil': '매머드',
   'I0DV': '킹콩',
   'I0BT': '피의 망령',
@@ -101,7 +102,6 @@ const mobs = {
   'gvsm': '촉수 지배자',
   'I0OV': '바다의 수호자',
   'dtsb': '자이언트 골렘',
-  'wcyc': '매드클라운',
   'envl': '마나 에인션트',
   'oven': '하이드라',
   'shen': '왈라키아 백작',
@@ -115,6 +115,7 @@ const mobs = {
   'stre': '거미 여왕 일셰나',
   'tst2': '서리거미 제왕',
   'wswd': '마왕 베리엘',
+  'wcyc': '매드클라운',
   'ccmd': '스피릿 비스트',
   'rugt': '커럽터 렉터스',
   'shdt': '플레임 나이트메어',
@@ -300,6 +301,20 @@ items['I0DV'].droprates = [
     group: "I0DV"
   }
 ]
+// 곰가죽 망토
+items['rnsp'].droprates = [
+  {
+    rate: 40,
+    group: "polabear"
+  }
+]
+// 따듯한 털가죽
+items['I08O'].droprates = [
+  {
+    rate: 40,
+    group: "polabear"
+  }
+]
 
 // 박쥐괴인
 // 돌갑주
@@ -400,6 +415,14 @@ items['sor2'].droprates = [
   {
     rate: 5,
     group: "wcyc"
+  }
+]
+
+// 망자의 투구
+items['sor1'].droprates = [
+  {
+    rate: 25,
+    group: 'I046'
   }
 ]
 
