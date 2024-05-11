@@ -14,7 +14,7 @@
           @mouseover.stop="s_f_setFloatingData(id)"
           @mouseleave.stop="s_f_setFloatingData()"  
         
-        ><span class="mat" v-if="p_mat == id">*</span>{{f_iswillmakable(id)}} {{ name }}</div>
+        ><span class="mat" v-if="p_mat == id">*</span>{{ name }}</div>
         <div class="count" v-if="count > 1">{{ count }}개</div>
       </div>
       <div class="handlecount" v-if="handle > 1 || (handle && handle != count)"

@@ -79,10 +79,16 @@ const f_iswillmakable = id => {
     return p
   }, [])
   let counts = 0
+  let subcache = 0
   arr.forEach(e => {
     if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
     else if (e.sub) {
-      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) {
+        return true
+      } if (!subcache) {
+        subcache = 1
+        counts++
+      }
     }
     else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
     else {

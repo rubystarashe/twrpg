@@ -65,6 +65,12 @@ const c_position = computed(() => {
     delete res.bottom
     res.top = '40px'
   }
+
+  if (res.right && w_width - mouse_x + width > w_width - 50) {
+    delete res.right
+    res.left = '0px'
+  }
+
   return res
 })
 
@@ -201,9 +207,9 @@ const f_targetgearlist = (id) => {
     box-sizing: border-box;
     padding: 10px;
     border-radius: 7px;
-    display: flex;
     height: 100%;
     .meta {
+      flex-shrink: 0;
       .grade {
         font-size: 14px;
         color: gray;
@@ -241,9 +247,11 @@ const f_targetgearlist = (id) => {
       .detail {
         display: flex;
         .tree {
+          flex-shrink: 0;
           margin: 5px;
         }
         .description {
+          flex-shrink: 0;
           max-width: 300px;
           margin: 5px;
           margin-left: 20px;
@@ -264,12 +272,14 @@ const f_targetgearlist = (id) => {
     .targets {
       display: flex;
       .targetarea {
+        flex-shrink: 0;
         .targettitle {
           font-size: 16px;
         }
         .targetlist {
           display: flex;
           .target {
+            flex-shrink: 0;
             margin: 5px;
             .name {
               font-size: 14px;
