@@ -34,6 +34,13 @@
         v-model:visible="_itemFinder_meta.visible"
       />
     </div>
+    <FloatingInfo
+      :handle="_pathFinder_meta.handle"
+      :icons="_pathFinder_meta.icons"
+      :targets="_pathFinder_meta.targets"
+      :targetIndexes="_pathFinder_meta.targetIndexes"
+      :iconfarming="_pathFinder_meta.iconfarming"
+    />
   </div>
 </template>
 

@@ -1,20 +1,32 @@
 <template>
   <div class="req_tree">
-    <div class="item" v-for="{ id, name, grade, type, sub, count, handle, recipies } in c_recipies">
+    <div class="item" v-for="{ id, name, grade, type, sub, count, handle, recipies } in c_recipies"
+    >
       <div class="card">
         <!-- <div>{{ grade }}</div> -->
         <div class="sub" v-if="sub">선택</div>
-        <div class="name" :class="{ handle: handle >= count, willmakeable: f_iswillmakable(id) == 1, makeable: f_ismakable(id) }">{{ name }}</div>
+        <div class="name"
+          :class="{
+            handle: handle >= count,
+            willmakeable: f_iswillmakable(id) == 1,
+            makeable: f_ismakable(id)
+          }"
+          @mouseover.stop="s_f_setFloatingData(id)"
+          @mouseleave.stop="s_f_setFloatingData()"  
+        
+        ><span class="mat" v-if="p_mat == id">*</span>{{f_iswillmakable(id)}} {{ name }}</div>
         <div class="count" v-if="count > 1">{{ count }}개</div>
       </div>
       <div class="handlecount" v-if="handle > 1 || (handle && handle != count)"
         :class="{ handle: handle >= count }"
       >{{ handle }}개 보유</div>
-      <div class="child" v-if="recipies && !handle && type != '아이콘'">
+      <div class="child" v-if="recipies && !handle && (p_iconview || type != '아이콘')">
         <div class="treeicon"/>
         <PathFinderReqTree
           :target="id"
           :handle="p_handle"
+          :iconview="p_iconview"
+          :mat="p_mat"
         />
       </div>
     </div>
@@ -22,8 +34,11 @@
 </template>
 
 <script setup>
+const s_f_setFloatingData = useState('floatingInfo:f_setData')
 const p_target = defineProp('target')
 const p_handle = defineProp('handle')
+const p_mat = defineProp('mat')
+const p_iconview = defineProp('iconview', { default: false })
 
 const s_database = useState('database')
 
@@ -139,10 +154,16 @@ const f_iswillmakable = id => {
     return p
   }, [])
   let counts = 0
+  let subcache = 0
   arr.forEach(e => {
     if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
     else if (e.sub) {
-      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) {
+        return true
+      } if (!subcache) {
+        subcache = 1
+        counts++
+      }
     }
     else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
     else {
@@ -166,6 +187,12 @@ const f_iswillmakable = id => {
       .name {
         display: flex;
         align-items: center;
+        .mat {
+          font-size: 24px;
+          line-height: 20px;
+          margin-right: 3px;
+          margin-top: 7px;
+        }
         &.willmakeable {
           color: rgb(94, 103, 234);
         }

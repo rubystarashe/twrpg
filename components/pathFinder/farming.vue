@@ -33,6 +33,8 @@
               >
                 <div class="meta"
                   :class="{ full: f_getNeedsCount(arr) <= 0 }"
+                  @mouseover.stop="s_f_setFloatingData(id)"
+                  @mouseleave.stop="s_f_setFloatingData()"
                 >
                   <div class="info">
                     <div class="grade" :class="`grade_${s_database.items[id].grade}`"/>
@@ -73,6 +75,7 @@
 </template>
 
 <script setup>
+const s_f_setFloatingData = useState('floatingInfo:f_setData')
 const p_handle = defineProp('handle')
 const p_targets = defineProp('targets')
 const p_float = defineProp('float')
@@ -214,8 +217,9 @@ const c_mobs = computed(() => {
       id: mobid,
       name,
       items: items.reduce((p, c) => {
-        if (!p[c.target_nearest_grade]) p[c.target_nearest_grade] = []
-        p[c.target_nearest_grade].push(c)
+        const grade = c.target.type == '기타' ? 99 : c.target_nearest_grade
+        if (!p[grade]) p[grade] = []
+        p[grade].push(c)
         return p
       }, {})
     })

@@ -1,7 +1,10 @@
 <template>
-  <div class="farm_tree">
+  <div class="farm_tree" v-if="p_tree[0]">
     <!-- <div class="name" :class="{ willmakeable: c_makeable.willmakeable, makeable: c_makeable.makeable && !p_parentnotready }"> -->
-    <div class="name" :class="{ willmakeable: p_isStart ? f_iswillmakable(p_tree[0]?.id) == 1 : c_makeable.willmakeable, makeable: c_makeable.makeable && !p_parentnotready }">
+    <div class="name" :class="{ willmakeable: p_isStart ? f_iswillmakable(p_tree[0]?.id) == 1 : c_makeable.willmakeable, makeable: c_makeable.makeable && !p_parentnotready }"
+      @mouseover.stop="s_f_setFloatingData(p_tree[0]?.id)"
+      @mouseleave.stop="s_f_setFloatingData()"
+    >
       {{ p_tree[0]?.name }}
       <span class="target" v-if="p_tree.length == 1">목표</span>
       <span class="sub" v-if="sub"><ruby>{{ s_database.items[sub].name }}<rt>교차재료</rt></ruby></span>
@@ -19,6 +22,7 @@
 </template>
 
 <script setup>
+const s_f_setFloatingData = useState('floatingInfo:f_setData')
 const s_database = useState('database')
 
 const p_tree = defineProp('tree')

@@ -56,8 +56,10 @@
             <div class="geargroup" v-for="(items, type) in f_getEquips(p_handle).inventory_gears">
               <div class="type">{{ type }}</div>
               <div class="gears">
-                <div class="gear" v-for="{ name, grade, id } in items"
+                <div class="gear" v-for="({ name, grade, id }, i) in items"
                   :class="{ targeted: c_targets[id], equiped: f_getEquips(p_handle).equips.find(e => e.id == id) }"
+                  @mouseover="s_f_setFloatingData(id)"
+                  @mouseleave="s_f_setFloatingData()"
                 >
                   <div class="grade" :class="`grade_${grade}`"/>
                   <div class="name">{{ name }}</div>
@@ -83,7 +85,10 @@
                 </div>
               </div>
               <div class="items">
-                <div class="item" v-for="item in f_sort_items(items)">
+                <div class="item" v-for="item in f_sort_items(items)"
+                  @mouseover="s_f_setFloatingData(item)"
+                  @mouseleave="s_f_setFloatingData()"
+                >
                   <div class="grade" :class="`grade_${s_database.items[item].grade}`"/>
                   <div class="item_meta">
                     <div class="type">{{ s_database.items[item].type }}</div>
@@ -163,7 +168,10 @@
                     makeable: f_ismakable(id)
                   }"
                 >
-                  <div class="itemmeta">
+                  <div class="itemmeta"
+                    @mouseover.stop="s_f_setFloatingData(id)"
+                    @mouseleave.stop="s_f_setFloatingData()"
+                  >
                     <div class="grade" :class="`grade_${grade}`"/>
                     <div class="name">{{ name }}</div>
                   </div>
@@ -188,9 +196,12 @@
                 <div class="mob">{{ s_database.mobs[mob]?.name }}</div>
                 <div class="items">
                   <div class="item" v-for="{ id, name, grade, count } in items"
-                    :class="{ targeted: c_targets[id], noneeds: !c_targets[id] && !f_getUsedby(id).counts }"
+                    :class="{ targeted: c_targets[id], noneeds: !c_targets[id] && (!f_getUsedby(id).counts || !f_getUsedby(id)?.tree) }"
                   >
-                    <div class="itemmeta">
+                    <div class="itemmeta"
+                      @mouseover.stop="s_f_setFloatingData(id)"
+                      @mouseleave.stop="s_f_setFloatingData()"
+                    >
                       <div class="info">
                         <div class="grade" :class="`grade_${grade}`"/>
                         <div class="name">{{ name }}</div>
@@ -204,7 +215,7 @@
                       :handle="p_handle"
                     />
                     <div class="margin"/>
-                    <div class="trash" v-if="(!f_getUsedby(id) || f_getUsedby(id).counts < count)">!</div>
+                    <div class="trash" v-if="(!f_getUsedby(id) || f_getUsedby(id).counts < count) || !f_getUsedby(id)?.tree">!</div>
                   </div>
                 </div>
               </div>
@@ -511,14 +522,15 @@ const f_getUsedby = id => {
   // const handlecache = c_handle.value.reduce((p, c) => (p[c] = true, p), {})
   const handlecache = [ ...c_handle.value ]
   c_mats.value.filter(e => e.id == id).forEach(mat => {
-    const req = f_deepcheck2(id, mat.target.id, mat.target.id, handlecache)
-    if (req) res[mat.target.id] = { ...req }
+    const r = ([ ...mat.target_tree ]).reverse()
+    // console.log(mat.target_tree[0])
+    res[mat.target_nearest.id] = r
   })
-  return { tree: res, counts: c_mats.value.filter(e => e.id == id).length }
+  return { tree: Object.keys(res).length ? res : null, counts: c_mats.value.filter(e => e.id == id).length }
 }
 
 const c_mats = computed(() => {
-  const handlecache = p_handle.value.reduce((p, c) => {
+  const handlecache = c_handle.value.reduce((p, c) => {
     if (!p[c]) p[c] = 1
     else p[c]++
     return p
@@ -533,11 +545,11 @@ const c_mats = computed(() => {
   })
 
   const recipies = {}
-  const targethandlecache = [ ...p_handle.value ]
+  const targethandlecache = [ ...c_handle.value ]
   const deepc = (target, origintarget, tree) => {
     if (target.recipies) {
       if (targethandlecache.includes(target.id)) {
-        targethandlecache.splice(targethandlecache.indexOf(target.id), 1)
+        if (origintarget.name.indexOf('아이콘') < 0) targethandlecache.splice(targethandlecache.indexOf(target.id), 1)
       }
       else {
         const items = {}
@@ -570,14 +582,14 @@ const c_mats = computed(() => {
         //   deepc(e, origintarget, [ e, ...tree ])
         // })
         recipy_array.forEach(e => {
-          if (e.name.indexOf('아이콘') < 0) deepc(e, origintarget, [ e, ...tree ])
+          deepc(e, origintarget, [ e, ...tree ])
         })
       }
     }
   }
   let mats = []
   targets.sort((a, b) => a.grade - b.grade).forEach(item => {
-    if (!p_handle.value.find(e => e == item.id)) {
+    if (!c_handle.value.find(e => e == item.id)) {
       deepc(item, item, [ item ])
     }
     if (!item.recipies) {
@@ -724,9 +736,9 @@ const f_ismakable = id => {
     return p
   }, [])
   return arr.every(e => {
-    if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
+    if (c_handle.value.filter(h => h == e.id).length >= e.count) return true
     else if (e.sub) {
-      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+      if (arr.some(a => a.sub && c_handle.value.includes(a.id))) return true
     }
     else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
   })
@@ -752,13 +764,13 @@ const f_iswillmakable = id => {
   }, [])
   let counts = 0
   arr.forEach(e => {
-    if (p_handle.value.filter(h => h == e.id).length >= e.count) return true
+    if (c_handle.value.filter(h => h == e.id).length >= e.count) return true
     else if (e.sub) {
-      if (arr.some(a => a.sub && p_handle.value.includes(a.id))) return true
+      if (arr.some(a => a.sub && c_handle.value.includes(a.id))) return true
     }
     else if (s_database.value.items[e.id]?.recipies && f_ismakable(e.id)) return true
     else {
-      counts += e.count - p_handle.value.filter(h => h == e.id).length
+      counts += e.count - c_handle.value.filter(h => h == e.id).length
     }
   })
   return counts
@@ -778,6 +790,8 @@ const f_iconhandled = id => {
   getlowericons(icons)
   return icons.includes(id)
 }
+
+const s_f_setFloatingData = useState('floatingInfo:f_setData')
 </script>
 
 <style lang="scss" scoped>

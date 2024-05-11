@@ -1,19 +1,22 @@
 <template>
-<div class="mat_tree">
+<div class="mat_tree" v-if="p_tree[0]">
   <div class="name"
-    :class="{ usedby: !p_tree.under, willmakeable: f_iswillmakable(p_tree.target) == 1, makable: f_ismakable(p_tree.target) }"
-  ><span v-if="p_isTarget" class="target">목표</span>{{ s_database.items[p_tree.target].name }}<span v-if="!p_tree.under" class="mat">재료</span></div>
-  <div class="child" v-if="p_tree.under">
+    :class="{ usedby: !p_tree[1], willmakeable: f_iswillmakable(p_tree[0].id) == 1, makable: f_ismakable(p_tree[0].id) }"
+    @mouseover.stop="s_f_setFloatingData(p_tree[0].id)"
+    @mouseleave.stop="s_f_setFloatingData()"
+  ><span v-if="p_isTarget" class="target">목표</span>{{ p_tree[0].name }}<span v-if="!p_tree.slice(1).length" class="mat">재료</span></div>
+  <div class="child" v-if="p_tree.slice(1).length">
     <div class="treeicon"/>
     <PathFinderMatTree
-      :tree="p_tree.under"
-      :handle="[ ...p_handle, p_tree.target ]"
+      :tree="p_tree.slice(1)"
+      :handle="p_handle"
     />
   </div>
 </div>
 </template>
 
 <script setup>
+const s_f_setFloatingData = useState('floatingInfo:f_setData')
 const p_tree = defineProp('tree')
 const p_isTarget = defineProp('isTarget')
 const p_handle = defineProp('handle')
