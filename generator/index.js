@@ -439,7 +439,7 @@ dropdata.match(regex.recipies).map(e => {
 }).forEach(e => {
   if (items[e.id]) {
     if (!items[e.id].recipies) items[e.id].recipies = []
-    items[e.id].recipies.push(e.materials)
+    items[e.id].recipies.push(e.materials.sort((a, b) => items[a.item].recipies ? 1 : -1))
   }
 })
 

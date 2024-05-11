@@ -208,7 +208,9 @@ const f_targetgearlist = (id) => {
     padding: 10px;
     border-radius: 7px;
     height: 100%;
+    display: flex;
     .meta {
+      flex-shrink: 0;
       flex-shrink: 0;
       .grade {
         font-size: 14px;
@@ -271,6 +273,7 @@ const f_targetgearlist = (id) => {
     }
     .targets {
       display: flex;
+      flex-shrink: 0;
       .targetarea {
         flex-shrink: 0;
         .targettitle {

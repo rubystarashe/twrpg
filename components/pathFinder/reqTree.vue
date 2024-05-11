@@ -68,9 +68,9 @@ const c_recipies = computed(() => {
     delete e.stack
     return e
   })
-  .sort((a, b) => a.recipies ? 1 : -1)
   .sort((a, b) => a.sub ? 1 : -1)
   .sort((a, b) => b.grade - a.grade)
+  .sort((a, b) => a.recipies ? 1 : -1)
 })
 
 // const c_makeable = computed(() => {
