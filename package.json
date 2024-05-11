@@ -15,6 +15,9 @@
   "type": "module",
   "author": "rubystarashe",
   "license": "ISC",
+  "dependencies": {
+    "electron-updater": "^6.1.8"
+  },
   "devDependencies": {
     "@voces/wc3maptranslator": "^4.0.3",
     "@vue-macros/nuxt": "^1.9.30",
@@ -29,6 +32,7 @@
   },
   "build": {
     "appId": "com.example.twrpg_helper",
+    "artifactName": "twrpg_helper-${version}.${ext}",
     "productName": "더월드 도우미",
     "files": [
       "!.nuxt/**",

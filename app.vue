@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" v-if="!_updating">
     <div class="titlebar">
       <div class="title">더월드 도우미 - 맵버전 {{ version }}</div>
       <WindowControl/>
@@ -42,6 +42,9 @@
       :iconfarming="_pathFinder_meta.iconfarming"
     />
   </div>
+  <Update v-else
+    :progress="_update_progress"
+  />
 </template>
 
 <script setup>
@@ -224,6 +227,19 @@ const f_reset_targets = (account, job, index) => {
 
 let _savedir = $ref()
 ipcRenderer.open('savedir', v => _savedir = v)
+
+let _updating = $ref(false)
+let _update_progress = $ref()
+ipcRenderer.on('checking-for-update', v => console.log(v))
+ipcRenderer.on('update-available', v => {
+  _updating = true
+})
+ipcRenderer.on('update-not-available', v => console.log(v))
+ipcRenderer.on('download-progress', v => {
+  _updateing = true
+  _update_progress = v
+})
+ipcRenderer.on('update-error', v => console.log(v))
 </script>
 
 

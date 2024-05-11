@@ -1,4 +1,6 @@
-import { app, BrowserWindow, protocol, net, ipcMain } from 'electron'
+import { app, BrowserWindow, protocol, net, ipcMain, Notification } from 'electron'
+import pkg from 'electron-updater'
+const { autoUpdater } = pkg
 import path from 'path'
 import fs from 'fs'
 import os from 'os'
@@ -99,8 +101,31 @@ const createMainWindow = () => {
   })
 }
 
+autoUpdater.on('checking-for-update', () => {
+  windows.main.webContents.send('checking-for-update', true)
+});
+autoUpdater.on('update-available', info => {
+  windows.main.webContents.send('update-available', info)
+});
+autoUpdater.on('update-not-available', info => {
+  windows.main.webContents.send('update-not-available', info)
+});
+autoUpdater.on('error', err => {
+  windows.main.webContents.send('update-error', err)
+});
+autoUpdater.on('download-progress', progress => {
+  windows.main.webContents.send('download-progress', progress)
+})
+autoUpdater.on('update-downloaded', info => {
+  autoUpdater.quitAndInstall()
+})
+
 app.whenReady().then(() => {
   createMainWindow()
+  autoUpdater.checkForUpdatesAndNotify(new Notification({
+    icon: path.join(app.getAppPath(), 'icon.png'),
+    title: '더월드 도우미 업데이트', body: '새 버전 다운로드가 완료되었습니다!'
+  }))
 })
 
 app.on('window-all-closed', () => {
@@ -124,4 +149,9 @@ if (!app.requestSingleInstanceLock()) {
       windows.main.focus()
     }
   })
+}
+
+if (process.platform === 'win32')
+{
+  app.setAppUserModelId('더월드 도우미')
 }
