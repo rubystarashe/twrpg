@@ -1,6 +1,8 @@
 <template>
   <div class="update">
-    <div class="text">업데이트 중</div>
+    <div class="text">업데이트 다운로드 중</div>
+    <!-- <div class="speed">{{ p_progress?.bytesPerSecond }}</div> -->
+    <div class="percent">{{ p_progress?.percent?.toFixed(0) || 0 }}%</div>
   </div>
 </template>
 
@@ -22,7 +24,12 @@ const p_progress = defineProp('progress')
   align-items: center;
   .text {
     font-size: 30px;
-    opacity: .2;
+    opacity: .1;
+  }
+  .percent {
+    font-size: 70px;
+    opacity: .3;
+    font-weight: bold;
   }
 }
 </style>

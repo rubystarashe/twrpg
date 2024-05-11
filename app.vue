@@ -236,7 +236,7 @@ ipcRenderer.on('update-available', v => {
 })
 ipcRenderer.on('update-not-available', v => console.log(v))
 ipcRenderer.on('download-progress', v => {
-  _updateing = true
+  _updating = true
   _update_progress = v
 })
 ipcRenderer.on('update-error', v => console.log(v))
