@@ -228,18 +228,28 @@
           :class="{ visible: _visible_mini_targets }"
           ref="r_mini_targets"
         >
-          <div class="title">인벤토리 ({{ f_getEquips(p_handle).counts }}/60)</div>
-          <div class="list">
-            <div v-for="({ name }, index) in p_targets"
-              class="item"
-              :class="{ enabled: p_targetIndexes.findIndex(e => e == index) >= 0 }"
-              @click="f_select_targetIndex(index)"
-            >{{ name }}</div>
-            <div
-              class="item iconfarming"
-              :class="{ enabled: p_iconfarming, finished: p_icons.includes('I02T') }"
-              @click="!p_icons.includes('I02T') ? f_update_iconfarming(!p_iconfarming) : (f_select_icon('I02T'), f_update_iconfarming(!p_iconfarming))"
-            >아이콘 파밍</div>
+          <div class="inven">
+            <div class="title">인벤토리 ({{ f_getEquips(p_handle).counts }}/60)</div>
+            <div class="list">
+              <div v-for="({ name }, index) in p_targets"
+                class="item"
+                :class="{ enabled: p_targetIndexes.findIndex(e => e == index) >= 0 }"
+                @click="f_select_targetIndex(index)"
+              >{{ name }}</div>
+              <div
+                class="item iconfarming"
+                :class="{ enabled: p_iconfarming, finished: p_icons.includes('I02T') }"
+                @click="!p_icons.includes('I02T') ? f_update_iconfarming(!p_iconfarming) : (f_select_icon('I02T'), f_update_iconfarming(!p_iconfarming))"
+              >아이콘 파밍</div>
+            </div>
+          </div>
+          <div class="coins">
+            <div class="etcitem" v-for="{ id, count } in p_coins.sort((a, b) => s_database.items[b.id].grade - s_database.items[a.id].grade)">
+              <div class="etcmeta">
+                <div class="name" :class="`grade_${s_database.items[id].grade}`">{{ s_database.items[id].name }}</div>
+              </div>
+              <div class="count">{{ count }}<span class="unit">개</span></div>
+            </div>
           </div>
         </div>
       </Transition>
@@ -708,7 +718,7 @@ watch([p_account, p_job], async () => {
 })
 watch(scroll.y, n => {
   _visible_mini_targets = r_farming.offsetTop - 500 < n
-  _mini_targets_size = r_mini_targets.offsetHeight - 40 + 'px'
+  _mini_targets_size = r_mini_targets.offsetHeight - 40 + 35 + 'px'
   if (r_farming.offsetTop - r_finder.clientHeight < n && r_farming.offsetHeight + r_farming.offsetTop > n) {
     _watching_table = 'auto'
   } else _watching_table = 'hidden'
@@ -1589,7 +1599,8 @@ const s_f_setFloatingData = useState('floatingInfo:f_setData')
 }
 .mini_targets {
   position: fixed;
-  top: 40px;
+  // top: 40px;
+  top: 75px;
   left: 0;
   right: 15px;
   background: rgb(43, 45, 49);
@@ -1599,12 +1610,65 @@ const s_f_setFloatingData = useState('floatingInfo:f_setData')
   box-sizing: border-box;
   border-top: 1px solid rgb(63, 64, 70);
   pointer-events: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   &.visible {
     pointer-events: auto;
   }
   .title {
     font-size: 14px;
     margin-bottom: 10px;
+  }
+  .coins {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    .etcitem {
+      background: rgb(43, 45, 49);
+      box-sizing: border-box;
+      padding: 5px 7px;
+      margin-right: 3px;
+      margin-bottom: 3px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &.pickaxe {
+        background: rgb(30, 31, 34);
+      }
+      .etcmeta {
+        .name {
+          font-size: 12px;
+          color: rgb(182, 186, 192);
+          &.grade_1 {
+            color: rgb(0, 158, 37);
+          }
+          &.grade_2 {
+            color: rgb(81, 143, 187);
+          }
+          &.grade_3 {
+            color: rgb(184, 28, 28);
+          }
+          &.grade_4 {
+            color: rgb(166, 207, 0);
+          }
+          &.grade_5 {
+            color: rgb(115, 60, 190);
+          }
+        }
+      }
+      .count {
+        font-size: 13px;
+        margin-left: 7px;
+        .unit {
+          font-size: 10px;
+          margin-left: 3px;
+        }
+      }
+    }
   }
   .list {
     width: 100%;

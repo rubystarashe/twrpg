@@ -61,7 +61,7 @@ const c_position = computed(() => {
   if (w_height - mouse_y - 30  > height) res.top = mouse_y + 'px'
   else res.bottom = w_height - mouse_y + 'px'
 
-  if (res.bottom && w_height - mouse_y + height > w_height - 40) {
+  if (res.bottom && w_height - mouse_y + height > w_height - 50) {
     delete res.bottom
     res.top = '40px'
   }

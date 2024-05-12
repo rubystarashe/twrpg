@@ -1,5 +1,9 @@
 <template>
   <div class="usedaralist">
+    <div class="guide" v-if="!c_userdata || !c_userdata.length">
+      <div class="title">감지된 세이브 파일이 없습니다</div>
+      <div class="description">게임에서 -save 명령어를 입력하시면 자동으로 인식해 불러옵니다</div>
+    </div>
     <div class="userdata" v-for="([ account, account_data ]) in c_userdata">
       <div class="account">{{ account }}</div>
       <div class="jobs">
@@ -74,6 +78,17 @@ const f_sort_accounts = accounts => {
 <style lang="scss" scoped>
 .usedaralist {
   padding: 20px 50px;
+  .guide {
+    .title {
+      font-size: 24px;
+      opacity: .5;
+    }
+    .description {
+      font-size: 14px;
+      opacity: 1;
+      margin-top: 5px;
+    }
+  }
   .userdata {
     .account {
       font-size: 30px;

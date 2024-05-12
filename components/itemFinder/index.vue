@@ -650,7 +650,8 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
     padding-bottom: 15px;
     transition: background .3s;
     position: fixed;
-    top: 40px;
+    // top: 40px;
+    top: 75px;
     left: 0;
     right: 15px;
     pointer-events: none;

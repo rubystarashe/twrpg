@@ -10,6 +10,7 @@
         :userdata="s_userdata"
         @selected="f_call_pathFinder($event.account, $event.job)"
       />
+      <Versioninfo :version="app_version"/>
       <PathFinder
         :account="_pathFinder_meta.account"
         :job="_pathFinder_meta.job"
@@ -34,6 +35,7 @@
         v-model:visible="_itemFinder_meta.visible"
       />
     </div>
+    <Adv/>
     <FloatingInfo
       :handle="_pathFinder_meta.handle"
       :icons="_pathFinder_meta.icons"
@@ -291,7 +293,7 @@ body {
   }
   .appversion {
     position: absolute;
-    top: 45px;
+    top: 80px;
     left: 5px;
     font-size: 11px;
     opacity: .5;
