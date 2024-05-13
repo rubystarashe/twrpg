@@ -69,7 +69,8 @@ const c_recipies = computed(() => {
     return e
   })
   .sort((a, b) => a.sub ? 1 : -1)
-  .sort((a, b) => b.grade - a.grade)
+  .sort((a, b) => a.grade - b.grade)
+  .sort((a, b) => a.mobindex - b.mobindex)
   .sort((a, b) => a.recipies ? 1 : -1)
 })
 

@@ -58,6 +58,7 @@
                 <div class="tree">
                   <PathFinderFarmTree
                     v-for="{ target_tree, sub } in arr"
+                    :mob="mobid"
                     :sub="sub"
                     :mat="id"
                     :handle="p_handle"
@@ -147,7 +148,7 @@ const c_mats = computed(() => {
     }
   }
   let mats = []
-  targets.sort((a, b) => a.grade - b.grade).forEach(item => {
+  targets.sort((a, b) => a.mobindex - b.mobindex).forEach(item => {
     if (!p_handle.value.find(e => e == item.id)) {
       deepc(item, item, [ item ])
     }

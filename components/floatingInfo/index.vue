@@ -14,6 +14,16 @@
             :target="_data"
             :handle="c_handle"
           />
+          <div class="droprate" v-if="c_data.droprates && c_data.droprates.length">
+            <div class="drops" v-for="{ rate, wishrate, group } in c_data.droprates" v-show="s_database.mobs[group]">
+              <div class="mobname">{{ s_database.mobs[group]?.name }}</div>
+              <div class="droplist" v-for="{ item, rate, wishrate } in s_database.mobs[group]?.drops"
+                :class="{ target: item == c_data.id }"
+              >
+                <span class="dropname">{{s_database.items[item].name}}</span> <span class="rate">{{ rate }}%</span><span class="wishrate" v-if="wishrate"><ruby> {{ wishrate }}%<rt>소원시</rt></ruby></span>
+              </div>
+            </div>
+          </div>
           <div class="description">
             <div v-html="c_data.description"/>
           </div>
@@ -259,6 +269,29 @@ const f_targetgearlist = (id) => {
           margin-left: 20px;
           font-size: 11px;
           color: rgb(182, 186, 192);
+        }
+        .droprate {
+          .drops {
+            .mobname {
+              font-size: 14px;
+              margin-top: 10px;
+              opacity: .8;
+            }
+            .droplist {
+              font-size: 11px;
+              margin: 3px 4px;
+              opacity: .7;
+              &.target {
+                opacity: 1;
+              }
+              .rate {
+                margin-left: 5px;
+              }
+              .wishrate {
+                margin-left: 5px;
+              }
+            }
+          }
         }
       }
     }

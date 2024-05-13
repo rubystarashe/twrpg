@@ -79,6 +79,7 @@ const f_sort_accounts = accounts => {
 .usedaralist {
   padding: 20px 50px;
   .guide {
+    margin-top: 30px;
     .title {
       font-size: 24px;
       opacity: .5;

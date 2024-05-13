@@ -4,7 +4,7 @@
       <div class="title">더월드 도우미 - 맵버전 {{ version }}</div>
       <WindowControl/>
     </div>
-    <div class="appversion">{{ app_version }}</div>
+    <!-- <div class="appversion">{{ app_version }}</div> -->
     <div class="content">
       <UserDataList
         :userdata="s_userdata"

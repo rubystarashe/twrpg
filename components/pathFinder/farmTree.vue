@@ -1,7 +1,11 @@
 <template>
   <div class="farm_tree" v-if="p_tree[0]">
     <!-- <div class="name" :class="{ willmakeable: c_makeable.willmakeable, makeable: c_makeable.makeable && !p_parentnotready }"> -->
-    <div class="name" :class="{ willmakeable: p_isStart ? f_iswillmakable(p_tree[0]?.id) == 1 : c_makeable.willmakeable, makeable: c_makeable.makeable && !p_parentnotready }"
+    <div class="name" :class="{
+        targetmob: p_mob == p_tree[0].mobgroup,
+        willmakeable: p_isStart ? f_iswillmakable(p_tree[0]?.id) == 1 : c_makeable.willmakeable,
+        makeable: c_makeable.makeable && !p_parentnotready
+      }"
       @mouseover.stop="s_f_setFloatingData(p_tree[0]?.id)"
       @mouseleave.stop="s_f_setFloatingData()"
     >
@@ -26,6 +30,7 @@ const s_f_setFloatingData = useState('floatingInfo:f_setData')
 const s_database = useState('database')
 
 const p_tree = defineProp('tree')
+const p_mob = defineProp('mob')
 const p_isStart = defineProp('isStart')
 const p_handle = defineProp('handle')
 const p_mat = defineProp('mat')
@@ -144,6 +149,9 @@ const c_makeable = computed(() => {
     font-size: 12px;
     flex-shrink: 0;
     word-break: keep-all;
+    &.targetmob {
+      color: rgb(94, 183, 234);
+    }
     &.willmakeable {
       color: rgb(94, 103, 234);
       word-break: keep-all;

@@ -438,8 +438,21 @@ dropdata.match(regex.recipies).map(e => {
   return { id, materials }
 }).forEach(e => {
   if (items[e.id]) {
+    if (items[e.id].droprates?.length) {
+      const mobindex = Object.keys(mobs).indexOf(items[e.id]?.droprates?.[0]?.group) || 0
+      items[e.id].mobindex = mobindex
+      if (mobindex) items[e.id].mobgroup = items[e.id]?.droprates?.[0]?.group
+    }
+
     if (!items[e.id].recipies) items[e.id].recipies = []
     items[e.id].recipies.push(e.materials.sort((a, b) => items[a.item].recipies ? 1 : -1))
+    e.materials.forEach(i => {
+      const mobindex = Object.keys(mobs).indexOf(items[i.item]?.droprates?.[0]?.group) || 0
+      if (!items[e.id].mobindex || items[e.id].mobindex < mobindex) {
+        items[e.id].mobindex = mobindex
+        items[e.id].mobgroup = items[i.item]?.droprates?.[0]?.group
+      }
+    })
   }
 })
 
