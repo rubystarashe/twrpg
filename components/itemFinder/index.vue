@@ -1,6 +1,7 @@
 <template>
   <Transition name="fade">
     <div class="background_item_finder" v-show="m_visible">
+      <div class="close" @click="m_visible = false">빈 공간을 클릭하면 닫힙니다</div>
       <div class="item_finder" ref="r_finder" @click.self="m_visible = false">
         <div class="title" @click="m_visible = false">
           <div class="account">{{ p_account }}</div>
@@ -339,6 +340,19 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
   backdrop-filter: blur(5px);
   border-radius: 10px;
 }
+.close {
+  position: fixed;
+  top: 120px;
+  right: 70px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: .5;
+  z-index: 2;
+  transition: opacity .2s;
+  &:hover {
+    opacity: .8;
+  }
+}
 .title {
   margin-top: 40px;
   padding: 0 50px;
@@ -656,6 +670,7 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
     right: 15px;
     pointer-events: none;
     border-top: 1px solid rgb(63, 64, 70);
+    z-index: 3;
     .typelist {
       opacity: 0;
       transition: opacity .3s;

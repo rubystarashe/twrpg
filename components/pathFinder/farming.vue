@@ -13,6 +13,7 @@
       </tr>
       <tr class="mob" v-for="({ name, items, id: mobid }) in c_mobs"
         v-show="f_gettofarming(items)"
+        :ref="r => m_navi[s_database.mobs[mobid].name] = { type: 'mob', ref: r }"
       >
       <!-- <tr class="mob" v-for="({ name, items, id: mobid }) in c_mobs"
       > -->
@@ -96,7 +97,7 @@ const c_mats = computed(() => {
 
   const targets = []
   Object.values(p_targets.value).forEach(items => {
-    Object.values(items).forEach(item => {
+    Object.values(items)?.forEach(item => {
       if (item.type == '아이콘') targets.push({ ...item, type: '기타', grade: 99 })
       else if (item.type == '곡괭이') targets.push({ ...item, type: '기타', grade: 99 })
       else if (item.type == '기타') targets.push({ ...item, type: '기타', grade: 99 })
@@ -253,7 +254,7 @@ const f_compress_items = items => {
 }
 const f_gettofarming = items => {
   let count = 0
-  Object.values(items).forEach(e => {
+  Object.values(items)?.forEach(e => {
     count += f_getNeedsCount2(e)
   })
   return count
@@ -287,6 +288,8 @@ const f_getHandleCount = (arr = []) => {
 const f_getHandleCount2 = id => {
   return p_handle.value.filter(e => e == id).length
 }
+
+const m_navi = defineModel('navi')
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
   <Transition name="fade">
     <div class="background_pathfinder" v-show="m_visible">
       <div class="pathfinder" ref="r_finder">
-        <div class="sticky_wrapper">
+        <div class="sticky_wrapper" ref="_parenttop">
           <div class="accountmeta">
             <div class="left">
               <div class="account" @click="m_visible = false">
@@ -51,7 +51,7 @@
             </div>
           </div>
           <div class="line"/>
-          <div class="section_title">보유 장비</div>
+          <div class="section_title" :ref="r => _navi['보유 장비'] = { ref: r, parent: _parenttop }">보유 장비</div>
           <div class="gearlist">
             <div class="geargroup" v-for="(items, type) in f_getEquips(p_handle).inventory_gears">
               <div class="type">{{ type }}</div>
@@ -68,7 +68,7 @@
             </div>
           </div>
           <div class="line"/>
-          <div class="section_title">목표 아이템 그룹 선택</div>
+          <div class="section_title" :ref="r => _navi['목표 아이템'] = { ref: r, parent: _parenttop }">목표 아이템 그룹 선택</div>
           <div class="targets">
             <div v-for="({ name, tags, items }, index) in p_targets"
               class="target"
@@ -150,12 +150,13 @@
             :handle="c_handle"
             :targets="c_targetgearlist"
             :float="_mini_targets_size"
+            v-model:navi="_navi"
           />
         </div>
 
-        <div class="sticky_wrapper">
+        <div class="sticky_wrapper" ref="_parentbottom">
           <div class="line"/>
-          <div class="section_title">목표 장비 대시보드</div>
+          <div class="section_title" :ref="r => _navi['목표 장비 대시보드'] = { ref: r, parent: _parentbottom }">목표 장비 대시보드</div>
           <div class="targetitemlist">
             <div class="targetgroup" v-for="(items, type) in c_targetgearlist">
               <div class="group">{{ type }}</div>
@@ -186,7 +187,7 @@
           </div>
 
           <div class="line"/>
-          <div class="section_title">인벤토리 관리 ({{ f_getEquips(p_handle).counts }}/60)</div>
+          <div class="section_title" :ref="r => _navi['인벤토리 관리'] = { ref: r, parent: _parentbottom }">인벤토리 관리 ({{ f_getEquips(p_handle).counts }}/60)</div>
           <div class="inventory">
             <!-- <div class="category">보유 조합 재료</div> -->
             <div class="matlist">
@@ -252,6 +253,16 @@
             </div>
           </div>
         </div>
+      </Transition>
+      <Transition name="fade">
+      <div class="pagenavi" v-show="c_navivisible">
+        <div v-for="({ scroll, position, type }, name) in _navibtns"
+          class="navi"
+          :style="{ top: position + 'px' }"
+          :class="type"
+          @click="f_scrollTo(scroll)"
+        >{{ name }}</div>
+      </div>
       </Transition>
     </div>
   </Transition>
@@ -701,11 +712,13 @@ const c_targetgearlist = computed(() => {
 })
 
 let r_finder = $ref()
+const _mouse = useMouse()
 const scroll = useScroll(() => r_finder)
 let r_farming = $ref()
 let _visible_mini_targets = $ref(false)
 let r_mini_targets = $ref()
 let _mini_targets_size = $ref(0)
+let _mini_targets_size_num = $ref(0)
 let _watching_table = $ref('hidden')
 watch([p_account, p_job], async () => {
   await nextTick()
@@ -714,11 +727,13 @@ watch([p_account, p_job], async () => {
     left: 0
   })
   _mini_targets_size = 0
+  _mini_targets_size_num = 0
   _watching_table = 'hidden'
 })
 watch(scroll.y, n => {
   _visible_mini_targets = r_farming.offsetTop - 500 < n
   _mini_targets_size = r_mini_targets.offsetHeight - 40 + 35 + 'px'
+  _mini_targets_size_num = r_mini_targets.offsetHeight - 40 + 35
   if (r_farming.offsetTop - r_finder.clientHeight < n && r_farming.offsetHeight + r_farming.offsetTop > n) {
     _watching_table = 'auto'
   } else _watching_table = 'hidden'
@@ -808,6 +823,42 @@ const f_iconhandled = id => {
 }
 
 const s_f_setFloatingData = useState('floatingInfo:f_setData')
+
+const _windowSize = useWindowSize()
+const _navi = reactive({})
+let _parenttop = $ref()
+let _parentbottom = $ref()
+let _navibtns = $ref({})
+watch([p_account, p_job, p_targets, p_targetIndexes, c_targetgearlist, () => _mini_targets_size_num, _windowSize.height], async () => {
+  await nextTick()
+  const w_height = _windowSize.height.value
+  const res = {}
+  Object.entries(_navi).forEach(([ key, value ]) => {
+    if (value.ref.offsetTop) {
+      let scroll = value.type == 'mob' ? r_farming.offsetTop + value.ref.offsetTop : value.ref.offsetTop
+      if (value.parent) scroll += value.parent.offsetTop
+      scroll -= 100
+      res[key] = {
+        scroll: scroll + _mini_targets_size_num - 200,
+        position: (w_height - 50) * (scroll / r_finder.scrollHeight),
+        type: value.type
+      }
+    }
+  })
+  _navibtns = res
+})
+
+const c_navivisible = computed(() => {
+  return _windowSize.width.value - _mouse.x.value < 140
+})
+
+const f_scrollTo = scroll => {
+  r_finder.scrollTo({
+    top: scroll,
+    left: 0,
+    behavior: 'smooth'
+  })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -845,6 +896,7 @@ const s_f_setFloatingData = useState('floatingInfo:f_setData')
     padding: 0 80px;
     padding-bottom: 100px;
     padding-top: 40px;
+    padding-right: 140px;
     box-sizing: border-box;
     overflow-y: scroll;
     display: flex;
@@ -1607,6 +1659,7 @@ const s_f_setFloatingData = useState('floatingInfo:f_setData')
   background: rgb(30, 31, 34);
   padding: 20px 50px;
   padding-bottom: 15px;
+  padding-right: 110px;
   box-sizing: border-box;
   border-top: 1px solid rgb(63, 64, 70);
   pointer-events: none;
@@ -1723,5 +1776,27 @@ const s_f_setFloatingData = useState('floatingInfo:f_setData')
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+}
+.pagenavi {
+  position: fixed;
+  right: 15px;
+  top: 60px;
+  width: 120px;
+  bottom: 0;
+  pointer-events: none;
+  .navi {
+    pointer-events: auto;
+    position: absolute;
+    right: 5px;
+    font-size: 13px;
+    width: auto;
+    word-break: keep-all;
+    cursor: pointer;
+    opacity: .9;
+    &.mob {
+      font-size: 11px;
+      opacity: .6;
+    }
+  }
 }
 </style>
