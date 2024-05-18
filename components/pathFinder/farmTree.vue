@@ -9,7 +9,7 @@
       @mouseleave.stop="s_f_setFloatingData()"
     >
       <div>
-        <div class="mobname" v-if="s_database.mobs[p_mob]?.nickname" :class="{ targetmob: p_mob == p_tree[0].mobgroup }">{{ s_database.mobs[p_tree[0].mobgroup]?.nickname }}</div>
+        <div class="mobname" v-if="s_database.mobs[p_tree[0].mobgroup]?.nickname" :class="{ targetmob: p_mob == p_tree[0].mobgroup }">{{ s_database.mobs[p_tree[0].mobgroup]?.nickname }}</div>
         <div>{{ p_tree[0]?.name }}</div>
       </div>
       <span class="target" v-if="p_tree.length == 1">목표</span>
