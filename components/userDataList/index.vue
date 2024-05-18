@@ -3,6 +3,7 @@
     <div class="guide" v-if="!c_userdata || !c_userdata.length">
       <div class="title">감지된 세이브 파일이 없습니다</div>
       <div class="description">게임에서 -save 명령어를 입력하시면 자동으로 인식해 불러옵니다</div>
+      <div class="description">수동으로 불러오려면, 세이브 텍스트 파일을 드래그하여 화면에 드랍해 주세요</div>
     </div>
     <div class="userdata" v-for="([ account, account_data ]) in c_userdata">
       <div class="account">{{ account }}</div>

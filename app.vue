@@ -1,5 +1,9 @@
 <template>
-  <div class="app" v-if="!_updating">
+  <div class="app" v-if="!_updating"
+    @dragleave="_dragging = false"
+    @dragover="f_dragover"
+    @drop="f_filedropped"
+  >
     <div class="titlebar">
       <div class="title">더월드 도우미 - 맵버전 {{ version }}</div>
       <WindowControl/>
@@ -242,6 +246,39 @@ ipcRenderer.on('download-progress', v => {
   _update_progress = v
 })
 ipcRenderer.on('update-error', v => console.log(v))
+
+let _dragging = $ref(false)
+const f_dragover = e => {
+  e.preventDefault()
+  _dragging = true
+}
+const f_file2Buffer = file => {
+  return new Promise(function (resolve, reject) {
+    const reader = new FileReader()
+    const readFile = function(event) {
+      resolve(reader.result)
+    }
+    reader.addEventListener('load', readFile)
+    reader.readAsText(file, 'utf-8')
+  })
+}
+const f_parse = async e => {
+  for (let i = 0; i < e.target.files.length; i++) {
+    if (e.target.files[i].name.indexOf('.txt') == e.target.files[i].name.length - 4) {
+      const buffer = await f_file2Buffer(e.target.files[i])
+      const savefile = buffer.toString()
+      
+      f_savefile_parser(savefile)
+    }
+  }
+}
+const f_filedropped = async e => {
+  e.preventDefault()
+  e.target.files = e.dataTransfer.files
+  _dragging = false
+
+  f_parse(e)
+}
 </script>
 
 
