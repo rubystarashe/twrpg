@@ -9,8 +9,8 @@
     "start": "electron-forge start",
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
     "electron": "electron .",
-    "pack": "nuxt generate && electron-builder --dir",
-    "dist": "nuxt generate && electron-builder"
+    "pack": "node generator && nuxt generate && electron-builder --dir",
+    "dist": "node generator && nuxt generate && electron-builder"
   },
   "type": "module",
   "author": "rubystarashe",

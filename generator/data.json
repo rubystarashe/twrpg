@@ -1,5 +1,5 @@
 {
-  "app_version": "1.0.2",
+  "app_version": "1.0.4",
   "version": "0.66h",
   "types": {
     "무기": 269,
@@ -1124,7 +1124,8 @@
           "rate": 0.5
         }
       ],
-      "index": 35
+      "index": 35,
+      "nickname": "본드래곤"
     },
     "fgrg": {
       "name": "해골왕 데스페리아",
@@ -1183,7 +1184,8 @@
           "rate": 0.5
         }
       ],
-      "index": 36
+      "index": 36,
+      "nickname": "해골왕"
     },
     "pomn": {
       "name": "좀비 로드",
@@ -1227,7 +1229,8 @@
           "rate": 0.6
         }
       ],
-      "index": 37
+      "index": 37,
+      "nickname": "좀비로드"
     },
     "pres": {
       "name": "에인션트 엔트",
@@ -1266,7 +1269,8 @@
           "rate": 0.6
         }
       ],
-      "index": 38
+      "index": 38,
+      "nickname": "엔트"
     },
     "sneg": {
       "name": "주천사 사미엘",
@@ -1300,7 +1304,8 @@
           "rate": 0.7
         }
       ],
-      "index": 39
+      "index": 39,
+      "nickname": "사미엘"
     },
     "shar": {
       "name": "암흑룡 이르베르트",
@@ -1344,7 +1349,8 @@
           "rate": 0.75
         }
       ],
-      "index": 40
+      "index": 40,
+      "nickname": "암흑룡"
     },
     "infs": {
       "name": "데스 핀드",
@@ -1398,7 +1404,8 @@
           "wishrate": 0.33
         }
       ],
-      "index": 41
+      "index": 41,
+      "nickname": "데스핀드"
     },
     "I0P0": {
       "name": "뇌신 발토라",
@@ -1437,7 +1444,8 @@
           "rate": 0.005
         }
       ],
-      "index": 42
+      "index": 42,
+      "nickname": "뇌신"
     },
     "I0P1": {
       "name": "화신 이프리트",
@@ -1476,7 +1484,8 @@
           "rate": 0.005
         }
       ],
-      "index": 43
+      "index": 43,
+      "nickname": "화신"
     },
     "I0P2": {
       "name": "해신 네레이드",
@@ -1515,7 +1524,8 @@
           "rate": 0.005
         }
       ],
-      "index": 44
+      "index": 44,
+      "nickname": "해신"
     },
     "I0P3": {
       "name": "지하군주 아가레스",
@@ -1554,7 +1564,8 @@
           "rate": 0.005
         }
       ],
-      "index": 45
+      "index": 45,
+      "nickname": "아가레스"
     },
     "I0R6": {
       "name": "공작 라자루스",
@@ -1584,7 +1595,8 @@
           "rate": 0.01
         }
       ],
-      "index": 46
+      "index": 46,
+      "nickname": "라자루스"
     },
     "I0R7": {
       "name": "지신 가이아",
@@ -1614,7 +1626,8 @@
           "rate": 0.01
         }
       ],
-      "index": 47
+      "index": 47,
+      "nickname": "가이아"
     },
     "I0GH": {
       "name": "고대 마도 기계",
@@ -1640,7 +1653,8 @@
           "rate": 0.15
         }
       ],
-      "index": 48
+      "index": 48,
+      "nickname": "고대기계"
     },
     "I0QE": {
       "name": "영혼수확자 스티릭스",
@@ -1670,7 +1684,8 @@
           "rate": 0.01
         }
       ],
-      "index": 49
+      "index": 49,
+      "nickname": "스티릭스"
     }
   },
   "items": {

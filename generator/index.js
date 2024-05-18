@@ -136,6 +136,23 @@ const mobs = {
   'I0GH': '고대 마도 기계',
   'I0QE': '영혼수확자 스티릭스'
 }
+const mobsnickname = {
+  'rre1': '본드래곤',
+  'fgrg': '해골왕',
+  'pomn': '좀비로드',
+  'pres': '엔트',
+  'sneg': '사미엘',
+  'shar': '암흑룡',
+  'infs': '데스핀드',
+  'I0P0': '뇌신',
+  'I0P1': '화신',
+  'I0P2': '해신',
+  'I0P3': '아가레스',
+  'I0R6': '라자루스',
+  'I0R7': '가이아',
+  'I0GH': '고대기계',
+  'I0QE': '스티릭스'
+}
 
 const dropdata = readFileSync('./generator/war3map.j', 'utf-8').split(/\n|\r/).join('\n')
 
@@ -479,9 +496,12 @@ const moblist = Object.entries(mobs).map(([id, name], index) => {
   return {
     id,
     name,
+    nickname: mobsnickname[id],
     drops,
     index
   }
-}).reduce((p, c) => (p[c.id] = { name: c.name, drops: c.drops, index: c.index }, p), {})
+}).reduce((p, c) => (p[c.id] = { name: c.name, drops: c.drops, index: c.index, nickname: c.nickname }, p), {})
 
 writeFileSync('./generator/data.json', JSON.stringify({ app_version, version, types, mobs: moblist, items }, 0, 2))
+
+console.log('database generated')
