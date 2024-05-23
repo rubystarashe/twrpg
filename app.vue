@@ -13,6 +13,7 @@
       <UserDataList
         :userdata="s_userdata"
         @selected="f_call_pathFinder($event.account, $event.job)"
+        @delete="f_delete_job($event.account, $event.job)"
       />
       <Versioninfo :version="app_version"/>
       <PathFinder
@@ -67,6 +68,12 @@ const f_update_userdata = data => {
   localStorage.setItem('userdata', JSON.stringify(s_userdata.value))
 }
 provide('app:f_update_userdata', f_update_userdata)
+
+const f_delete_job = (account, job) => {
+  delete s_userdata.value[account][job]
+  if (!Object.keys(s_userdata.value[account]).length) delete s_userdata.value[account]
+  f_update_userdata(s_userdata.value)
+}
 
 const f_update_usertdata_target = (account, job, targetIndex, target) => {
   s_userdata.value[account][job].targets[targetIndex] = target

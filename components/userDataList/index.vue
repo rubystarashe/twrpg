@@ -28,6 +28,7 @@
               </div>
             </div>
           </div>
+          <div class="delete"><div class="btn" @click.stop="e_delete({ account, job })">삭제하기</div></div>
         </div>
       </div>
     </div>
@@ -55,6 +56,7 @@ const f_getEquips = items => {
 }
 
 const e_select = defineEmit('selected')
+const e_delete = defineEmit('delete')
 
 const f_getScore = items => {
   const equips = items.slice(0, 6).map(e => ({ id: e, ...s_database.value.items[e] })).filter(e => types.find(t => t == e.type)).sort((a, b) => types.indexOf(a.type) - types.indexOf(b.type))
@@ -107,6 +109,7 @@ const f_sort_accounts = accounts => {
         margin-bottom: 10px;
         background: rgb(30, 31, 34);
         padding: 20px;
+        padding-bottom: 10px;
         border-radius: 5px;
         transition: background .3s;
         min-width: 230px;
@@ -116,6 +119,28 @@ const f_sort_accounts = accounts => {
           .items {
             .item {
               background: rgb(59, 60, 65);
+            }
+          }
+        }
+        &:has(.btn:hover) {
+          background: rgb(30, 31, 34);
+          .items {
+            .item {
+              background: rgb(43, 45, 49);
+            }
+          }
+        }
+        .delete {
+          font-size: 10px;
+          margin-top: 10px;
+          display: flex;
+          width: 100%;
+          justify-content: flex-end;
+          .btn {
+            transform: translateX(5px);
+            opacity: .2;
+            &:hover {
+              opacity: .5;;
             }
           }
         }
