@@ -1,13 +1,13 @@
 {
   "app_version": "1.0.6",
-  "version": "0.66h",
+  "version": "0.66m",
   "types": {
     "무기": 269,
-    "장신구": 98,
+    "장신구": 99,
     "undefined": 380,
     "날개": 52,
     "방어구": 95,
-    "머리보호구": 83,
+    "머리보호구": 84,
     "재료": 103,
     "아이콘": 40,
     "곡괭이": 4,
@@ -9034,6 +9034,28 @@
             "item": "I0PP",
             "count": 1
           }
+        ],
+        [
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I00J",
+            "count": 1
+          },
+          {
+            "item": "I0PP",
+            "count": 1
+          }
         ]
       ],
       "mobindex": 49,
@@ -9209,6 +9231,36 @@
       "mobindex": 49,
       "mobgroup": "I0QE"
     },
+    "I01T": {
+      "id": "I01T",
+      "name": "사멸의 눈",
+      "description": "모든 것은 무로 돌아간다.\r<br/>∴방어력 +140\r<br/>∴모든 스탯 +225\r<br/>∴주 스탯 +150\r<br/>∴스킬 데미지 & 치명타 확률 +20%\r<br/>∴받는 데미지 +15%\r<br/>∴3000 거리 이동 후 공격 시 사멸 발동",
+      "searchstring": "- 아르카나 급 머리보호구 -\r",
+      "grade": 5,
+      "type": "머리보호구",
+      "recipies": [
+        [
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I05P",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I06H",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 49,
+      "mobgroup": "I0QE"
+    },
     "I01U": {
       "id": "I01U",
       "name": "수확자의 가면",
@@ -9246,7 +9298,7 @@
     "I01V": {
       "id": "I01V",
       "name": "디아볼릭 마스크",
-      "description": "악마와 싸우다보면 악마가 된다.\r<br/>∴방어력 +170\r<br/>∴힘 +350\r<br/>∴민첩성 +325\r<br/>∴발동 데미지 +15%\r<br/>∴공격 시 디아볼릭 플레임 발동\r<br/>∴사용 시 악마의 형상 발동",
+      "description": "악마와 싸우다보면 악마가 된다.\r<br/>∴방어력 +170\r<br/>∴힘 +375\r<br/>∴민첩성 +350\r<br/>∴스킬 데미지 +5%\r<br/>∴발동 데미지 +15%\r<br/>∴공격 시 디아볼릭 플레임 발동\r<br/>∴사용 시 악마의 형상 발동",
       "searchstring": "- 아르카나 급 머리보호구 -\r",
       "grade": 5,
       "type": "머리보호구",
@@ -9270,6 +9322,62 @@
           },
           {
             "item": "I0D7",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 49,
+      "mobgroup": "I0QE"
+    },
+    "I01X": {
+      "id": "I01X",
+      "name": "고결한 영혼의 반지",
+      "description": "고결한 영혼이 잠들어 있는 반지\r<br/>∴주 스탯 +700\r<br/>∴공격 속도 +40%\r<br/>∴스킬 데미지 +25%\r<br/>∴HP 재생률 +120\r<br/>∴MP 재생률 +60\r<br/>∴스킬 시전 시 광휘 발동\r<br/>∴사용 시 영혼의 방패 발동",
+      "searchstring": "- 아르카나 급 장신구 -\r",
+      "grade": 5,
+      "type": "장신구",
+      "recipies": [
+        [
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I01Z",
+            "count": 1
+          },
+          {
+            "item": "I0GR",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I01Z",
+            "count": 1
+          },
+          {
+            "item": "I0GR",
             "count": 1
           }
         ]

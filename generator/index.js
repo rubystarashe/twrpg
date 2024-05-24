@@ -5,7 +5,7 @@ const { version: app_version } = JSON.parse(readFileSync('package.json', 'utf-8'
 
 const targets = JSON.parse(readFileSync('./generator/targets.json', 'utf-8'))
 
-const version = '0.66h'
+const version = '0.66m'
 
 const translator = new Translator()
 
@@ -34,21 +34,23 @@ const typelist = {
   "아이콘": 8
 }
 
-const legacy_regex = {
-  droprate: /(?<=call (jCo|jDo))((.*)(?=))/g,
-  droprate2: /(?<=call jmo\()((.|\r|\n)*?)call jjo/g,
-  droprate3: /(?<=call (jCo)\(IU,\(')(.*?)(?=')/,
-  droprate4: /(?<=call jCo)((.|\r|\n)*?)(?=call jKo|call jjo|call jGo)/g,
-  droprate5: /(?<=IU,\(')(.*?)(?=')/,
-  recipies: /(?<=call JVo)(.*)(?=\))/g
-}
+const scriptarray = readFileSync('./generator/war3map.j', 'utf-8').split(/\n|\r/)
+const st1 = scriptarray.find(e => e.indexOf(`('I016'),((50)*1.))`) >= 0).substring(5, 8)
+const st2 = scriptarray.find(e => e.indexOf(`('I00B'),((33)*1.))`) >= 0).substring(5, 8)
+const st3 = scriptarray.find(e => e.match(/call [A-z0-9]{3}\(\.75\)/)).substring(5, 8)
+const st4 = scriptarray.find(e => e.indexOf(`'n01K',5,0,Dr,pr`) >= 0).substring(5, 8)
+const st5 = scriptarray.find(e => e.indexOf(`('I016'),((50)*1.))`) >= 0).substring(9, 11)
+const st6 = scriptarray.find(e => e.indexOf(`('n02R',0)`) >= 0).substring(5, 8)
+const st7 = scriptarray.find(e => e.indexOf(`('h09X',0,0)`) >= 0).substring(5, 8)
+const st8 = scriptarray.find(e => e.indexOf(`('I00U'),'I01E',1),'I011',1`) >= 0).substring(5, 8)
+
 const regex = {
-  droprate: /(?<=call (H9o|jeo))((.*)(?=))/g, // ('gsou'),((2.5)*1.)
-  droprate2: /(?<=call jAo\()((.|\r|\n)*?)call jVo/g, // ('belv'),((2.)*1.)
-  droprate3: /(?<=call (H9o)\(AU,\(')(.*?)(?=')/,
-  droprate4: /(?<=call H9o)((.|\r|\n)*?)(?=call jOo|call jVo|call jio)/g,
-  droprate5: /(?<=AU,\(')(.*?)(?=')/,
-  recipies: /(?<=call jZo)(.*)(?=\))/g
+  droprate: new RegExp(`(?<=call (${st1}|${st2}))((.*)(?=))`, 'g'),
+  droprate2: new RegExp(`(?<=call ${st3}\\()((.|\\r|\\n)*?)call ${st4}`, 'g'),
+  droprate3: new RegExp(`(?<=call (${st2})\\(${st5},\\(')(.*?)(?=')`),
+  droprate4: new RegExp(`(?<=call ${st2})((.|\\r|\\n)*?)(?=call ${st6}|call ${st4}|call ${st7})`, 'g'),
+  droprate5: new RegExp(`(?<=${st5},\\(')(.*?)(?=')`),
+  recipies: new RegExp(`(?<=call ${st8})(.*)(?=\\))`, 'g')
 }
 
 const types = {}
