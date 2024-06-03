@@ -1,5 +1,5 @@
 {
-  "app_version": "1.0.7",
+  "app_version": "1.0.8",
   "version": "0.66m",
   "types": {
     "무기": 269,
@@ -147,10 +147,6 @@
       "name": "피의 망령",
       "drops": [
         {
-          "item": "rspl",
-          "rate": 25
-        },
-        {
           "item": "I0BQ",
           "rate": 25
         },
@@ -186,6 +182,10 @@
         },
         {
           "item": "rspd",
+          "rate": 25
+        },
+        {
+          "item": "rspl",
           "rate": 25
         },
         {
@@ -6932,7 +6932,7 @@
       "droprates": [
         {
           "rate": 25,
-          "group": "I0BT"
+          "group": "I0BT2"
         }
       ]
     },
