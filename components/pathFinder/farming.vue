@@ -1,4 +1,23 @@
 <template>
+<div>
+  <div class="legacy"
+    :ref="r => (m_moblist = r, m_navi['파밍 루트 요약'] = { ref: r })"
+  >
+    <div class="mob" v-for="({ name, items, id: mobid }) in c_mobs"
+      v-show="f_gettofarming(items)"
+    >
+      <div class="name">{{ name }}</div>
+      <div class="needsitems">
+        <div class="item" v-for="item in c_compress_mob_items(items)"
+          @mouseover.stop="s_f_setFloatingData(item.id)"
+          @mouseleave.stop="s_f_setFloatingData()"
+        >
+          <div class="itemname">{{ item.name }}</div>
+          <div class="counts"><span class="handle">{{ item.handle }}</span><span class="slash">/</span>{{ item.count }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
   <table class="farming">
     <tbody class="tbody">
       <tr class="floating">
@@ -20,6 +39,12 @@
         <td class="mobmeta">
           <div class="mobmetawrapper">
             <div class="name">{{ name }}</div>
+            <div class="needsitems">
+              <div class="item" v-for="item in c_compress_mob_items(items)">
+                <div class="itemname">{{ item.name }}</div>
+                <div class="counts"><span class="handle">{{ item.handle }}</span><span class="slash">/</span>{{ item.count }}</div>
+              </div>
+            </div>
           </div>
         </td>
         <td class="items" v-for="(_, grade) in c_grids">
@@ -74,6 +99,7 @@
       </tr>
     </tbody>
   </table>
+</div>
 </template>
 
 <script setup>
@@ -243,6 +269,19 @@ const c_grids = computed(() => {
   return res
 })
 
+const c_compress_mob_items = items => {
+  let res = {}
+  Object.values(items).forEach(m => {
+    m.forEach(e => {
+      if (!res[e.id]) res[e.id] = { ...e, count: 1, handle: e.handle || 0 }
+      else {
+        res[e.id].count++
+        res[e.id].handle += (e.handle || 0)
+      }
+    })
+  })
+  return Object.values(res).filter(e => e.handle < e.count)
+}
 
 const f_compress_items = items => {
   const res = items?.reduce((p, c) => {
@@ -290,9 +329,69 @@ const f_getHandleCount2 = id => {
 }
 
 const m_navi = defineModel('navi')
+const m_moblist = defineModel('moblist')
 </script>
 
 <style lang="scss" scoped>
+.legacy {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  .mob {
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    word-break: keep-all;
+    flex-direction: column;
+    border: 1px solid rgb(182, 186, 192);
+    margin-bottom: 10px;
+    margin-right: 10px;
+    .name {
+      font-size: 14px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      background: rgba(50, 51, 56, .5);
+      backdrop-filter: blur(5px);
+      opacity: .7;
+      margin: 10px;
+      margin-bottom: 5px;
+    }
+    .needsitems {
+      box-sizing: border-box;
+      padding: 15px;
+      padding-top: 0px;
+      padding-bottom: 10px;
+      width: 100%;
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 3px;
+        .itemname {
+          font-size: 12px;
+          color: rgb(182, 186, 192);
+          flex-shrink: 0;
+        }
+        .counts {
+          font-size: 13px;
+          margin-left: 10px;
+          flex-shrink: 0;
+          .handle {
+            color: rgb(182, 186, 192);
+          }
+          .slash {
+            margin: 0 3px;
+            font-size: 10px;
+            opacity: .3;
+          }
+        }
+      }
+    }
+  }
+}
 .farming {
   border-collapse: collapse;
   td {
@@ -322,7 +421,7 @@ const m_navi = defineModel('navi')
           display: flex;
           justify-content: center;
           align-items: center;
-          background: rgba(50, 51, 56, .5);
+          background: rgba(43, 45, 49, .5);
           border-radius: 20px;
           backdrop-filter: blur(5px);
           &.grade_1 {
@@ -350,13 +449,14 @@ const m_navi = defineModel('navi')
       left: -80px;
       z-index: 10;
       .mobmetawrapper {
-        width: 160px;
+        width: 180px;
         height: 100%;
         box-sizing: border-box;
         padding: 10px;
         display: flex;
         align-items: flex-start;
         word-break: keep-all;
+        flex-direction: column;
         .name {
           padding: 10px 20px;
           font-size: 14px;
@@ -368,6 +468,36 @@ const m_navi = defineModel('navi')
           border-radius: 20px;
           backdrop-filter: blur(5px);
           opacity: .7;
+        }
+        .needsitems {
+          margin-top: 20px;
+          width: 100%;
+          box-sizing: border-box;
+          padding: 20px;
+          .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3px;
+            .itemname {
+              font-size: 12px;
+              color: rgb(182, 186, 192);
+              flex-shrink: 0;
+            }
+            .counts {
+              font-size: 13px;
+              margin-left: 10px;
+              flex-shrink: 0;
+              .handle {
+                color: rgb(182, 186, 192);
+              }
+              .slash {
+                margin: 0 3px;
+                font-size: 10px;
+                opacity: .3;
+              }
+            }
+          }
         }
       }
     }

@@ -8,6 +8,7 @@
         <div class="grade" :class="`grade_${c_data.grade}`">{{ grades[c_data.grade] }}</div>
         <div class="type">{{ c_data.type }}</div>
         <div class="name" :class="{ willmakeable: f_iswillmakable(c_data.id) == 1, makeable: f_ismakable(c_data.id) }">{{ c_data.name }}</div>
+        <div class="counts" v-if="c_handle?.filter(e => e == c_data.id)?.length">{{ c_handle.filter(e => e == c_data.id).length }}개 보유중</div>
         <div class="detail">
           <PathFinderReqTree
             class="tree"
@@ -247,7 +248,7 @@ const f_targetgearlist = (id) => {
       }
       .name {
         font-size: 18px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         color: rgb(228, 230, 233);
         &.willmakeable {
           color: rgb(94, 103, 234);
@@ -255,6 +256,10 @@ const f_targetgearlist = (id) => {
         &.makeable {
           color: rgb(173, 255, 47);
         }
+      }
+      .counts {
+        font-size: 14px;
+        margin-bottom: 5px;
       }
       .detail {
         display: flex;

@@ -145,12 +145,12 @@
         </div>
 
         <div ref="r_farming">
-
           <PathFinderFarming
             :handle="c_handle"
             :targets="c_targetgearlist"
             :float="_mini_targets_size"
             v-model:navi="_navi"
+            v-model:moblist="_moblist"
           />
         </div>
 
@@ -829,13 +829,14 @@ const _navi = reactive({})
 let _parenttop = $ref()
 let _parentbottom = $ref()
 let _navibtns = $ref({})
+const _moblist = $ref()
 watch([p_account, p_job, p_targets, p_targetIndexes, c_targetgearlist, () => _mini_targets_size_num, _windowSize.height], async () => {
   await nextTick()
   const w_height = _windowSize.height.value
   const res = {}
   Object.entries(_navi).forEach(([ key, value ]) => {
     if (value.ref.offsetTop) {
-      let scroll = value.type == 'mob' ? r_farming.offsetTop + value.ref.offsetTop : value.ref.offsetTop
+      let scroll = value.type == 'mob' ? r_farming.offsetTop + value.ref.offsetTop + _moblist.offsetHeight : value.ref.offsetTop
       if (value.parent) scroll += value.parent.offsetTop
       scroll -= 100
       res[key] = {

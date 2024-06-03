@@ -350,6 +350,13 @@ items['rspd'].droprates = [
     group: "I0BT2"
   }
 ]
+// 악마 사냥꾼
+items['rspl'].droprates = [
+  {
+    rate: 25,
+    group: "I0BT2"
+  }
+]
 // 박쥐괴인 & 피의 망령
 // 블러드 오브
 items['I0BR'].droprates = [
