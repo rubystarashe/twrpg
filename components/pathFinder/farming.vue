@@ -370,6 +370,7 @@ const m_moblist = defineModel('moblist')
         justify-content: space-between;
         align-items: center;
         margin-top: 3px;
+        opacity: .7;
         .itemname {
           font-size: 12px;
           color: rgb(182, 186, 192);
@@ -459,7 +460,7 @@ const m_moblist = defineModel('moblist')
         flex-direction: column;
         .name {
           padding: 10px 20px;
-          font-size: 14px;
+          font-size: 16px;
           line-height: 20px;
           box-sizing: border-box;
           display: flex;
@@ -470,11 +471,12 @@ const m_moblist = defineModel('moblist')
           opacity: .7;
         }
         .needsitems {
-          margin-top: 20px;
+          margin-top: 10px;
           width: 100%;
           box-sizing: border-box;
           padding: 20px;
           .item {
+            opacity: .7;
             display: flex;
             justify-content: space-between;
             align-items: center;
