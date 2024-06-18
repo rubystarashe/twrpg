@@ -56,7 +56,9 @@ const createMainWindow = () => {
             }
           })
         }
-      } catch (e) {}
+      } catch (e) {
+        windows.main.webContents.send('errorlog', e)
+      }
 
       try {
         const one_savefilepath = path.join(os.homedir(), '/OneDrive/문서/Warcraft III/CustomMapData/TWRPG/HeroSave.txt')
@@ -70,7 +72,25 @@ const createMainWindow = () => {
             }
           })
         }
-      } catch (e) {}
+      } catch (e) {
+        windows.main.webContents.send('errorlog', e)
+      }
+
+      try {
+        const one_savefilepath = path.join(os.homedir(), '/OneDrive/Documents/Warcraft III/CustomMapData/TWRPG/HeroSave.txt')
+        if (fs.existsSync(one_savefilepath)) {
+          savedir = one_savefilepath
+          windows.main.webContents.send('savedir', one_savefilepath)
+          windows.main.webContents.send('savefile', fs.readFileSync(one_savefilepath, 'utf-8'))
+          fs.watchFile(one_savefilepath, { interval: 500 }, ({ size }) => {
+            if (size) {
+              windows.main.webContents.send('savefile', fs.readFileSync(one_savefilepath, 'utf-8'))
+            }
+          })
+        }
+      } catch (e) {
+        windows.main.webContents.send('errorlog', e)
+      }
       if (!savedir) setTimeout(() => getPath())
     }
     getPath()

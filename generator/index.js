@@ -5,7 +5,7 @@ const { version: app_version } = JSON.parse(readFileSync('package.json', 'utf-8'
 
 const targets = JSON.parse(readFileSync('./generator/targets.json', 'utf-8'))
 
-const version = '0.66m'
+const version = '0.66u4'
 
 const translator = new Translator()
 
@@ -38,7 +38,7 @@ const scriptarray = readFileSync('./generator/war3map.j', 'utf-8').split(/\n|\r/
 const st1 = scriptarray.find(e => e.indexOf(`('I016'),((50)*1.))`) >= 0).substring(5, 8)
 const st2 = scriptarray.find(e => e.indexOf(`('I00B'),((33)*1.))`) >= 0).substring(5, 8)
 const st3 = scriptarray.find(e => e.match(/call [A-z0-9]{3}\(\.75\)/)).substring(5, 8)
-const st4 = scriptarray.find(e => e.indexOf(`'n01K',5,0,Dr,pr`) >= 0).substring(5, 8)
+const st4 = scriptarray.find(e => e.indexOf(`'n01K',5,0,`) >= 0).substring(5, 8)
 const st5 = scriptarray.find(e => e.indexOf(`('I016'),((50)*1.))`) >= 0).substring(9, 11)
 const st6 = scriptarray.find(e => e.indexOf(`('n02R',0)`) >= 0).substring(5, 8)
 const st7 = scriptarray.find(e => e.indexOf(`('h09X',0,0)`) >= 0).substring(5, 8)

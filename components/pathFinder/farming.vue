@@ -40,7 +40,10 @@
           <div class="mobmetawrapper">
             <div class="name">{{ name }}</div>
             <div class="needsitems">
-              <div class="item" v-for="item in c_compress_mob_items(items)">
+              <div class="item" v-for="item in c_compress_mob_items(items)"
+                @mouseover.stop="s_f_setFloatingData(item.id)"
+                @mouseleave.stop="s_f_setFloatingData()"
+              >
                 <div class="itemname">{{ item.name }}</div>
                 <div class="counts"><span class="handle">{{ item.handle }}</span><span class="slash">/</span>{{ item.count }}</div>
               </div>

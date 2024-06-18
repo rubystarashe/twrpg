@@ -238,8 +238,13 @@ const f_reset_targets = (account, job, index) => {
   f_update_usertdata_target(account, job, index, target)
 }
 
+ipcRenderer.open('errorlog', v => {
+  console.log('error', v)
+})
 let _savedir = $ref()
-ipcRenderer.open('savedir', v => _savedir = v)
+ipcRenderer.open('savedir', v => {
+  _savedir = v
+})
 
 let _updating = $ref(false)
 let _update_progress = $ref()
