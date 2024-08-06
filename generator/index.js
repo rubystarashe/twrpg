@@ -5,7 +5,7 @@ const { version: app_version } = JSON.parse(readFileSync('package.json', 'utf-8'
 
 const targets = JSON.parse(readFileSync('./generator/targets.json', 'utf-8'))
 
-const version = '0.66u4'
+const version = '0.67d'
 
 const translator = new Translator()
 
