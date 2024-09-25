@@ -1,9 +1,9 @@
 {
-  "app_version": "1.0.10",
-  "version": "0.67d",
+  "app_version": "1.0.11",
+  "version": "0.68k",
   "types": {
     "머리보호구": 84,
-    "undefined": 342,
+    "undefined": 347,
     "무기": 269,
     "방어구": 95,
     "재료": 103,
@@ -238,7 +238,7 @@
         },
         {
           "item": "I0G5",
-          "rate": 0.75
+          "rate": 1
         },
         {
           "item": "I0F4",
@@ -294,7 +294,7 @@
         },
         {
           "item": "I0G6",
-          "rate": 0.75
+          "rate": 1
         },
         {
           "item": "I0F6",
@@ -354,7 +354,7 @@
         },
         {
           "item": "I0G7",
-          "rate": 0.75
+          "rate": 1
         },
         {
           "item": "I0F5",
@@ -396,7 +396,7 @@
         },
         {
           "item": "I0G9",
-          "rate": 0.75
+          "rate": 1
         },
         {
           "item": "I0AV",
@@ -660,7 +660,7 @@
         },
         {
           "item": "I0FZ",
-          "rate": 0.25
+          "rate": 0.33
         },
         {
           "item": "I0BJ",
@@ -922,7 +922,7 @@
         },
         {
           "item": "I0GA",
-          "rate": 0.25
+          "rate": 0.33
         }
       ],
       "index": 30
@@ -956,7 +956,7 @@
         },
         {
           "item": "I0G8",
-          "rate": 0.25
+          "rate": 0.33
         }
       ],
       "index": 31
@@ -1092,13 +1092,13 @@
       "drops": [
         {
           "item": "tret",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "sreg",
-          "rate": 1.5,
-          "wishrate": 2
+          "rate": 1.75,
+          "wishrate": 3.5
         },
         {
           "item": "rre1",
@@ -1106,13 +1106,13 @@
         },
         {
           "item": "pinv",
-          "rate": 1.5,
-          "wishrate": 2
+          "rate": 1.75,
+          "wishrate": 3.5
         },
         {
           "item": "btst",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "I0NZ",
@@ -1120,8 +1120,8 @@
         },
         {
           "item": "I0M7",
-          "rate": 0.247,
-          "wishrate": 0.33
+          "rate": 0.25,
+          "wishrate": 0.5
         }
       ],
       "index": 35,
@@ -1132,38 +1132,33 @@
       "drops": [
         {
           "item": "ward",
-          "rate": 1.5,
-          "wishrate": 2
+          "rate": 1.75,
+          "wishrate": 3.5
         },
         {
           "item": "ratc",
-          "rate": 1.125,
-          "wishrate": 1.5
+          "rate": 1.25,
+          "wishrate": 2.5
         },
         {
           "item": "rat9",
-          "rate": 1.5,
-          "wishrate": 2
+          "rate": 1.75,
+          "wishrate": 3.5
         },
         {
           "item": "rat6",
-          "rate": 1.125,
-          "wishrate": 1.5
-        },
-        {
-          "item": "penr",
-          "rate": 1.5,
-          "wishrate": 2
+          "rate": 1.25,
+          "wishrate": 2.5
         },
         {
           "item": "nflg",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "gsou",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "fgrg",
@@ -1175,13 +1170,8 @@
         },
         {
           "item": "I0EL",
-          "rate": 2.25,
-          "wishrate": 3
-        },
-        {
-          "item": "I0EK",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         }
       ],
       "index": 36,
@@ -1192,13 +1182,13 @@
       "drops": [
         {
           "item": "stel",
-          "rate": 1.125,
-          "wishrate": 1.5
+          "rate": 1.25,
+          "wishrate": 2.5
         },
         {
           "item": "rde1",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "pomn",
@@ -1206,13 +1196,13 @@
         },
         {
           "item": "crys",
-          "rate": 1.5,
-          "wishrate": 2
+          "rate": 1.75,
+          "wishrate": 3.5
         },
         {
           "item": "belv",
-          "rate": 1.5,
-          "wishrate": 2
+          "rate": 1.75,
+          "wishrate": 3.5
         },
         {
           "item": "I0NZ",
@@ -1220,13 +1210,13 @@
         },
         {
           "item": "I0AS",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "I08P",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         }
       ],
       "index": 37,
@@ -1237,13 +1227,13 @@
       "drops": [
         {
           "item": "srtl",
-          "rate": 1.5,
-          "wishrate": 2
+          "rate": 1.75,
+          "wishrate": 3.5
         },
         {
           "item": "shtm",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "pres",
@@ -1251,13 +1241,13 @@
         },
         {
           "item": "pgin",
-          "rate": 1.5,
-          "wishrate": 2
+          "rate": 1.75,
+          "wishrate": 3.5
         },
         {
           "item": "ofir",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "I0NZ",
@@ -1265,8 +1255,8 @@
         },
         {
           "item": "I0D2",
-          "rate": 1.125,
-          "wishrate": 1.5
+          "rate": 1.25,
+          "wishrate": 2.5
         }
       ],
       "index": 38,
@@ -1285,23 +1275,23 @@
         },
         {
           "item": "I0EG",
-          "rate": 1.125,
-          "wishrate": 1.5
+          "rate": 1.25,
+          "wishrate": 2.5
         },
         {
           "item": "I0E7",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "I0E6",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         },
         {
           "item": "I0E5",
-          "rate": 2.25,
-          "wishrate": 3
+          "rate": 2.5,
+          "wishrate": 5
         }
       ],
       "index": 39,
@@ -1312,8 +1302,8 @@
       "drops": [
         {
           "item": "shwd",
-          "rate": 1.313,
-          "wishrate": 1.75
+          "rate": 1.5,
+          "wishrate": 3
         },
         {
           "item": "shar",
@@ -1321,18 +1311,18 @@
         },
         {
           "item": "mcri",
-          "rate": 1.688,
-          "wishrate": 2.25
+          "rate": 2,
+          "wishrate": 4
         },
         {
           "item": "kymn",
-          "rate": 0.938,
-          "wishrate": 1.25
+          "rate": 1,
+          "wishrate": 2
         },
         {
           "item": "bzbf",
-          "rate": 1.313,
-          "wishrate": 1.75
+          "rate": 1.5,
+          "wishrate": 3
         },
         {
           "item": "I0NZ",
@@ -1340,13 +1330,13 @@
         },
         {
           "item": "I09N",
-          "rate": 1.125,
-          "wishrate": 1.5
+          "rate": 1.25,
+          "wishrate": 2.5
         },
         {
           "item": "I08N",
-          "rate": 1.688,
-          "wishrate": 2.25
+          "rate": 2,
+          "wishrate": 4
         }
       ],
       "index": 40,
@@ -1357,28 +1347,28 @@
       "drops": [
         {
           "item": "srbd",
-          "rate": 0.4,
-          "wishrate": 1
+          "rate": 0.5,
+          "wishrate": 1.25
         },
         {
           "item": "sprn",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "oslo",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "ledg",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "kygh",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "infs",
@@ -1386,8 +1376,8 @@
         },
         {
           "item": "I0QH",
-          "rate": 0.132,
-          "wishrate": 0.33
+          "rate": 0.15,
+          "wishrate": 0.375
         },
         {
           "item": "I0O0",
@@ -1395,8 +1385,8 @@
         },
         {
           "item": "I0DG",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         }
       ],
       "index": 41,
@@ -1412,8 +1402,8 @@
         },
         {
           "item": "ocor",
-          "rate": 0.4,
-          "wishrate": 1
+          "rate": 0.5,
+          "wishrate": 1.25
         },
         {
           "item": "I0P0",
@@ -1425,18 +1415,18 @@
         },
         {
           "item": "I0IH",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "I0IG",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "I02E",
-          "rate": 0.132,
-          "wishrate": 0.33
+          "rate": 0.15,
+          "wishrate": 0.375
         }
       ],
       "index": 42,
@@ -1460,23 +1450,23 @@
         },
         {
           "item": "I0JS",
-          "rate": 0.4,
-          "wishrate": 1
+          "rate": 0.5,
+          "wishrate": 1.25
         },
         {
           "item": "I0IF",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "I0IE",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "I02D",
-          "rate": 0.132,
-          "wishrate": 0.33
+          "rate": 0.15,
+          "wishrate": 0.375
         }
       ],
       "index": 43,
@@ -1500,23 +1490,23 @@
         },
         {
           "item": "I0LX",
-          "rate": 0.4,
-          "wishrate": 1
+          "rate": 0.5,
+          "wishrate": 1.25
         },
         {
           "item": "I0IJ",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "I0II",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 0.75,
+          "wishrate": 1.875
         },
         {
           "item": "I002",
-          "rate": 0.132,
-          "wishrate": 0.33
+          "rate": 0.15,
+          "wishrate": 0.375
         }
       ],
       "index": 44,
@@ -1531,7 +1521,7 @@
         },
         {
           "item": "I0O3",
-          "rate": 0.3,
+          "rate": 0.4,
           "wishrate": 1
         },
         {
@@ -1540,23 +1530,23 @@
         },
         {
           "item": "I0NW",
-          "rate": 0.45,
+          "rate": 0.6,
           "wishrate": 1.5
         },
         {
           "item": "I0NV",
-          "rate": 0.45,
+          "rate": 0.6,
           "wishrate": 1.5
         },
         {
           "item": "I0NU",
-          "rate": 0.45,
+          "rate": 0.6,
           "wishrate": 1.5
         },
         {
           "item": "I02S",
-          "rate": 0.099,
-          "wishrate": 0.33
+          "rate": 0.15,
+          "wishrate": 0.375
         }
       ],
       "index": 45,
@@ -1887,8 +1877,8 @@
       "type": "방어구",
       "droprates": [
         {
-          "rate": 1.5,
-          "wishrate": 2,
+          "rate": 1.75,
+          "wishrate": 3.5,
           "group": "fgrg"
         }
       ]
@@ -2064,8 +2054,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "rre1"
         }
       ]
@@ -2193,24 +2183,6 @@
         [
           {
             "item": "nflg",
-            "count": 1
-          },
-          {
-            "item": "I09N",
-            "count": 1
-          },
-          {
-            "item": "I0CB",
-            "count": 1
-          },
-          {
-            "item": "bspd",
-            "count": 1
-          }
-        ],
-        [
-          {
-            "item": "I0EK",
             "count": 1
           },
           {
@@ -2519,8 +2491,8 @@
       "type": "날개",
       "droprates": [
         {
-          "rate": 1.125,
-          "wishrate": 1.5,
+          "rate": 1.25,
+          "wishrate": 2.5,
           "group": "pomn"
         }
       ]
@@ -2562,8 +2534,8 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 1.5,
-          "wishrate": 2,
+          "rate": 1.75,
+          "wishrate": 3.5,
           "group": "pres"
         }
       ]
@@ -2603,8 +2575,8 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 1.5,
-          "wishrate": 2,
+          "rate": 1.75,
+          "wishrate": 3.5,
           "group": "rre1"
         }
       ]
@@ -2618,8 +2590,8 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 0.4,
-          "wishrate": 1,
+          "rate": 0.5,
+          "wishrate": 1.25,
           "group": "infs"
         }
       ]
@@ -2669,8 +2641,8 @@
       "type": "머리보호구",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "infs"
         }
       ]
@@ -3206,8 +3178,8 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 1.313,
-          "wishrate": 1.75,
+          "rate": 1.5,
+          "wishrate": 3,
           "group": "shar"
         }
       ]
@@ -3221,8 +3193,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "pres"
         }
       ]
@@ -3799,32 +3771,6 @@
             "item": "I0BK",
             "count": 1
           }
-        ],
-        [
-          {
-            "item": "I0EK",
-            "count": 1
-          },
-          {
-            "item": "rde1",
-            "count": 1
-          },
-          {
-            "item": "shtm",
-            "count": 1
-          },
-          {
-            "item": "crdt",
-            "count": 1
-          },
-          {
-            "item": "shwd",
-            "count": 1
-          },
-          {
-            "item": "I0BK",
-            "count": 1
-          }
         ]
       ],
       "mobindex": 40,
@@ -4237,8 +4183,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "pomn"
         }
       ]
@@ -4350,8 +4296,8 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 1.125,
-          "wishrate": 1.5,
+          "rate": 1.25,
+          "wishrate": 2.5,
           "group": "fgrg"
         }
       ]
@@ -4365,8 +4311,8 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 1.5,
-          "wishrate": 2,
+          "rate": 1.75,
+          "wishrate": 3.5,
           "group": "fgrg"
         }
       ]
@@ -4380,8 +4326,8 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 1.125,
-          "wishrate": 1.5,
+          "rate": 1.25,
+          "wishrate": 2.5,
           "group": "fgrg"
         }
       ]
@@ -4701,8 +4647,8 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 1.5,
-          "wishrate": 2,
+          "rate": 1.75,
+          "wishrate": 3.5,
           "group": "rre1"
         }
       ]
@@ -4761,8 +4707,8 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 1.5,
-          "wishrate": 2,
+          "rate": 1.75,
+          "wishrate": 3.5,
           "group": "pres"
         }
       ]
@@ -4779,14 +4725,7 @@
       "description": "특별한 능력이 깃든 해골왕의 브로치\r<br/>∴주 스탯 +390\r<br/>∴스킬 데미지 +12%",
       "searchstring": "- 그노시스 급 장신구 -\r",
       "grade": 3,
-      "type": "장신구",
-      "droprates": [
-        {
-          "rate": 1.5,
-          "wishrate": 2,
-          "group": "fgrg"
-        }
-      ]
+      "type": "장신구"
     },
     "pdiv": {
       "id": "pdiv",
@@ -4869,8 +4808,8 @@
       "type": "방어구",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "infs"
         }
       ]
@@ -4972,8 +4911,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "pres"
         }
       ]
@@ -5001,8 +4940,8 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 0.4,
-          "wishrate": 1,
+          "rate": 0.5,
+          "wishrate": 1.25,
           "group": "I0P0"
         }
       ]
@@ -5028,8 +4967,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "fgrg"
         }
       ]
@@ -5169,8 +5108,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 1.688,
-          "wishrate": 2.25,
+          "rate": 2,
+          "wishrate": 4,
           "group": "shar"
         }
       ]
@@ -5258,8 +5197,8 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "infs"
         }
       ]
@@ -5287,8 +5226,8 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 0.938,
-          "wishrate": 1.25,
+          "rate": 1,
+          "wishrate": 2,
           "group": "shar"
         }
       ]
@@ -5302,8 +5241,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "infs"
         }
       ]
@@ -5386,7 +5325,7 @@
       "recipies": [
         [
           {
-            "item": "I0EK",
+            "item": "gsou",
             "count": 1
           },
           {
@@ -5432,25 +5371,7 @@
             "count": 1
           },
           {
-            "item": "nflg",
-            "count": 1
-          },
-          {
-            "item": "I0AC",
-            "count": 1
-          }
-        ],
-        [
-          {
-            "item": "I06T",
-            "count": 1
-          },
-          {
-            "item": "grsl",
-            "count": 1
-          },
-          {
-            "item": "I0EK",
+            "item": "I0EL",
             "count": 1
           },
           {
@@ -5863,8 +5784,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "fgrg"
         }
       ]
@@ -6527,7 +6448,7 @@
             "count": 1
           },
           {
-            "item": "I0EK",
+            "item": "I0EL",
             "count": 1
           },
           {
@@ -6674,8 +6595,8 @@
       "type": "머리보호구",
       "droprates": [
         {
-          "rate": 1.5,
-          "wishrate": 2,
+          "rate": 1.75,
+          "wishrate": 3.5,
           "group": "pomn"
         }
       ]
@@ -6881,8 +6802,8 @@
       "type": "방어구",
       "droprates": [
         {
-          "rate": 1.313,
-          "wishrate": 1.75,
+          "rate": 1.5,
+          "wishrate": 3,
           "group": "shar"
         }
       ]
@@ -6934,8 +6855,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "rre1"
         }
       ]
@@ -7053,8 +6974,8 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 1.5,
-          "wishrate": 2,
+          "rate": 1.75,
+          "wishrate": 3.5,
           "group": "pomn"
         }
       ]
@@ -7737,8 +7658,8 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.132,
-          "wishrate": 0.33,
+          "rate": 0.15,
+          "wishrate": 0.375,
           "group": "infs"
         }
       ]
@@ -9390,7 +9311,7 @@
       "type": "날개",
       "droprates": [
         {
-          "rate": 0.3,
+          "rate": 0.4,
           "wishrate": 1,
           "group": "I0P3"
         }
@@ -9509,7 +9430,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.45,
+          "rate": 0.6,
           "wishrate": 1.5,
           "group": "I0P3"
         }
@@ -9524,7 +9445,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.45,
+          "rate": 0.6,
           "wishrate": 1.5,
           "group": "I0P3"
         }
@@ -9539,7 +9460,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.45,
+          "rate": 0.6,
           "wishrate": 1.5,
           "group": "I0P3"
         }
@@ -9559,7 +9480,7 @@
             "count": 1
           },
           {
-            "item": "I0EK",
+            "item": "nflg",
             "count": 1
           },
           {
@@ -11131,10 +11052,6 @@
             "count": 1
           },
           {
-            "item": "I0EK",
-            "count": 1
-          },
-          {
             "item": "nflg",
             "count": 1
           },
@@ -11144,10 +11061,6 @@
           },
           {
             "item": "rat9",
-            "count": 1
-          },
-          {
-            "item": "penr",
             "count": 1
           },
           {
@@ -11179,8 +11092,8 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.247,
-          "wishrate": 0.33,
+          "rate": 0.25,
+          "wishrate": 0.5,
           "group": "rre1"
         }
       ]
@@ -11294,8 +11207,8 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 0.4,
-          "wishrate": 1,
+          "rate": 0.5,
+          "wishrate": 1.25,
           "group": "I0P2"
         }
       ]
@@ -11424,7 +11337,7 @@
       "recipies": [
         [
           {
-            "item": "I0EK",
+            "item": "nflg",
             "count": 1
           },
           {
@@ -11568,7 +11481,7 @@
     "I0L7": {
       "id": "I0L7",
       "name": "소원",
-      "description": "원하는 아이템을 지정합니다.\r<br/>\r<br/>소원 아이템이 지정된 경우, 해당 아이템만 드랍이 가능하지만 드랍률을 100% 적용받습니다.\r<br/>\r<br/>소원 아이템이 지정되지 않은 경우, 모든 아이템이 드랍이 가능하지만 드랍률을 부분적으로 적용받게 됩니다.\r<br/>\r<br/>재화 및 토큰은 소원에 영향받지 않습니다.",
+      "description": "원하는 아이템을 지정합니다.\r<br/>\r<br/>소원 아이템이 지정된 경우, 일반 아이템은 드랍되지 않지만 소원을 빈 아이템의 드랍률이 대폭 증가합니다.\r<br/>\r<br/>재화 및 토큰은 소원에 영향받지 않습니다.",
       "grade": 0
     },
     "I0L6": {
@@ -11964,8 +11877,8 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 0.4,
-          "wishrate": 1,
+          "rate": 0.5,
+          "wishrate": 1.25,
           "group": "I0P1"
         }
       ]
@@ -12710,8 +12623,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "I0P2"
         }
       ]
@@ -12725,8 +12638,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "I0P2"
         }
       ]
@@ -12740,8 +12653,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "I0P0"
         }
       ]
@@ -12755,8 +12668,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "I0P0"
         }
       ]
@@ -12770,8 +12683,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "I0P1"
         }
       ]
@@ -12785,8 +12698,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "I0P1"
         }
       ]
@@ -13602,28 +13515,6 @@
             "item": "I08M",
             "count": 1
           }
-        ],
-        [
-          {
-            "item": "I0CK",
-            "count": 1
-          },
-          {
-            "item": "I0EK",
-            "count": 1
-          },
-          {
-            "item": "ofir",
-            "count": 1
-          },
-          {
-            "item": "sreg",
-            "count": 1
-          },
-          {
-            "item": "I08M",
-            "count": 1
-          }
         ]
       ],
       "mobindex": 38,
@@ -13665,51 +13556,7 @@
             "count": 1
           },
           {
-            "item": "I0EK",
-            "count": 1
-          },
-          {
-            "item": "shtm",
-            "count": 1
-          },
-          {
-            "item": "pinv",
-            "count": 1
-          },
-          {
-            "item": "I08L",
-            "count": 1
-          }
-        ],
-        [
-          {
-            "item": "I0CK",
-            "count": 1
-          },
-          {
             "item": "nflg",
-            "count": 1
-          },
-          {
-            "item": "ofir",
-            "count": 1
-          },
-          {
-            "item": "pinv",
-            "count": 1
-          },
-          {
-            "item": "I08L",
-            "count": 1
-          }
-        ],
-        [
-          {
-            "item": "I0CK",
-            "count": 1
-          },
-          {
-            "item": "I0EK",
             "count": 1
           },
           {
@@ -14095,7 +13942,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.25,
+          "rate": 0.33,
           "group": "wcyc"
         }
       ]
@@ -14108,7 +13955,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.75,
+          "rate": 1,
           "group": "envl"
         }
       ]
@@ -14121,7 +13968,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.25,
+          "rate": 0.33,
           "group": "ccmd"
         }
       ]
@@ -14134,7 +13981,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.75,
+          "rate": 1,
           "group": "dtsb"
         }
       ]
@@ -14147,7 +13994,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.75,
+          "rate": 1,
           "group": "gvsm"
         }
       ]
@@ -14160,7 +14007,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.75,
+          "rate": 1,
           "group": "nspi"
         }
       ]
@@ -14350,7 +14197,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.25,
+          "rate": 0.33,
           "group": "amrc"
         }
       ]
@@ -14557,7 +14404,7 @@
       "recipies": [
         [
           {
-            "item": "I0EK",
+            "item": "I0EL",
             "count": 1
           },
           {
@@ -15342,8 +15189,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "fgrg"
         }
       ]
@@ -15351,17 +15198,10 @@
     "I0EK": {
       "id": "I0EK",
       "name": "망각의 파편",
-      "description": "",
+      "description": "오래된 망각의 파편이다.\r<br/>∴사용 시 다른 재료로 교환됨",
       "searchstring": "- 그노시스 급 재료 -\r",
       "grade": 3,
-      "type": "재료",
-      "droprates": [
-        {
-          "rate": 2.25,
-          "wishrate": 3,
-          "group": "fgrg"
-        }
-      ]
+      "type": "재료"
     },
     "I0EJ": {
       "id": "I0EJ",
@@ -15512,8 +15352,8 @@
       "type": "날개",
       "droprates": [
         {
-          "rate": 1.125,
-          "wishrate": 1.5,
+          "rate": 1.25,
+          "wishrate": 2.5,
           "group": "sneg"
         }
       ]
@@ -15621,8 +15461,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "sneg"
         }
       ]
@@ -15636,8 +15476,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "sneg"
         }
       ]
@@ -15651,8 +15491,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "sneg"
         }
       ]
@@ -15672,28 +15512,6 @@
           },
           {
             "item": "gsou",
-            "count": 1
-          },
-          {
-            "item": "I0E7",
-            "count": 1
-          },
-          {
-            "item": "crys",
-            "count": 1
-          },
-          {
-            "item": "sor7",
-            "count": 1
-          }
-        ],
-        [
-          {
-            "item": "I0AB",
-            "count": 1
-          },
-          {
-            "item": "I0EK",
             "count": 1
           },
           {
@@ -15793,6 +15611,32 @@
       "grade": 3,
       "type": "장신구",
       "recipies": [
+        [
+          {
+            "item": "I06X",
+            "count": 1
+          },
+          {
+            "item": "ram1",
+            "count": 1
+          },
+          {
+            "item": "I0E7",
+            "count": 1
+          },
+          {
+            "item": "I09N",
+            "count": 1
+          },
+          {
+            "item": "rat9",
+            "count": 1
+          },
+          {
+            "item": "I0C5",
+            "count": 1
+          }
+        ],
         [
           {
             "item": "I06X",
@@ -16303,8 +16147,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 0.75,
+          "wishrate": 1.875,
           "group": "infs"
         }
       ]
@@ -16564,8 +16408,8 @@
       "type": "날개",
       "droprates": [
         {
-          "rate": 1.125,
-          "wishrate": 1.5,
+          "rate": 1.25,
+          "wishrate": 2.5,
           "group": "pres"
         }
       ]
@@ -16585,28 +16429,6 @@
           },
           {
             "item": "nflg",
-            "count": 1
-          },
-          {
-            "item": "I08D",
-            "count": 1
-          },
-          {
-            "item": "I0BH",
-            "count": 1
-          },
-          {
-            "item": "I093",
-            "count": 1
-          }
-        ],
-        [
-          {
-            "item": "ofir",
-            "count": 1
-          },
-          {
-            "item": "I0EK",
             "count": 1
           },
           {
@@ -18057,7 +17879,7 @@
     "I0AV": {
       "id": "I0AV",
       "name": "요정의 로브",
-      "description": "나에게 증명한 영웅심에 걸맞은 수호를 부여하리\r<br/>∴방어력 +145\r<br/>∴지능 +215\r<br/>∴HP 1200\r<br/>∴사용 시 요정 소환",
+      "description": "나에게 증명한 영웅심에 걸맞은 수호를 부여하리\r<br/>∴방어력 +145\r<br/>∴지능 +215\r<br/>∴HP +1200\r<br/>∴사용 시 요정 소환",
       "searchstring": "- 델티라마 급 방어구 -\r",
       "grade": 1,
       "type": "방어구",
@@ -18147,8 +17969,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "pomn"
         }
       ]
@@ -18754,8 +18576,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 1.125,
-          "wishrate": 1.5,
+          "rate": 1.25,
+          "wishrate": 2.5,
           "group": "shar"
         }
       ]
@@ -19211,8 +19033,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2.25,
-          "wishrate": 3,
+          "rate": 2.5,
+          "wishrate": 5,
           "group": "pomn"
         }
       ]
@@ -19240,8 +19062,8 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 1.688,
-          "wishrate": 2.25,
+          "rate": 2,
+          "wishrate": 4,
           "group": "shar"
         }
       ]
@@ -21531,8 +21353,8 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.099,
-          "wishrate": 0.33,
+          "rate": 0.15,
+          "wishrate": 0.375,
           "group": "I0P3"
         }
       ]
@@ -21569,8 +21391,8 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.132,
-          "wishrate": 0.33,
+          "rate": 0.15,
+          "wishrate": 0.375,
           "group": "I0P0"
         }
       ]
@@ -21583,8 +21405,8 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.132,
-          "wishrate": 0.33,
+          "rate": 0.15,
+          "wishrate": 0.375,
           "group": "I0P1"
         }
       ]
@@ -23393,8 +23215,8 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.132,
-          "wishrate": 0.33,
+          "rate": 0.15,
+          "wishrate": 0.375,
           "group": "I0P2"
         }
       ]
@@ -23409,6 +23231,36 @@
       "id": "I001",
       "name": "푸른 수호자 로드",
       "description": "[Collectible]",
+      "grade": 0
+    },
+    "I008": {
+      "id": "I008",
+      "name": "행운의 복주머니",
+      "description": "[Special]\r<br/>풍성한 한가위 되세요!\r<br/>∴낮은 확률로 경품 당첨\r<br/>∴다수 보유 시 자동으로 사용됩니다",
+      "grade": 0
+    },
+    "I00M": {
+      "id": "I00M",
+      "name": "별 토큰",
+      "description": "[Collectible]",
+      "grade": 0
+    },
+    "I00N": {
+      "id": "I00N",
+      "name": "하트 로드",
+      "description": "[Collectible]",
+      "grade": 0
+    },
+    "I00O": {
+      "id": "I00O",
+      "name": "축제의 오라",
+      "description": "[Collectible]",
+      "grade": 0
+    },
+    "I00Y": {
+      "id": "I00Y",
+      "name": "이벤트 코스튬 선택권",
+      "description": "[Special]\r<br/>사용 시 원하는 이벤트 코스튬 1기와 교환할 수 있습니다.\r<br/>∴저장 가능",
       "grade": 0
     }
   }
