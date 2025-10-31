@@ -5,7 +5,7 @@ const { version: app_version } = JSON.parse(readFileSync('package.json', 'utf-8'
 
 const targets = JSON.parse(readFileSync('./generator/targets.json', 'utf-8'))
 
-const version = '0.68k'
+const version = '0.72f3'
 
 const translator = new Translator()
 
@@ -37,7 +37,7 @@ const typelist = {
 const scriptarray = readFileSync('./generator/war3map.j', 'utf-8').split(/\n|\r/)
 const st1 = scriptarray.find(e => e.indexOf(`('I016'),((50)*1.))`) >= 0).substring(5, 8)
 const st2 = scriptarray.find(e => e.indexOf(`('I00B'),((33)*1.))`) >= 0).substring(5, 8)
-const st3 = scriptarray.find(e => e.match(/call [A-z0-9]{3}\(2\.\)/)).substring(5, 8)
+// const st3 = scriptarray.find(e => e.match(/call [A-z0-9]{3}\(2\.\)/)).substring(5, 8)
 const st4 = scriptarray.find(e => e.indexOf(`'n01K',5,0,`) >= 0).substring(5, 8)
 const st5 = scriptarray.find(e => e.indexOf(`('I016'),((50)*1.))`) >= 0).substring(9, 11)
 const st6 = scriptarray.find(e => e.indexOf(`('n02R',0)`) >= 0).substring(5, 8)
@@ -46,12 +46,14 @@ const st8 = scriptarray.find(e => e.indexOf(`('I00U'),'I01E',1),'I011',1`) >= 0)
 
 const regex = {
   droprate: new RegExp(`(?<=call (${st1}|${st2}))((.*)(?=))`, 'g'),
-  droprate2: new RegExp(`(?<=call ${st3}\\()((.|\\r|\\n)*?)call ${st4}`, 'g'),
+  // droprate2: new RegExp(`(?<=call ${st3}\\()((.|\\r|\\n)*?)call ${st4}`, 'g'),
   droprate3: new RegExp(`(?<=call (${st2})\\(${st5},\\(')(.*?)(?=')`),
   droprate4: new RegExp(`(?<=call ${st2})((.|\\r|\\n)*?)(?=call ${st6}|call ${st4}|call ${st7})`, 'g'),
   droprate5: new RegExp(`(?<=${st5},\\(')(.*?)(?=')`),
   recipies: new RegExp(`(?<=call ${st8})(.*)(?=\\))`, 'g')
 }
+
+console.log(regex)
 
 const types = {}
 Object.keys(items_origin).forEach(id => {
@@ -98,7 +100,7 @@ const mobs = {
   'I0DV': '킹콩',
   'I0BT': '피의 망령',
   'I0BT2': '박쥐 괴인',
-  'I046': '다크나이트',
+  'I046': '데스나이트',
   'nspi': '라그나스',
   'blba': '이블 라바',
   'gvsm': '촉수 지배자',
@@ -136,7 +138,8 @@ const mobs = {
   'I0R6': '공작 라자루스',
   'I0R7': '지신 가이아',
   'I0GH': '고대 마도 기계',
-  'I0QE': '영혼수확자 스티릭스'
+  'I0QE': '영혼수확자 스티릭스',
+  'I0R8': '빛의 인도자 카마엘'
 }
 const mobsnickname = {
   'rre1': '본드래곤',
@@ -153,7 +156,8 @@ const mobsnickname = {
   'I0R6': '라자루스',
   'I0R7': '지신',
   'I0GH': '고대기계',
-  'I0QE': '스티릭스'
+  'I0QE': '스티릭스',
+  'I0R8': '카마엘'
 }
 
 const dropdata = readFileSync('./generator/war3map.j', 'utf-8').split(/\n|\r/).join('\n')
@@ -178,25 +182,25 @@ dropdata.match(regex.droprate).map(e => {
 })
 
 // 소원 반영
-dropdata.match(regex.droprate2).map(e => {
-  const arr = e.split(')\n')
-  const rate = parseFloat(arr[0])
-  const items = arr.map(e => e.match(regex.droprate3)).filter(e => e).map(e => e[0])
-  return {
-    rate,
-    items
-  }
-}).forEach(e => {
-  const { rate, items: _items } = e
-  _items.forEach(e => {
-    const target = items[e].droprates.find(e => !e.wishrate)
-    if (target) {
-      const droprates = target.rate * rate
-      target.rate = parseFloat(target.rate.toFixed(3))
-      target.wishrate = parseFloat(droprates.toFixed(3))
-    }
-  })
-})
+// dropdata.match(regex.droprate2).map(e => {
+//   const arr = e.split(')\n')
+//   const rate = parseFloat(arr[0])
+//   const items = arr.map(e => e.match(regex.droprate3)).filter(e => e).map(e => e[0])
+//   return {
+//     rate,
+//     items
+//   }
+// }).forEach(e => {
+//   const { rate, items: _items } = e
+//   _items.forEach(e => {
+//     const target = items[e].droprates.find(e => !e.wishrate)
+//     if (target) {
+//       const droprates = target.rate * rate
+//       target.rate = parseFloat(target.rate.toFixed(3))
+//       target.wishrate = parseFloat(droprates.toFixed(3))
+//     }
+//   })
+// })
 
 // 드랍 몹 확인
 dropdata.match(regex.droprate4).map(e => {

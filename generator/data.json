@@ -1,15 +1,15 @@
 {
-  "app_version": "1.0.11",
-  "version": "0.68k",
+  "app_version": "1.0.12",
+  "version": "0.72f3",
   "types": {
-    "머리보호구": 84,
-    "undefined": 347,
-    "무기": 269,
-    "방어구": 95,
-    "재료": 103,
-    "날개": 53,
-    "장신구": 100,
-    "아이콘": 40,
+    "머리보호구": 90,
+    "undefined": 358,
+    "무기": 281,
+    "방어구": 102,
+    "재료": 106,
+    "날개": 58,
+    "장신구": 107,
+    "아이콘": 41,
     "재화": 6,
     "곡괭이": 4
   },
@@ -204,7 +204,7 @@
       "index": 10
     },
     "I046": {
-      "name": "다크나이트",
+      "name": "데스나이트",
       "drops": [
         {
           "item": "sor1",
@@ -660,7 +660,7 @@
         },
         {
           "item": "I0FZ",
-          "rate": 0.33
+          "rate": 0.5
         },
         {
           "item": "I0BJ",
@@ -674,35 +674,35 @@
       "drops": [
         {
           "item": "tmmt",
-          "rate": 0.006
+          "rate": 0.002
         },
         {
           "item": "I0FA",
-          "rate": 7.5
+          "rate": 2.5
         },
         {
           "item": "I089",
-          "rate": 7.5
+          "rate": 2.5
         },
         {
           "item": "I088",
-          "rate": 7.5
+          "rate": 2.5
         },
         {
           "item": "I087",
-          "rate": 7.5
+          "rate": 2.5
         },
         {
           "item": "I085",
-          "rate": 7.5
+          "rate": 2.5
         },
         {
           "item": "I06T",
-          "rate": 12.5
+          "rate": 5
         },
         {
           "item": "I06R",
-          "rate": 12.5
+          "rate": 5
         }
       ],
       "index": 24
@@ -922,7 +922,7 @@
         },
         {
           "item": "I0GA",
-          "rate": 0.33
+          "rate": 0.5
         }
       ],
       "index": 30
@@ -956,7 +956,7 @@
         },
         {
           "item": "I0G8",
-          "rate": 0.33
+          "rate": 0.5
         }
       ],
       "index": 31
@@ -1092,13 +1092,11 @@
       "drops": [
         {
           "item": "tret",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "sreg",
-          "rate": 1.75,
-          "wishrate": 3.5
+          "rate": 1.75
         },
         {
           "item": "rre1",
@@ -1106,22 +1104,19 @@
         },
         {
           "item": "pinv",
-          "rate": 1.75,
-          "wishrate": 3.5
+          "rate": 1.75
         },
         {
           "item": "btst",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "I0NZ",
-          "rate": 0.8
+          "rate": 1.5
         },
         {
           "item": "I0M7",
-          "rate": 0.25,
-          "wishrate": 0.5
+          "rate": 0.25
         }
       ],
       "index": 35,
@@ -1132,33 +1127,27 @@
       "drops": [
         {
           "item": "ward",
-          "rate": 1.75,
-          "wishrate": 3.5
+          "rate": 1.75
         },
         {
           "item": "ratc",
-          "rate": 1.25,
-          "wishrate": 2.5
+          "rate": 1.25
         },
         {
           "item": "rat9",
-          "rate": 1.75,
-          "wishrate": 3.5
+          "rate": 1.75
         },
         {
           "item": "rat6",
-          "rate": 1.25,
-          "wishrate": 2.5
+          "rate": 1.25
         },
         {
           "item": "nflg",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "gsou",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "fgrg",
@@ -1166,12 +1155,11 @@
         },
         {
           "item": "I0NZ",
-          "rate": 0.8
+          "rate": 1.5
         },
         {
           "item": "I0EL",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         }
       ],
       "index": 36,
@@ -1182,13 +1170,11 @@
       "drops": [
         {
           "item": "stel",
-          "rate": 1.25,
-          "wishrate": 2.5
+          "rate": 1.25
         },
         {
           "item": "rde1",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "pomn",
@@ -1196,27 +1182,23 @@
         },
         {
           "item": "crys",
-          "rate": 1.75,
-          "wishrate": 3.5
+          "rate": 1.75
         },
         {
           "item": "belv",
-          "rate": 1.75,
-          "wishrate": 3.5
+          "rate": 1.75
         },
         {
           "item": "I0NZ",
-          "rate": 0.9
+          "rate": 1.75
         },
         {
           "item": "I0AS",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "I08P",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         }
       ],
       "index": 37,
@@ -1227,13 +1209,11 @@
       "drops": [
         {
           "item": "srtl",
-          "rate": 1.75,
-          "wishrate": 3.5
+          "rate": 1.75
         },
         {
           "item": "shtm",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "pres",
@@ -1241,22 +1221,19 @@
         },
         {
           "item": "pgin",
-          "rate": 1.75,
-          "wishrate": 3.5
+          "rate": 1.75
         },
         {
           "item": "ofir",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "I0NZ",
-          "rate": 0.9
+          "rate": 1.75
         },
         {
           "item": "I0D2",
-          "rate": 1.25,
-          "wishrate": 2.5
+          "rate": 1.25
         }
       ],
       "index": 38,
@@ -1271,27 +1248,23 @@
         },
         {
           "item": "I0NZ",
-          "rate": 1
+          "rate": 2
         },
         {
           "item": "I0EG",
-          "rate": 1.25,
-          "wishrate": 2.5
+          "rate": 1.25
         },
         {
           "item": "I0E7",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "I0E6",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         },
         {
           "item": "I0E5",
-          "rate": 2.5,
-          "wishrate": 5
+          "rate": 2.5
         }
       ],
       "index": 39,
@@ -1302,8 +1275,7 @@
       "drops": [
         {
           "item": "shwd",
-          "rate": 1.5,
-          "wishrate": 3
+          "rate": 1.5
         },
         {
           "item": "shar",
@@ -1311,32 +1283,27 @@
         },
         {
           "item": "mcri",
-          "rate": 2,
-          "wishrate": 4
+          "rate": 2.5
         },
         {
           "item": "kymn",
-          "rate": 1,
-          "wishrate": 2
+          "rate": 1
         },
         {
           "item": "bzbf",
-          "rate": 1.5,
-          "wishrate": 3
+          "rate": 1.5
         },
         {
           "item": "I0NZ",
-          "rate": 1.2
+          "rate": 2.5
         },
         {
           "item": "I09N",
-          "rate": 1.25,
-          "wishrate": 2.5
+          "rate": 2.5
         },
         {
           "item": "I08N",
-          "rate": 2,
-          "wishrate": 4
+          "rate": 2.5
         }
       ],
       "index": 40,
@@ -1347,28 +1314,23 @@
       "drops": [
         {
           "item": "srbd",
-          "rate": 0.5,
-          "wishrate": 1.25
+          "rate": 0.75
         },
         {
           "item": "sprn",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1
         },
         {
           "item": "oslo",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1
         },
         {
           "item": "ledg",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1
         },
         {
           "item": "kygh",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1.25
         },
         {
           "item": "infs",
@@ -1376,17 +1338,15 @@
         },
         {
           "item": "I0QH",
-          "rate": 0.15,
-          "wishrate": 0.375
+          "rate": 0.25
         },
         {
           "item": "I0O0",
-          "rate": 0.4
+          "rate": 0.8
         },
         {
           "item": "I0DG",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1.25
         }
       ],
       "index": 41,
@@ -1397,13 +1357,11 @@
       "drops": [
         {
           "item": "phea",
-          "rate": 0.4,
-          "wishrate": 1
+          "rate": 0.75
         },
         {
           "item": "ocor",
-          "rate": 0.5,
-          "wishrate": 1.25
+          "rate": 1
         },
         {
           "item": "I0P0",
@@ -1411,22 +1369,19 @@
         },
         {
           "item": "I0O0",
-          "rate": 0.4
+          "rate": 0.8
         },
         {
           "item": "I0IH",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1.25
         },
         {
           "item": "I0IG",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1.25
         },
         {
           "item": "I02E",
-          "rate": 0.15,
-          "wishrate": 0.375
+          "rate": 0.25
         }
       ],
       "index": 42,
@@ -1437,8 +1392,7 @@
       "drops": [
         {
           "item": "phea",
-          "rate": 0.5,
-          "wishrate": 1.25
+          "rate": 1
         },
         {
           "item": "I0P1",
@@ -1446,27 +1400,23 @@
         },
         {
           "item": "I0O0",
-          "rate": 0.4
+          "rate": 0.9
         },
         {
           "item": "I0JS",
-          "rate": 0.5,
-          "wishrate": 1.25
+          "rate": 1
         },
         {
           "item": "I0IF",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1.25
         },
         {
           "item": "I0IE",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1.25
         },
         {
           "item": "I02D",
-          "rate": 0.15,
-          "wishrate": 0.375
+          "rate": 0.25
         }
       ],
       "index": 43,
@@ -1477,8 +1427,7 @@
       "drops": [
         {
           "item": "phea",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 1.25
         },
         {
           "item": "I0P2",
@@ -1486,27 +1435,23 @@
         },
         {
           "item": "I0O0",
-          "rate": 0.5
+          "rate": 1
         },
         {
           "item": "I0LX",
-          "rate": 0.5,
-          "wishrate": 1.25
+          "rate": 1
         },
         {
           "item": "I0IJ",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1.25
         },
         {
           "item": "I0II",
-          "rate": 0.75,
-          "wishrate": 1.875
+          "rate": 1.25
         },
         {
           "item": "I002",
-          "rate": 0.15,
-          "wishrate": 0.375
+          "rate": 0.25
         }
       ],
       "index": 44,
@@ -1521,32 +1466,27 @@
         },
         {
           "item": "I0O3",
-          "rate": 0.4,
-          "wishrate": 1
+          "rate": 0.75
         },
         {
           "item": "I0O0",
-          "rate": 0.6
+          "rate": 1.25
         },
         {
           "item": "I0NW",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 1
         },
         {
           "item": "I0NV",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 1
         },
         {
           "item": "I0NU",
-          "rate": 0.6,
-          "wishrate": 1.5
+          "rate": 1
         },
         {
           "item": "I02S",
-          "rate": 0.15,
-          "wishrate": 0.375
+          "rate": 0.25
         }
       ],
       "index": 45,
@@ -1557,7 +1497,7 @@
       "drops": [
         {
           "item": "I0R6",
-          "rate": 0.01
+          "rate": 0.005
         },
         {
           "item": "I0R4",
@@ -1573,11 +1513,11 @@
         },
         {
           "item": "I0O2",
-          "rate": 0.15
+          "rate": 0.25
         },
         {
           "item": "I014",
-          "rate": 0.7
+          "rate": 0.75
         }
       ],
       "index": 46,
@@ -1588,27 +1528,27 @@
       "drops": [
         {
           "item": "I0R7",
-          "rate": 0.01
+          "rate": 0.005
         },
         {
           "item": "I0LY",
-          "rate": 0.15
+          "rate": 0.2
         },
         {
           "item": "I09R",
-          "rate": 0.75
+          "rate": 0.85
         },
         {
           "item": "I05Q",
-          "rate": 0.75
+          "rate": 0.85
         },
         {
           "item": "I05P",
-          "rate": 0.75
+          "rate": 0.85
         },
         {
           "item": "I01Z",
-          "rate": 0.6
+          "rate": 0.65
         }
       ],
       "index": 47,
@@ -1671,6 +1611,37 @@
       ],
       "index": 49,
       "nickname": "스티릭스"
+    },
+    "I0R8": {
+      "name": "빛의 인도자 카마엘",
+      "drops": [
+        {
+          "item": "I0R8",
+          "rate": 0.01
+        },
+        {
+          "item": "I02U",
+          "rate": 0.15
+        },
+        {
+          "item": "I023",
+          "rate": 0.4
+        },
+        {
+          "item": "I02N",
+          "rate": 0.6
+        },
+        {
+          "item": "I02O",
+          "rate": 0.6
+        },
+        {
+          "item": "I02P",
+          "rate": 0.6
+        }
+      ],
+      "index": 50,
+      "nickname": "카마엘"
     }
   },
   "items": {
@@ -1839,7 +1810,7 @@
     "wild": {
       "id": "wild",
       "name": "사과맛 사탕",
-      "description": "[Candy]\r<br/>붉은색으로 물든 달콤한 사탕\r<br/>∴15분 동안 힘이 20만큼 증가\r<br/>∴4초간 체력을 빠르게 회복",
+      "description": "[Candy]\r<br/>붉은색으로 물든 달콤한 사탕\r<br/>∴15분 동안 힘이 20만큼 증가\r<br/>∴HP를 40% 회복",
       "grade": 0
     },
     "whwd": {
@@ -1878,7 +1849,6 @@
       "droprates": [
         {
           "rate": 1.75,
-          "wishrate": 3.5,
           "group": "fgrg"
         }
       ]
@@ -1972,7 +1942,7 @@
     "tstr": {
       "id": "tstr",
       "name": "신성의 종",
-      "description": "주여 우리를 구원하소서\r<br/>∴모든 스탯 +450\r<br/>∴HP 재생률 +200\r<br/>∴빛 속성 효율 +7.5%\r<br/>∴단일 스킬 적중 시 12초간 희망 발동\r<br/>∴사용 시 구원 발동",
+      "description": "주여 우리를 구원하소서\r<br/>∴모든 스탯 +450\r<br/>∴HP 재생률 +200\r<br/>∴빛 속성 효율 +7.5%\r<br/>∴아군에게 스킬 적중 시 희망 발동\r<br/>∴사용 시 구원 발동",
       "searchstring": "- 아르카나 급 장신구 -\r",
       "grade": 5,
       "type": "장신구",
@@ -2055,7 +2025,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "rre1"
         }
       ]
@@ -2093,13 +2062,13 @@
     "totw": {
       "id": "totw",
       "name": "블루베리맛 사탕",
-      "description": "[Candy]\r<br/>푸른색으로 물든 달콤한 사탕\r<br/>∴15분 동안 민첩이 20만큼 증가\r<br/>∴4초간 체력을 빠르게 회복",
+      "description": "[Candy]\r<br/>푸른색으로 물든 달콤한 사탕\r<br/>∴15분 동안 민첩이 20만큼 증가\r<br/>∴HP를 40% 회복",
       "grade": 0
     },
     "tmsc": {
       "id": "tmsc",
       "name": "대자연의 배낭",
-      "description": "대자연의 기운이 담긴 가방\r<br/>∴공격력 +5700\r<br/>∴모든 스탯 +585\r<br/>∴HP 재생률 +360\r<br/>∴마법 방어력 +12%",
+      "description": "대자연의 기운이 담긴 가방\r<br/>∴공격력 +5700\r<br/>∴모든 스탯 +585\r<br/>∴회복량 +12%\r<br/>∴마법 방어력 +12%",
       "searchstring": "- 그노시스 급 무기 (배낭) -\r",
       "grade": 3,
       "type": "무기",
@@ -2137,7 +2106,7 @@
       "grade": 0,
       "droprates": [
         {
-          "rate": 0.006,
+          "rate": 0.002,
           "group": "tmmt"
         }
       ]
@@ -2492,7 +2461,6 @@
       "droprates": [
         {
           "rate": 1.25,
-          "wishrate": 2.5,
           "group": "pomn"
         }
       ]
@@ -2535,7 +2503,6 @@
       "droprates": [
         {
           "rate": 1.75,
-          "wishrate": 3.5,
           "group": "pres"
         }
       ]
@@ -2563,7 +2530,7 @@
     "sres": {
       "id": "sres",
       "name": "포도맛 사탕",
-      "description": "[Candy]\r<br/>보랏빛으로 물든 달콤한 사탕\r<br/>∴15분 동안 지능 20만큼 증가\r<br/>∴4초간 체력을 빠르게 회복",
+      "description": "[Candy]\r<br/>보랏빛으로 물든 달콤한 사탕\r<br/>∴15분 동안 지능 20만큼 증가\r<br/>∴HP를 40% 회복",
       "grade": 0
     },
     "sreg": {
@@ -2576,7 +2543,6 @@
       "droprates": [
         {
           "rate": 1.75,
-          "wishrate": 3.5,
           "group": "rre1"
         }
       ]
@@ -2590,8 +2556,7 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 0.5,
-          "wishrate": 1.25,
+          "rate": 0.75,
           "group": "infs"
         }
       ]
@@ -2613,7 +2578,7 @@
     "spro": {
       "id": "spro",
       "name": "과일 담긴 배낭",
-      "description": "∴공격력 +1200\r<br/>∴모든 스탯 +130\r<br/>∴HP 재생률 +40\r<br/>∴마법 방어력 +10%",
+      "description": "∴공격력 +1200\r<br/>∴모든 스탯 +130\r<br/>∴회복량 +10%\r<br/>∴마법 방어력 +10%",
       "searchstring": "- 무기 (배낭) -\r",
       "grade": 0,
       "type": "무기",
@@ -2641,8 +2606,7 @@
       "type": "머리보호구",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1,
           "group": "infs"
         }
       ]
@@ -2650,7 +2614,7 @@
     "spre": {
       "id": "spre",
       "name": "사탕 담긴 배낭",
-      "description": "상당히 가벼운 가방\r<br/>∴공격력 +2300\r<br/>∴모든 스탯 +210\r<br/>∴HP 재생률 +60\r<br/>∴마법 방어력 +10%",
+      "description": "상당히 가벼운 가방\r<br/>∴공격력 +2300\r<br/>∴모든 스탯 +210\r<br/>∴회복량 +10%\r<br/>∴마법 방어력 +10%",
       "searchstring": "- 델티라마 급 무기 (배낭) -\r",
       "grade": 1,
       "type": "무기",
@@ -2814,10 +2778,6 @@
           },
           {
             "item": "I08P",
-            "count": 1
-          },
-          {
-            "item": "I06I",
             "count": 1
           },
           {
@@ -3179,7 +3139,6 @@
       "droprates": [
         {
           "rate": 1.5,
-          "wishrate": 3,
           "group": "shar"
         }
       ]
@@ -3194,7 +3153,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "pres"
         }
       ]
@@ -3248,7 +3206,7 @@
     "shea": {
       "id": "shea",
       "name": "양면의 지팡이 아켈리우스",
-      "description": "섞일 수 없는 불과 물의 요소가 무한히 공전하며 서로를 밀어붙이고 있다.\r<br/>∴공격력 +8400\r<br/>∴지능 +790\r<br/>∴불 속성 효율 +10%\r<br/>∴물 속성 효율 +10%\r<br/>∴장착 시 원소 극대화 활성화\r<br/>∴사용 시 원소 해방 발동",
+      "description": "섞일 수 없는 불과 물의 요소가 무한히 공전하며 서로를 밀어붙이고 있다.\r<br/>∴공격력 +8400\r<br/>∴지능 +790\r<br/>∴불 속성 효율 +5%\r<br/>∴물 속성 효율 +5%\r<br/>∴장착 시 원소 극대화 활성화\r<br/>∴사용 시 원소 해방 발동",
       "searchstring": "- 아르카나 급 무기 (지팡이) -\r",
       "grade": 5,
       "type": "무기",
@@ -3726,6 +3684,12 @@
       "mobindex": 29,
       "mobgroup": "wswd"
     },
+    "rre2": {
+      "id": "rre2",
+      "name": "혼돈의 토큰",
+      "description": "[Collectible]\r<br/>배낭의 외형을 변경합니다.",
+      "grade": 0
+    },
     "rre1": {
       "id": "rre1",
       "name": "본 드래곤 토큰",
@@ -4015,7 +3979,7 @@
     "rej3": {
       "id": "rej3",
       "name": "생명의 배낭",
-      "description": "생명이 담긴 가방\r<br/>∴공격력 +4800\r<br/>∴모든 스탯 +465\r<br/>∴HP 재생률 +240\r<br/>∴마법 방어력 +12%",
+      "description": "생명이 담긴 가방\r<br/>∴공격력 +4800\r<br/>∴모든 스탯 +465\r<br/>∴회복량 +12%\r<br/>∴마법 방어력 +12%",
       "searchstring": "- 넵티노스 급 무기 (배낭) -\r",
       "grade": 2,
       "type": "무기",
@@ -4184,7 +4148,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "pomn"
         }
       ]
@@ -4297,7 +4260,6 @@
       "droprates": [
         {
           "rate": 1.25,
-          "wishrate": 2.5,
           "group": "fgrg"
         }
       ]
@@ -4312,7 +4274,6 @@
       "droprates": [
         {
           "rate": 1.75,
-          "wishrate": 3.5,
           "group": "fgrg"
         }
       ]
@@ -4327,7 +4288,6 @@
       "droprates": [
         {
           "rate": 1.25,
-          "wishrate": 2.5,
           "group": "fgrg"
         }
       ]
@@ -4648,7 +4608,6 @@
       "droprates": [
         {
           "rate": 1.75,
-          "wishrate": 3.5,
           "group": "rre1"
         }
       ]
@@ -4676,18 +4635,15 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.4,
-          "wishrate": 1,
+          "rate": 0.75,
           "group": "I0P0"
         },
         {
-          "rate": 0.5,
-          "wishrate": 1.25,
+          "rate": 1,
           "group": "I0P1"
         },
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 1.25,
           "group": "I0P2"
         }
       ]
@@ -4708,7 +4664,6 @@
       "droprates": [
         {
           "rate": 1.75,
-          "wishrate": 3.5,
           "group": "pres"
         }
       ]
@@ -4808,8 +4763,7 @@
       "type": "방어구",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1,
           "group": "infs"
         }
       ]
@@ -4912,7 +4866,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "pres"
         }
       ]
@@ -4940,8 +4893,7 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 0.5,
-          "wishrate": 1.25,
+          "rate": 1,
           "group": "I0P0"
         }
       ]
@@ -4968,7 +4920,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "fgrg"
         }
       ]
@@ -5108,8 +5059,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2,
-          "wishrate": 4,
+          "rate": 2.5,
           "group": "shar"
         }
       ]
@@ -5197,8 +5147,7 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1,
           "group": "infs"
         }
       ]
@@ -5227,7 +5176,6 @@
       "droprates": [
         {
           "rate": 1,
-          "wishrate": 2,
           "group": "shar"
         }
       ]
@@ -5241,8 +5189,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1.25,
           "group": "infs"
         }
       ]
@@ -5356,7 +5303,7 @@
     "k3m3": {
       "id": "k3m3",
       "name": "퓨어 크리스탈 윙",
-      "description": "강력한 빛을 머금은 한 쌍의 날개\r<br/>∴모든 스탯 +190, 주 스탯 +45\r<br/>∴HP 재생률 +75, MP 재생률 +40\r<br/>∴스킬 데미지 +12%\r<br/>∴스킬 시전 시 확률로 궁극기를 제외한 스킬 쿨다운 초기화",
+      "description": "강력한 빛을 머금은 한 쌍의 날개\r<br/>∴모든 스탯 +190\r<br/>∴주 스탯 +45\r<br/>∴MP 재생률 +15\r<br/>∴스킬 데미지 +12%\r<br/>∴스킬 시전 시 확률로 궁극기를 제외한 스킬 쿨다운 초기화",
       "searchstring": "- 그노시스 급 날개 -\r",
       "grade": 3,
       "type": "날개",
@@ -5533,7 +5480,7 @@
             "count": 1
           },
           {
-            "item": "mcri",
+            "item": "I08P",
             "count": 1
           },
           {
@@ -5642,7 +5589,7 @@
     "hlst": {
       "id": "hlst",
       "name": "천국의 배낭",
-      "description": "생명이 담긴 가방\r<br/>∴공격력 +3600\r<br/>∴모든 스탯 +360\r<br/>∴HP 재생률 +120\r<br/>∴마법 방어력 +12%",
+      "description": "생명이 담긴 가방\r<br/>∴공격력 +3600\r<br/>∴모든 스탯 +360\r<br/>∴회복량 +12%\r<br/>∴마법 방어력 +12%",
       "searchstring": "- 넵티노스 급 무기 (배낭) -\r",
       "grade": 2,
       "type": "무기",
@@ -5785,7 +5732,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "fgrg"
         }
       ]
@@ -6239,7 +6185,7 @@
     "fgun": {
       "id": "fgun",
       "name": "사탕 담긴 배낭 +1",
-      "description": "매우 가벼운 가방\r<br/>∴공격력 +3000\r<br/>∴모든 스탯 +275\r<br/>∴HP 재생률 +80\r<br/>∴마법 방어력 +10%",
+      "description": "매우 가벼운 가방\r<br/>∴공격력 +3000\r<br/>∴모든 스탯 +275\r<br/>∴회복량 +10%\r<br/>∴마법 방어력 +10%",
       "searchstring": "- 델티라마 급 무기 (배낭) -\r",
       "grade": 1,
       "type": "무기",
@@ -6596,7 +6542,6 @@
       "droprates": [
         {
           "rate": 1.75,
-          "wishrate": 3.5,
           "group": "pomn"
         }
       ]
@@ -6803,7 +6748,6 @@
       "droprates": [
         {
           "rate": 1.5,
-          "wishrate": 3,
           "group": "shar"
         }
       ]
@@ -6856,7 +6800,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "rre1"
         }
       ]
@@ -6975,7 +6918,6 @@
       "droprates": [
         {
           "rate": 1.75,
-          "wishrate": 3.5,
           "group": "pomn"
         }
       ]
@@ -7368,7 +7310,7 @@
     "I0RU": {
       "id": "I0RU",
       "name": "창고 확장권",
-      "description": "창고를 1칸 확장합니다.\r<br/>최대 6칸까지만 확장 가능합니다.",
+      "description": "창고를 1칸 확장합니다.\r<br/>최대 12칸까지만 확장 가능합니다.",
       "grade": 0
     },
     "I0RT": {
@@ -7442,7 +7384,7 @@
     "I0RF": {
       "id": "I0RF",
       "name": "난이도 변경",
-      "description": "보스 난이도를 변경합니다.",
+      "description": "보스의 난이도를 변경합니다.",
       "grade": 0
     },
     "I0RD": {
@@ -7472,9 +7414,15 @@
     },
     "I0R8": {
       "id": "I0R8",
-      "name": "혼돈의 토큰",
+      "name": "인도자의 토큰",
       "description": "[Collectible]",
-      "grade": 0
+      "grade": 0,
+      "droprates": [
+        {
+          "rate": 0.01,
+          "group": "I0R8"
+        }
+      ]
     },
     "I0R7": {
       "id": "I0R7",
@@ -7483,7 +7431,7 @@
       "grade": 0,
       "droprates": [
         {
-          "rate": 0.01,
+          "rate": 0.005,
           "group": "I0R7"
         }
       ]
@@ -7495,7 +7443,7 @@
       "grade": 0,
       "droprates": [
         {
-          "rate": 0.01,
+          "rate": 0.005,
           "group": "I0R6"
         }
       ]
@@ -7650,6 +7598,44 @@
       "description": "[Summon]\r<br/>여름 이벤트에 당신을 초대합니다!\r<br/>◎이벤트 '바다바다 동굴' 혹은 '꽃게 파티' 발동",
       "grade": 0
     },
+    "I0QI": {
+      "id": "I0QI",
+      "name": "소울렌더",
+      "description": "마지막 숨결을 거두는 자\r<br/>∴공격력 +13000\r<br/>∴주 스탯 +1150\r<br/>∴공격 속도 +35%\r<br/>∴스킬 데미지 +12.5%\r<br/>∴HP 50% 이하의 적에게 피해를 가할 시 심연의 문턱 발동\r<br/>∴사용 시 소울렌더 발동",
+      "searchstring": "- 아르카나 급 무기 (공용) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I05P",
+            "count": 1
+          },
+          {
+            "item": "I023",
+            "count": 1
+          },
+          {
+            "item": "rlif",
+            "count": 1
+          },
+          {
+            "item": "I0Q4",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
     "I0QH": {
       "id": "I0QH",
       "name": "데스 핀드 아이콘",
@@ -7658,8 +7644,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.15,
-          "wishrate": 0.375,
+          "rate": 0.25,
           "group": "infs"
         }
       ]
@@ -8311,7 +8296,7 @@
     "I0P5": {
       "id": "I0P5",
       "name": "얼어붙은 영혼의 반지",
-      "description": "한서린 고대 영혼들이 잠들어 있는 반지\r<br/>∴주 스탯 +555\r<br/>∴공격 속도 +30%\r<br/>∴스킬 데미지 +17.5%\r<br/>∴HP 재생률 +90 & MP 재생률 +45\r<br/>∴사용 시 프로즌 아이기스 발동",
+      "description": "한서린 고대 영혼들이 잠들어 있는 반지\r<br/>∴주 스탯 +555\r<br/>∴공격 속도 +30%\r<br/>∴스킬 데미지 +17.5%\r<br/>∴MP 재생률 +20\r<br/>∴사용 시 프로즌 아이기스 발동",
       "searchstring": "- 알테이아 급 장신구 -\r",
       "grade": 4,
       "type": "장신구",
@@ -9004,7 +8989,7 @@
     "I0OF": {
       "id": "I0OF",
       "name": "지옥의 로브 타나토스",
-      "description": "지옥의 힘이란... 익숙해질수록 달콤한 법\r<br/>∴방어력 +200\r<br/>∴지능 +525\r<br/>∴MP 재생률 +60\r<br/>∴스킬 데미지 +15%\r<br/>∴사용 시 절멸 발동",
+      "description": "지옥의 힘이란... 익숙해질수록 달콤한 법\r<br/>∴방어력 +200\r<br/>∴지능 +525\r<br/>∴MP +1500\r<br/>∴스킬 데미지 +15%\r<br/>∴사용 시 절멸 발동",
       "searchstring": "- 알테이아 급 방어구 -\r",
       "grade": 4,
       "type": "방어구",
@@ -9311,8 +9296,7 @@
       "type": "날개",
       "droprates": [
         {
-          "rate": 0.4,
-          "wishrate": 1,
+          "rate": 0.75,
           "group": "I0P3"
         }
       ]
@@ -9326,7 +9310,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.15,
+          "rate": 0.25,
           "group": "I0R6"
         }
       ]
@@ -9354,23 +9338,23 @@
       "type": "재화",
       "droprates": [
         {
-          "rate": 0.4,
+          "rate": 0.8,
           "group": "infs"
         },
         {
-          "rate": 0.4,
+          "rate": 0.8,
           "group": "I0P0"
         },
         {
-          "rate": 0.4,
+          "rate": 0.9,
           "group": "I0P1"
         },
         {
-          "rate": 0.5,
+          "rate": 1,
           "group": "I0P2"
         },
         {
-          "rate": 0.6,
+          "rate": 1.25,
           "group": "I0P3"
         }
       ]
@@ -9384,27 +9368,27 @@
       "type": "재화",
       "droprates": [
         {
-          "rate": 0.8,
+          "rate": 1.5,
           "group": "rre1"
         },
         {
-          "rate": 0.8,
+          "rate": 1.5,
           "group": "fgrg"
         },
         {
-          "rate": 0.9,
+          "rate": 1.75,
           "group": "pomn"
         },
         {
-          "rate": 0.9,
+          "rate": 1.75,
           "group": "pres"
         },
         {
-          "rate": 1,
+          "rate": 2,
           "group": "sneg"
         },
         {
-          "rate": 1.2,
+          "rate": 2.5,
           "group": "shar"
         }
       ]
@@ -9430,8 +9414,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 1,
           "group": "I0P3"
         }
       ]
@@ -9445,8 +9428,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 1,
           "group": "I0P3"
         }
       ]
@@ -9460,8 +9442,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.6,
-          "wishrate": 1.5,
+          "rate": 1,
           "group": "I0P3"
         }
       ]
@@ -9709,7 +9690,7 @@
     "I0NN": {
       "id": "I0NN",
       "name": "화염 군주의 날개",
-      "description": "화염을 지배하는 자의 날개\r<br/>∴공격력 +3900\r<br/>∴힘 +285\r<br/>∴민첩성 +285\r<br/>∴스킬 데미지 +5%\r<br/>∴사용 시 불꽃 강림 발동",
+      "description": "화염을 지배하는 자의 날개\r<br/>∴공격력 +3900\r<br/>∴힘 +310\r<br/>∴민첩성 +310\r<br/>∴스킬 데미지 +5%\r<br/>∴사용 시 불꽃 강림 발동",
       "searchstring": "- 알테이아 급 날개 -\r",
       "grade": 4,
       "type": "날개",
@@ -9785,7 +9766,7 @@
     "I0NL": {
       "id": "I0NL",
       "name": "절망의 반지",
-      "description": "모든 것을 저주한다.\r<br/>∴모든 스탯 +375\r<br/>∴MP 재생률 +120\r<br/>∴단일 스킬 적중 시 12초간 냉정 발동\r<br/>∴사용 시 절망 발동",
+      "description": "모든 것을 저주한다.\r<br/>∴모든 스탯 +375\r<br/>∴MP 재생률 +30\r<br/>∴암흑 속성 효율 +5%\r<br/>∴단일 스킬 적중 시 냉정 발동\r<br/>∴사용 시 절망 발동",
       "searchstring": "- 알테이아 급 장신구 -\r",
       "grade": 4,
       "type": "장신구",
@@ -9819,7 +9800,7 @@
     "I0NK": {
       "id": "I0NK",
       "name": "희망의 반지",
-      "description": "모든 게 너무 좋아!\r<br/>∴모든 스탯 +360\r<br/>∴HP 재생률 +180\r<br/>∴빛 속성 효율 +5%\r<br/>∴단일 스킬 적중 시 12초간 열정 발동\r<br/>∴사용 시 희망 발동",
+      "description": "모든 게 너무 좋아!\r<br/>∴모든 스탯 +360\r<br/>∴HP 재생률 +180\r<br/>∴빛 속성 효율 +5%\r<br/>∴아군에게 스킬 적중 시 열정 발동\r<br/>∴사용 시 희망 발동",
       "searchstring": "- 알테이아 급 장신구 -\r",
       "grade": 4,
       "type": "장신구",
@@ -9990,10 +9971,6 @@
             "count": 1
           },
           {
-            "item": "I08P",
-            "count": 1
-          },
-          {
             "item": "shwd",
             "count": 1
           },
@@ -10013,10 +9990,6 @@
           },
           {
             "item": "I0IJ",
-            "count": 1
-          },
-          {
-            "item": "I08P",
             "count": 1
           },
           {
@@ -10071,10 +10044,6 @@
       "type": "머리보호구",
       "recipies": [
         [
-          {
-            "item": "I09N",
-            "count": 1
-          },
           {
             "item": "tret",
             "count": 1
@@ -11093,15 +11062,14 @@
       "droprates": [
         {
           "rate": 0.25,
-          "wishrate": 0.5,
           "group": "rre1"
         }
       ]
     },
     "I0M6": {
       "id": "I0M6",
-      "name": "이벤트 코스튬 받기",
-      "description": "눈꽃 결정을 16개 가져 오면 크리스마스 / 신년맞이 코스튬으로 바꿔주겠다네.",
+      "name": "겨울 코스튬 교환",
+      "description": "눈꽃 결정을 16개 가져 오면 크리스마스 코스튬 혹은 신년맞이 코스튬으로 교환이 가능하다.\r<br/>\r<br/>일부 직업은 지급받을 수 있는 신년맞이 코스튬이 두가지가 있다.\r<br/>일부 직업은 지급받을 수 있는 코스튬이 없다.",
       "grade": 0
     },
     "I0M5": {
@@ -11193,7 +11161,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.15,
+          "rate": 0.2,
           "group": "I0R7"
         }
       ]
@@ -11207,8 +11175,7 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 0.5,
-          "wishrate": 1.25,
+          "rate": 1,
           "group": "I0P2"
         }
       ]
@@ -11288,7 +11255,7 @@
     "I0LU": {
       "id": "I0LU",
       "name": "만물의 배낭",
-      "description": "우주의 기운이 담긴 가방\r<br/>∴공격력 +6900\r<br/>∴모든 스탯 +660\r<br/>∴HP 재생률 +450\r<br/>∴마법 방어력 +15%\r<br/>∴사용 시 엘릭서 투척",
+      "description": "우주의 기운이 담긴 가방\r<br/>∴공격력 +6900\r<br/>∴모든 스탯 +660\r<br/>∴회복량 +15%\r<br/>∴마법 방어력 +15%\r<br/>∴사용 시 엘릭서 투척",
       "searchstring": "- 알테이아 급 무기 (배낭) -\r",
       "grade": 4,
       "type": "무기",
@@ -11370,7 +11337,7 @@
     "I0LQ": {
       "id": "I0LQ",
       "name": "할로윈 코스튬 교환",
-      "description": "빛나는 사탕 조각을 12개 가져 오면 할로윈 코스튬으로 바꿔주겠다네.",
+      "description": "빛나는 사탕 조각을 12개 가져 오면 할로윈 코스튬으로 교환이 가능하다.\r<br/>\r<br/>일부 직업은 지급받을 수 있는 할로윈 코스튬이 두가지가 있다.",
       "grade": 0
     },
     "I0LP": {
@@ -11395,11 +11362,125 @@
       "grade": 2,
       "type": "재화"
     },
+    "I0LM": {
+      "id": "I0LM",
+      "name": "계시",
+      "description": "속삭여진 기도, 응답받은 맹세\r<br/>∴공격력 +9000\r<br/>∴지능 +1000\r<br/>∴HP +3000\r<br/>∴모든 속성 효율 +5%\r<br/>∴장착 시 계시 활성화\r<br/>∴사용 시 권능 발동",
+      "searchstring": "- 아르카나 급 무기 (지팡이) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I02O",
+            "count": 1
+          },
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I0BF",
+            "count": 1
+          },
+          {
+            "item": "I0PA",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
     "I0LL": {
       "id": "I0LL",
       "name": "마왕 로드",
       "description": "[Collectible]",
       "grade": 0
+    },
+    "I0LK": {
+      "id": "I0LK",
+      "name": "원초의 파편",
+      "description": "혼돈에서 비롯된 모든 힘의 근원\r<br/>∴공격력 +10000\r<br/>∴지능 +1100\r<br/>∴HP +2000\r<br/>∴스킬 데미지 +15%\r<br/>∴물 속성 효율 +15%\r<br/>∴암흑 속성 효율 +10%\r<br/>∴스킬 5회 연속 적중 시 만년서리 발동\r<br/>∴사용 시 나이트메어 샤드 발동",
+      "searchstring": "- 아르카나 급 무기 (지팡이) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I02N",
+            "count": 1
+          },
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "rlif",
+            "count": 1
+          },
+          {
+            "item": "I005",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I0LJ": {
+      "id": "I0LJ",
+      "name": "사자의 심장",
+      "description": "강철로 현현된 힘과 긍지\r<br/>∴공격력 +15500\r<br/>∴주 스탯 +700\r<br/>∴스킬 데미지 +12.5%\r<br/>∴이동 속도 +75\r<br/>∴공격 시 심장 가르기 발동\r<br/>∴사용 시 응징 발동",
+      "searchstring": "- 아르카나 급 무기 (근접) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I02N",
+            "count": 1
+          },
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "rlif",
+            "count": 1
+          },
+          {
+            "item": "arsc",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
     },
     "I0LI": {
       "id": "I0LI",
@@ -11413,6 +11494,40 @@
       "name": "노랑 행운의 오라",
       "description": "[Collectible]",
       "grade": 0
+    },
+    "I0LG": {
+      "id": "I0LG",
+      "name": "아포칼립스 프라임",
+      "description": "세계가 끝날 때 내가 마지막을 말하리라\r<br/>∴공격력 +14500\r<br/>∴민첩성 +1050\r<br/>∴HP +2500\r<br/>∴치명타 배수 +0.50x\r<br/>∴3초마다 절망의 탄환 장전\r<br/>∴T 스킬 시전 시 아포칼립스 발동",
+      "searchstring": "- 아르카나 급 무기 (총) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I02P",
+            "count": 1
+          },
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "rlif",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I0IK",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
     },
     "I0LF": {
       "id": "I0LF",
@@ -11480,8 +11595,8 @@
     },
     "I0L7": {
       "id": "I0L7",
-      "name": "소원",
-      "description": "원하는 아이템을 지정합니다.\r<br/>\r<br/>소원 아이템이 지정된 경우, 일반 아이템은 드랍되지 않지만 소원을 빈 아이템의 드랍률이 대폭 증가합니다.\r<br/>\r<br/>재화 및 토큰은 소원에 영향받지 않습니다.",
+      "name": "소원 일반",
+      "description": "원하는 아이템을 지정합니다.\r<br/>\r<br/>지정 시: 다른 아이템은 드랍되지 않지만 지정 아이템의 드랍률이 150% 증가합니다.\r<br/>미지정 시: 모든 아이템이 드랍 가능합니다.\r<br/>\r<br/>재화 및 토큰은 영향받지 않습니다.",
       "grade": 0
     },
     "I0L6": {
@@ -11715,7 +11830,7 @@
     "I0JW": {
       "id": "I0JW",
       "name": "요정의 가호",
-      "description": "요정들이 당신을 감싼다.\r<br/>∴모든 스탯 +345\r<br/>∴불/물/바람 속성 효율 +5%\r<br/>∴주변 아군이 받는 회복량 +15%\r<br/>∴사용 시 주변 사망한 아군을 1기 부활",
+      "description": "요정들이 당신을 감싼다.\r<br/>∴모든 스탯 +345\r<br/>∴물/바람/대지 속성 효율 +5%\r<br/>∴주변 아군이 받는 회복량 +15%\r<br/>∴사용 시 주변 사망한 아군을 1기 부활",
       "searchstring": "- 알테이아 급 날개 -\r",
       "grade": 4,
       "type": "날개",
@@ -11877,8 +11992,7 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 0.5,
-          "wishrate": 1.25,
+          "rate": 1,
           "group": "I0P1"
         }
       ]
@@ -12085,16 +12199,12 @@
     "I0JA": {
       "id": "I0JA",
       "name": "냉정의 반지",
-      "description": "....\r<br/>∴모든 스탯 +315\r<br/>∴MP 재생률 +60\r<br/>∴단일 스킬 적중 시 12초간 냉정 발동\r<br/>∴사용 시 마비 발동",
+      "description": "....\r<br/>∴모든 스탯 +315\r<br/>∴MP 재생률 +25\r<br/>∴단일 스킬 적중 시 냉정 발동\r<br/>∴사용 시 마비 발동",
       "searchstring": "- 그노시스 급 장신구 -\r",
       "grade": 3,
       "type": "장신구",
       "recipies": [
         [
-          {
-            "item": "whwd",
-            "count": 1
-          },
           {
             "item": "ofir",
             "count": 1
@@ -12123,7 +12233,7 @@
     "I0J9": {
       "id": "I0J9",
       "name": "열정의 반지",
-      "description": "아군을 보조하는 게 너무 좋아!\r<br/>∴모든 스탯 +285\r<br/>∴HP 재생률 +120\r<br/>∴단일 스킬 적중 시 12초간 희망 발동\r<br/>∴사용 시 환희 발동",
+      "description": "아군을 보조하는 게 너무 좋아!\r<br/>∴모든 스탯 +285\r<br/>∴HP 재생률 +120\r<br/>∴아군에게 스킬 적중 시 희망 발동\r<br/>∴사용 시 환희 발동",
       "searchstring": "- 그노시스 급 장신구 -\r",
       "grade": 3,
       "type": "장신구",
@@ -12135,10 +12245,6 @@
           },
           {
             "item": "btst",
-            "count": 1
-          },
-          {
-            "item": "I0AS",
             "count": 1
           },
           {
@@ -12173,10 +12279,6 @@
           },
           {
             "item": "I0AS",
-            "count": 1
-          },
-          {
-            "item": "gsou",
             "count": 1
           },
           {
@@ -12244,10 +12346,6 @@
             "count": 1
           },
           {
-            "item": "I0E6",
-            "count": 1
-          },
-          {
             "item": "sror",
             "count": 1
           },
@@ -12258,15 +12356,11 @@
           {
             "item": "sbch",
             "count": 1
-          },
-          {
-            "item": "clsd",
-            "count": 1
           }
         ]
       ],
-      "mobindex": 39,
-      "mobgroup": "sneg"
+      "mobindex": 38,
+      "mobgroup": "pres"
     },
     "I0J5": {
       "id": "I0J5",
@@ -12477,7 +12571,7 @@
     "I0IP": {
       "id": "I0IP",
       "name": "절망의 갑주 하데스",
-      "description": "망자의 영혼을 자신에게 불러들이는 갑주\r<br/>∴방어력 +240\r<br/>∴힘 +295, 민첩성 & 지능 +160\r<br/>∴공격 속도 -75%\r<br/>∴자신과 주변 아군의 모든 스탯 6% 증가\r<br/>∴6초마다 진혼곡 발동",
+      "description": "망자의 영혼을 자신에게 불러들이는 갑주\r<br/>∴방어력 +240\r<br/>∴힘 +295\r<br/>∴민첩성 & 지능 +160\r<br/>∴자신과 주변 아군의 모든 스탯 6% 증가\r<br/>∴6초마다 진혼곡 발동",
       "searchstring": "- 알테이아 급 방어구 -\r",
       "grade": 4,
       "type": "방어구",
@@ -12538,12 +12632,12 @@
             "count": 1
           },
           {
-            "item": "phea",
-            "count": 2
-          },
-          {
             "item": "I0R2",
             "count": 1
+          },
+          {
+            "item": "phea",
+            "count": 2
           },
           {
             "item": "I0O3",
@@ -12560,12 +12654,12 @@
             "count": 1
           },
           {
-            "item": "phea",
-            "count": 2
-          },
-          {
             "item": "I0R3",
             "count": 1
+          },
+          {
+            "item": "phea",
+            "count": 2
           },
           {
             "item": "I0O3",
@@ -12623,8 +12717,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1.25,
           "group": "I0P2"
         }
       ]
@@ -12638,8 +12731,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1.25,
           "group": "I0P2"
         }
       ]
@@ -12653,8 +12745,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1.25,
           "group": "I0P0"
         }
       ]
@@ -12668,8 +12759,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1.25,
           "group": "I0P0"
         }
       ]
@@ -12683,8 +12773,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1.25,
           "group": "I0P1"
         }
       ]
@@ -12698,8 +12787,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1.25,
           "group": "I0P1"
         }
       ]
@@ -13255,7 +13343,7 @@
     "I0HD": {
       "id": "I0HD",
       "name": "빛나는 사탕 조각",
-      "description": "[Coin]\r<br/>수집욕을 자극하는, 황홀하게 빛나는 사탕 조각",
+      "description": "[Coin]\r<br/>수집욕을 자극하는, 황홀하게 빛나는 사탕 조각\r<br/>\r<br/>이벤트가 끝나면 사라진다.",
       "grade": 0
     },
     "I0HC": {
@@ -13579,7 +13667,7 @@
     "I0GX": {
       "id": "I0GX",
       "name": "뚱이 로드",
-      "description": "[Collectible]\r<br/>뚱이를 부르는 작대기.",
+      "description": "[Collectible]",
       "grade": 0
     },
     "I0GW": {
@@ -13810,19 +13898,19 @@
     "I0GR": {
       "id": "I0GR",
       "name": "황폐한 영혼의 반지",
-      "description": "저주받은 영혼들이 잠들어 있는 반지\r<br/>∴주 스탯 +625\r<br/>∴공격 속도 +35%\r<br/>∴스킬 데미지 +20%\r<br/>∴HP 재생률 +100\r<br/>∴MP 재생률 +50\r<br/>∴사용 시 영혼의 방패 발동",
+      "description": "저주받은 영혼들이 잠들어 있는 반지\r<br/>∴주 스탯 +625\r<br/>∴공격 속도 +35%\r<br/>∴스킬 데미지 +20%\r<br/>∴MP 재생률 +20\r<br/>∴사용 시 영혼의 방패 발동",
       "searchstring": "- 아르카나 급 장신구 -\r",
       "grade": 5,
       "type": "장신구",
       "recipies": [
         [
           {
-            "item": "phea",
-            "count": 2
-          },
-          {
             "item": "I0R3",
             "count": 1
+          },
+          {
+            "item": "phea",
+            "count": 2
           },
           {
             "item": "I0P5",
@@ -13831,12 +13919,12 @@
         ],
         [
           {
-            "item": "phea",
-            "count": 2
-          },
-          {
             "item": "I0R2",
             "count": 1
+          },
+          {
+            "item": "phea",
+            "count": 2
           },
           {
             "item": "I0P5",
@@ -13942,7 +14030,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.33,
+          "rate": 0.5,
           "group": "wcyc"
         }
       ]
@@ -13968,7 +14056,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.33,
+          "rate": 0.5,
           "group": "ccmd"
         }
       ]
@@ -14197,7 +14285,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.33,
+          "rate": 0.5,
           "group": "amrc"
         }
       ]
@@ -14789,7 +14877,7 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 7.5,
+          "rate": 2.5,
           "group": "tmmt"
         }
       ]
@@ -14994,7 +15082,7 @@
       "recipies": [
         [
           {
-            "item": "I0R3",
+            "item": "I0O1",
             "count": 1
           },
           {
@@ -15002,7 +15090,7 @@
             "count": 1
           },
           {
-            "item": "I0O1",
+            "item": "I0R3",
             "count": 1
           },
           {
@@ -15021,7 +15109,7 @@
     "I0EX": {
       "id": "I0EX",
       "name": "살아있는 불꽃",
-      "description": "생명의 불꽃이 일렁거린다\r<br/>∴공격력 +4800\r<br/>∴힘 +360\r<br/>∴민첩성 +360\r<br/>∴스킬 데미지 +7.5%\r<br/>∴공격 시 불타는 영혼 발동\r<br/>∴사용 시 불꽃 강림 발동",
+      "description": "생명의 불꽃이 일렁거린다\r<br/>∴공격력 +4800\r<br/>∴힘 +400\r<br/>∴민첩성 +400\r<br/>∴스킬 데미지 +10%\r<br/>∴공격 시 불타는 영혼 발동\r<br/>∴사용 시 불꽃 강림 발동",
       "searchstring": "- 아르카나 급 날개 -\r",
       "grade": 5,
       "type": "날개",
@@ -15144,6 +15232,44 @@
         }
       ]
     },
+    "I0ET": {
+      "id": "I0ET",
+      "name": "진리의 눈",
+      "description": "허상을 지워라. 남는 것은 진리뿐.\r<br/>∴방어력 +175\r<br/>∴모든 스탯 +250\r<br/>∴주 스탯 +250\r<br/>∴스킬 데미지 +10%\r<br/>∴받는 데미지 -5%\r<br/>∴공격 시 통찰 발동\r<br/>∴궁극기 시전 시 심안 발동",
+      "searchstring": "- 아르카나 급 머리보호구 -\r",
+      "grade": 5,
+      "type": "머리보호구",
+      "recipies": [
+        [
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I0R3",
+            "count": 1
+          },
+          {
+            "item": "I023",
+            "count": 1
+          },
+          {
+            "item": "I01Z",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
     "I0ER": {
       "id": "I0ER",
       "name": "신비한 이름표",
@@ -15190,7 +15316,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "fgrg"
         }
       ]
@@ -15206,18 +15331,18 @@
     "I0EJ": {
       "id": "I0EJ",
       "name": "창조의 날개",
-      "description": "생명으로 피어나거라.\r<br/>∴모든 스탯 +300\r<br/>∴주 스탯 +100\r<br/>∴HP 재생률 +120\r<br/>∴MP 재생률 +60\r<br/>∴스킬 데미지 +17.5%\r<br/>∴이동 속도 +50\r<br/>∴사용 시 생명의 축복 발동\r<br/>∴스킬 시전 시 확률로 신생 발동",
+      "description": "생명으로 피어나거라.\r<br/>∴모든 스탯 +350\r<br/>∴공격 속도 +10%\r<br/>∴스킬 데미지 +17.5%\r<br/>∴이동 속도 +50\r<br/>∴사용 시 생명의 축복 발동\r<br/>∴스킬 시전 시 확률로 신생 발동",
       "searchstring": "- 아르카나 급 날개 -\r",
       "grade": 5,
       "type": "날개",
       "recipies": [
         [
           {
-            "item": "I0R4",
+            "item": "I05Q",
             "count": 1
           },
           {
-            "item": "I05Q",
+            "item": "I0R4",
             "count": 1
           },
           {
@@ -15225,11 +15350,11 @@
             "count": 1
           },
           {
-            "item": "I0O3",
+            "item": "I01Z",
             "count": 1
           },
           {
-            "item": "I01Z",
+            "item": "I0O3",
             "count": 1
           },
           {
@@ -15251,11 +15376,11 @@
       "recipies": [
         [
           {
-            "item": "phea",
+            "item": "I05Q",
             "count": 1
           },
           {
-            "item": "I05Q",
+            "item": "I0R2",
             "count": 1
           },
           {
@@ -15263,7 +15388,7 @@
             "count": 1
           },
           {
-            "item": "I0R2",
+            "item": "phea",
             "count": 1
           },
           {
@@ -15277,11 +15402,11 @@
         ],
         [
           {
-            "item": "phea",
+            "item": "I05Q",
             "count": 1
           },
           {
-            "item": "I05Q",
+            "item": "I0R4",
             "count": 1
           },
           {
@@ -15289,7 +15414,7 @@
             "count": 1
           },
           {
-            "item": "I0R4",
+            "item": "phea",
             "count": 1
           },
           {
@@ -15316,10 +15441,6 @@
         [
           {
             "item": "I08K",
-            "count": 1
-          },
-          {
-            "item": "ram1",
             "count": 1
           },
           {
@@ -15353,7 +15474,6 @@
       "droprates": [
         {
           "rate": 1.25,
-          "wishrate": 2.5,
           "group": "sneg"
         }
       ]
@@ -15381,10 +15501,6 @@
           },
           {
             "item": "I08N",
-            "count": 1
-          },
-          {
-            "item": "shwd",
             "count": 1
           },
           {
@@ -15462,7 +15578,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "sneg"
         }
       ]
@@ -15477,7 +15592,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "sneg"
         }
       ]
@@ -15492,7 +15606,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "sneg"
         }
       ]
@@ -15515,10 +15628,6 @@
             "count": 1
           },
           {
-            "item": "I0E7",
-            "count": 1
-          },
-          {
             "item": "crys",
             "count": 1
           },
@@ -15528,8 +15637,8 @@
           }
         ]
       ],
-      "mobindex": 39,
-      "mobgroup": "sneg"
+      "mobindex": 37,
+      "mobgroup": "pomn"
     },
     "I0E3": {
       "id": "I0E3",
@@ -15575,11 +15684,29 @@
       "recipies": [
         [
           {
-            "item": "ofir",
+            "item": "shtm",
             "count": 1
           },
           {
-            "item": "shtm",
+            "item": "I0CK",
+            "count": 1
+          },
+          {
+            "item": "I0CD",
+            "count": 1
+          },
+          {
+            "item": "I0E5",
+            "count": 1
+          },
+          {
+            "item": "sbch",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "item": "ofir",
             "count": 1
           },
           {
@@ -15606,7 +15733,7 @@
     "I0E1": {
       "id": "I0E1",
       "name": "시린 죽음의 반지",
-      "description": "외롭게 죽음을 맞이한 자들의 손에 끼여져 있던 반지.\r<br/>∴주 스탯 +430\r<br/>∴HP 재생률 +60, MP 재생률 +30\r<br/>∴공격 속도 +20%\r<br/>∴스킬 데미지 +14.5%\r<br/>∴사용 시 다크니스 레이 발동",
+      "description": "외롭게 죽음을 맞이한 자들의 손에 끼여져 있던 반지.\r<br/>∴주 스탯 +430\r<br/>∴MP 재생률 +15\r<br/>∴공격 속도 +20%\r<br/>∴스킬 데미지 +14.5%\r<br/>∴사용 시 다크니스 레이 발동",
       "searchstring": "- 그노시스 급 장신구 -\r",
       "grade": 3,
       "type": "장신구",
@@ -15874,16 +16001,16 @@
       "recipies": [
         [
           {
-            "item": "phea",
-            "count": 2
+            "item": "I05Q",
+            "count": 1
           },
           {
             "item": "I0R4",
             "count": 1
           },
           {
-            "item": "I05Q",
-            "count": 1
+            "item": "phea",
+            "count": 2
           },
           {
             "item": "I0O3",
@@ -15965,7 +16092,7 @@
     "I0DO": {
       "id": "I0DO",
       "name": "마녀의 로브 메데이아",
-      "description": "모두 사라져라! 너의 육신, 내 영혼까지도!!!\r<br/>∴방어력 +185\r<br/>∴지능 +340\r<br/>∴MP 재생률 +45\r<br/>∴스킬 데미지 +8%\r<br/>∴사용 시 마녀의 유희 발동",
+      "description": "모두 사라져라! 너의 육신, 내 영혼까지도!!!\r<br/>∴방어력 +185\r<br/>∴지능 +340\r<br/>∴MP +1000\r<br/>∴스킬 데미지 +8%\r<br/>∴사용 시 마녀의 유희 발동",
       "searchstring": "- 그노시스 급 방어구 -\r",
       "grade": 3,
       "type": "방어구",
@@ -16029,7 +16156,7 @@
     "I0DM": {
       "id": "I0DM",
       "name": "할로윈 사탕",
-      "description": "[Special]\r<br/>맛있는 사탕.\r<br/>∴1000의 HP 회복\r<br/>∴낮은 확률로 경품 당첨\r<br/>∴캔디 존에서 사용 시 자동 사용",
+      "description": "[Special]\r<br/>맛있는 사탕.\r<br/>∴HP 1000 회복\r<br/>∴낮은 확률로 경품 당첨\r<br/>∴캔디 존에서 사용 시 자동으로 계속 섭취됨",
       "grade": 0
     },
     "I0DL": {
@@ -16075,7 +16202,7 @@
     "I0DJ": {
       "id": "I0DJ",
       "name": "성수",
-      "description": "[Misc]\r<br/>교회에서 특별히 준비된 성수.\r<br/>◎사용시 주변 적에게 성수를 뿌린다",
+      "description": "[Misc]\r<br/>교회에서 특별히 준비된 성수.\r<br/>◎사용 시 주변 적에게 성수를 뿌려 기절시킨다",
       "grade": 0
     },
     "I0DI": {
@@ -16147,41 +16274,10 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
-          "wishrate": 1.875,
+          "rate": 1.25,
           "group": "infs"
         }
       ]
-    },
-    "I0DF": {
-      "id": "I0DF",
-      "name": "스탯의 엘릭서",
-      "description": "[Elixir]\r<br/>|CFFFFDEAD사용자의 위력을 증폭시켜주는 엘릭서\r<br/>∴75초간 주스탯 12% 증가",
-      "grade": 0
-    },
-    "I0DE": {
-      "id": "I0DE",
-      "name": "마법의 엘릭서",
-      "description": "[Elixir]\r<br/>|CFFFFDEAD사용자의 스킬을 강화시켜주는 엘릭서\r<br/>∴120초간 스킬 데미지 7.5% 증가",
-      "grade": 0
-    },
-    "I0DD": {
-      "id": "I0DD",
-      "name": "집중의 엘릭서",
-      "description": "[Elixir]\r<br/>|CFFFFDEAD사용자의 집중을 쉽게해주는 엘릭서\r<br/>∴90초간 치명타 확률 5%, 치명타 배수 x0.25배 증가",
-      "grade": 0
-    },
-    "I0DC": {
-      "id": "I0DC",
-      "name": "수호의 엘릭서",
-      "description": "[Elixir]\r<br/>|CFFFFDEAD몸을 강하게 만들어주는 엘릭서\r<br/>∴60초간 받는 데미지 25% 감소",
-      "grade": 0
-    },
-    "I0DB": {
-      "id": "I0DB",
-      "name": "회복의 엘릭서",
-      "description": "[Elixir]\r<br/>|CFFFFDEAD몸을 건강하게 만들어주는 엘릭서\r<br/>∴최대 생명력의 25% 회복\r<br/>∴모든 디버프 해제",
-      "grade": 0
     },
     "I0DA": {
       "id": "I0DA",
@@ -16216,7 +16312,7 @@
     "I0D9": {
       "id": "I0D9",
       "name": "탄식의 갑주 레퀴엠",
-      "description": "망자의 넋을 기리는 갑주\r<br/>∴방어력 +215\r<br/>∴힘 +265, 민첩성 +160\r<br/>∴공격 속도 -25%\r<br/>∴자신과 주변 아군의 능력치 증가\r<br/>∴8초마다 분노, 망각 및 집착 중 랜덤한 효과 발동",
+      "description": "망자의 넋을 기리는 갑주\r<br/>∴방어력 +215\r<br/>∴힘 +265\r<br/>∴민첩성 +160\r<br/>∴자신과 주변 아군의 능력치 증가\r<br/>∴8초마다 분노, 망각 및 집착 중 랜덤한 효과 발동",
       "searchstring": "- 그노시스 급 방어구 -\r",
       "grade": 3,
       "type": "방어구",
@@ -16396,7 +16492,7 @@
     "I0D3": {
       "id": "I0D3",
       "name": "성수 교환",
-      "description": "[Trade]\r<br/>프리우스의 신부들은 가끔 죽은자들과 대립해야 할 때가 있습니다. 그럴 때를 위해 항상 성수를 준비하는데, 제조하는 데 귀한 재료들이 필요하죠.\r<br/>\r<br/>화이트 매직 스톤을 한 개 들고 오시면 성수를 1병 드리겠습니다.",
+      "description": "[Trade]\r<br/>프리우스의 신부들은 가끔 죽은자들과 대립해야 할 때가 있습니다. 그럴 때를 위해 항상 성수를 준비하는데, 제조하는 데 귀한 재료들이 필요하죠.\r<br/>\r<br/>화이트 매직 스톤을 한 개 들고 오시면 성수를 3병 드리겠습니다.",
       "grade": 0
     },
     "I0D2": {
@@ -16409,7 +16505,6 @@
       "droprates": [
         {
           "rate": 1.25,
-          "wishrate": 2.5,
           "group": "pres"
         }
       ]
@@ -16524,19 +16619,19 @@
       "recipies": [
         [
           {
-            "item": "I0NU",
-            "count": 1
-          },
-          {
             "item": "I09R",
             "count": 1
           },
           {
-            "item": "I014",
+            "item": "I0NU",
             "count": 1
           },
           {
             "item": "I01Z",
+            "count": 1
+          },
+          {
+            "item": "I014",
             "count": 1
           },
           {
@@ -16851,7 +16946,7 @@
     "I0CC": {
       "id": "I0CC",
       "name": "촉수의 지팡이",
-      "description": "∴공격력 +1500\r<br/>∴지능 +180\r<br/>∴스킬 데미지 +6%\r<br/>∴유닛을 죽일 시 HP와 MP 회복",
+      "description": "∴공격력 +1500\r<br/>∴지능 +180\r<br/>∴스킬 데미지 +6%",
       "searchstring": "- 무기 (지팡이) -\r",
       "grade": 0,
       "type": "무기",
@@ -16977,7 +17072,7 @@
     "I0C5": {
       "id": "I0C5",
       "name": "사신의 반지",
-      "description": "죽음을 지배한 자, 무한한 힘을 지배하리\r<br/>∴민첩성 +260\r<br/>∴지능 +295\r<br/>∴HP 재생률 +60\r<br/>∴MP 재생률 +30\r<br/>∴공격 속도 +20%\r<br/>∴스킬 데미지 +10%\r<br/>∴사용 시 2초간 받는 데미지를 HP로 변환",
+      "description": "죽음을 지배한 자, 무한한 힘을 지배하리\r<br/>∴주 스탯 +290\r<br/>∴MP 재생률 +15\r<br/>∴공격 속도 +20%\r<br/>∴스킬 데미지 +10%\r<br/>∴사용 시 2초간 받는 데미지를 HP로 변환",
       "searchstring": "- 넵티노스 급 장신구 -\r",
       "grade": 2,
       "type": "장신구",
@@ -17461,22 +17556,22 @@
     "I0BE": {
       "id": "I0BE",
       "name": "생명의 심장",
-      "description": "생명으로 피어나거라.\r<br/>∴지능 +535\r<br/>∴HP +3550\r<br/>∴스킬 데미지 +10%\r<br/>∴주변 아군을 생명의 기운으로 강화\r<br/>∴사용 시 피어나는 생명 발동",
+      "description": "생명으로 피어나거라.\r<br/>∴주 스탯 +525\r<br/>∴HP +2000\r<br/>∴공격 속도 +7%\r<br/>∴대지 속성 효율 +7.5%\r<br/>∴주변 아군을 생명의 기운으로 강화\r<br/>∴사용 시 피어나는 생명 발동",
       "searchstring": "- 아르카나 급 장신구 -\r",
       "grade": 5,
       "type": "장신구",
       "recipies": [
         [
           {
+            "item": "I09R",
+            "count": 1
+          },
+          {
             "item": "I0R4",
             "count": 1
           },
           {
             "item": "I0NU",
-            "count": 1
-          },
-          {
-            "item": "I09R",
             "count": 1
           },
           {
@@ -17893,7 +17988,7 @@
     "I0AU": {
       "id": "I0AU",
       "name": "대천사의 날개",
-      "description": "대천사의 축복을 받은 날개\r<br/>∴모든 스탯 +225 & 주 스탯 +75\r<br/>∴HP 재생률 +90 & MP 재생률 +45\r<br/>∴스킬 데미지 +15%\r<br/>∴스킬 시전 시 5% 확률로 대천사의 축복 발동 (쿨다운: 120초)",
+      "description": "대천사의 축복을 받은 날개\r<br/>∴모든 스탯 +225\r<br/>∴주 스탯 +75\r<br/>∴MP 재생률 +20\r<br/>∴스킬 데미지 +15%\r<br/>∴스킬 시전 시 5% 확률로 대천사의 축복 발동 (쿨다운: 120초)",
       "searchstring": "- 알테이아 급 날개 -\r",
       "grade": 4,
       "type": "날개",
@@ -17970,7 +18065,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "pomn"
         }
       ]
@@ -18186,7 +18280,7 @@
     "I0AC": {
       "id": "I0AC",
       "name": "타락한 크리스탈 날개",
-      "description": "강력한 마기를 방출하고 있는 한 쌍의 날개\r<br/>∴모든 스탯 +145\r<br/>∴HP 재생률 +45\r<br/>∴MP 재생률 +18\r<br/>∴스킬 데미지 +9%",
+      "description": "강력한 마기를 방출하고 있는 한 쌍의 날개\r<br/>∴모든 스탯 +145\r<br/>∴MP 재생률 +15\r<br/>∴스킬 데미지 +9%",
       "searchstring": "- 델티라마 급 날개 -\r",
       "grade": 1,
       "type": "날개",
@@ -18390,7 +18484,7 @@
     "I0A2": {
       "id": "I0A2",
       "name": "생명의 실",
-      "description": "생명의 가닥이 강인하게 요동친다\r<br/>∴모든 스탯 +420\r<br/>∴불/물/바람 속성 효율 +7.5%\r<br/>∴주변 아군이 받는 회복량 15% 증가\r<br/>∴스킬 시전 시 5% 확률로 쿨다운 초기화\r<br/>∴사용 시 주변 사망한 아군을 1기 부활",
+      "description": "생명의 가닥이 강인하게 요동친다\r<br/>∴모든 스탯 +420\r<br/>∴물/바람/대지 속성 효율 +7.5%\r<br/>∴주변 아군이 받는 회복량 15% 증가\r<br/>∴스킬 시전 시 5% 확률로 쿨다운 초기화\r<br/>∴사용 시 주변 사망한 아군을 1기 부활",
       "searchstring": "- 아르카나 급 날개 -\r",
       "grade": 5,
       "type": "날개",
@@ -18488,7 +18582,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
+          "rate": 0.85,
           "group": "I0R7"
         }
       ]
@@ -18576,8 +18670,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 1.25,
-          "wishrate": 2.5,
+          "rate": 2.5,
           "group": "shar"
         }
       ]
@@ -18704,15 +18797,15 @@
       "recipies": [
         [
           {
-            "item": "I0R4",
-            "count": 1
-          },
-          {
             "item": "I0O1",
             "count": 1
           },
           {
             "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I0R4",
             "count": 1
           },
           {
@@ -19034,7 +19127,6 @@
       "droprates": [
         {
           "rate": 2.5,
-          "wishrate": 5,
           "group": "pomn"
         }
       ]
@@ -19062,8 +19154,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 2,
-          "wishrate": 4,
+          "rate": 2.5,
           "group": "shar"
         }
       ]
@@ -19425,7 +19516,7 @@
       "type": "머리보호구",
       "droprates": [
         {
-          "rate": 7.5,
+          "rate": 2.5,
           "group": "tmmt"
         }
       ]
@@ -19439,7 +19530,7 @@
       "type": "방어구",
       "droprates": [
         {
-          "rate": 7.5,
+          "rate": 2.5,
           "group": "tmmt"
         }
       ]
@@ -19453,7 +19544,7 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 7.5,
+          "rate": 2.5,
           "group": "tmmt"
         }
       ]
@@ -19481,7 +19572,7 @@
       "type": "무기",
       "droprates": [
         {
-          "rate": 7.5,
+          "rate": 2.5,
           "group": "tmmt"
         }
       ]
@@ -20349,7 +20440,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 12.5,
+          "rate": 5,
           "group": "tmmt"
         }
       ]
@@ -20377,7 +20468,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 12.5,
+          "rate": 5,
           "group": "tmmt"
         }
       ]
@@ -20763,7 +20854,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
+          "rate": 0.85,
           "group": "I0R7"
         }
       ]
@@ -20777,7 +20868,7 @@
       "type": "재료",
       "droprates": [
         {
-          "rate": 0.75,
+          "rate": 0.85,
           "group": "I0R7"
         }
       ]
@@ -20861,6 +20952,44 @@
           "group": "I05F"
         }
       ]
+    },
+    "I05E": {
+      "id": "I05E",
+      "name": "핏빛 속삭임",
+      "description": "화살마다 진홍빛 진혼곡을 노래한다\r<br/>∴공격력 +13000\r<br/>∴힘 +500\r<br/>∴민첩성 +1050\r<br/>∴공격 속도 +40%\r<br/>∴스킬 데미지 +5%\r<br/>∴공격 시 피의 시 발동\r<br/>∴공격 시 핏빛 낙인 발동",
+      "searchstring": "- 아르카나 급 무기 (활) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I02N",
+            "count": 1
+          },
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I05Q",
+            "count": 1
+          },
+          {
+            "item": "rlif",
+            "count": 1
+          },
+          {
+            "item": "fgrd",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
     },
     "I05D": {
       "id": "I05D",
@@ -21126,8 +21255,8 @@
     },
     "I03Y": {
       "id": "I03Y",
-      "name": "이벤트 정보 갱신",
-      "description": "잘못된 이벤트 정보를 갱신합니다.",
+      "name": "도전자의 포션",
+      "description": "[Elixir]\r<br/>사용 시 디버프를 해제하고 HP를 60% 회복합니다.\r<br/>\r<br/>페널티: 총 데미지가 15% 감소합니다.",
       "grade": 0
     },
     "I03L": {
@@ -21272,6 +21401,112 @@
         }
       ]
     },
+    "I02Z": {
+      "id": "I02Z",
+      "name": "우로보로스의 고리",
+      "description": "스스로의 이야기를 삼키는 뱀\r<br/>∴모든 스탯 +450\r<br/>∴공격 속도 +15%\r<br/>∴스킬 데미지 +20%\r<br/>∴이동 속도 +50\r<br/>∴사용 시 무한의 고리 발동\r<br/>∴스킬 시전 시 확률로 회귀 발동",
+      "searchstring": "- 아르카나 급 날개 -\r",
+      "grade": 5,
+      "type": "날개",
+      "recipies": [
+        [
+          {
+            "item": "I02P",
+            "count": 1
+          },
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I0EJ",
+            "count": 1
+          },
+          {
+            "item": "I0DR",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02Y": {
+      "id": "I02Y",
+      "name": "공허의 전령",
+      "description": "침묵이 부르면, 망각이 응답하리라\r<br/>∴방어력 +240\r<br/>∴민첩성 +550\r<br/>∴이동 속도 +50\r<br/>∴스킬 데미지 +18%\r<br/>∴전투 중 공허 기운을 중첩\r<br/>∴사용 시 어비스 브레이크 발동",
+      "searchstring": "- 아르카나 급 방어구 -\r",
+      "grade": 5,
+      "type": "방어구",
+      "recipies": [
+        [
+          {
+            "item": "I02O",
+            "count": 1
+          },
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I0R2",
+            "count": 1
+          },
+          {
+            "item": "I01Z",
+            "count": 1
+          },
+          {
+            "item": "I0NI",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02X": {
+      "id": "I02X",
+      "name": "영혼의 로브 아니무스",
+      "description": "수천의 운명으로 짜여진 옷\r<br/>∴방어력 +240\r<br/>∴지능 +650\r<br/>∴이동 속도 +50\r<br/>∴스킬 데미지 +20%\r<br/>∴전투 중 영혼의 고리 생성\r<br/>∴사용 시 영혼의 고리 반경 조절",
+      "searchstring": "- 아르카나 급 방어구 -\r",
+      "grade": 5,
+      "type": "방어구",
+      "recipies": [
+        [
+          {
+            "item": "I02N",
+            "count": 1
+          },
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I01Z",
+            "count": 1
+          },
+          {
+            "item": "I019",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
     "I02W": {
       "id": "I02W",
       "name": "기계의 영혼석",
@@ -21302,11 +21537,17 @@
     },
     "I02U": {
       "id": "I02U",
-      "name": "Unused Mat",
+      "name": "카마엘의 영혼석",
       "description": "[Epic]",
       "searchstring": "- 아르카나 급 재료 -",
       "grade": 5,
-      "type": "재료"
+      "type": "재료",
+      "droprates": [
+        {
+          "rate": 0.15,
+          "group": "I0R8"
+        }
+      ]
     },
     "I02T": {
       "id": "I02T",
@@ -21353,11 +21594,48 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.15,
-          "wishrate": 0.375,
+          "rate": 0.25,
           "group": "I0P3"
         }
       ]
+    },
+    "I02R": {
+      "id": "I02R",
+      "name": "지성이 깃든 배낭",
+      "description": "스스로 담고 싶은 것을 고르는 기묘한 배낭\r<br/>∴공격력 +8000\r<br/>∴모든 스탯 +750\r<br/>∴회복량 +15%\r<br/>∴마법 방어력 +15%\r<br/>∴사용 시 금단의 엘릭서 투척",
+      "searchstring": "- 아르카나 급 무기 (배낭) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I02O",
+            "count": 1
+          },
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I0R2",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I01Z",
+            "count": 1
+          },
+          {
+            "item": "I0LU",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
     },
     "I02Q": {
       "id": "I02Q",
@@ -21391,8 +21669,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.15,
-          "wishrate": 0.375,
+          "rate": 0.25,
           "group": "I0P0"
         }
       ]
@@ -21405,8 +21682,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.15,
-          "wishrate": 0.375,
+          "rate": 0.25,
           "group": "I0P1"
         }
       ]
@@ -21574,15 +21850,49 @@
       "type": "방어구",
       "droprates": [
         {
-          "rate": 0.6,
+          "rate": 0.65,
           "group": "I0R7"
         }
       ]
     },
+    "I01Y": {
+      "id": "I01Y",
+      "name": "그림자 군주의 갑주",
+      "description": "모든 그림자가 네 의지 앞에 굽히리라\r<br/>∴방어력 +300\r<br/>∴모든 스탯 +400\r<br/>∴마법 방어력 +10%\r<br/>∴암흑 속성 효율 +5%\r<br/>∴장착 시 그림자 군주의 권능 발동\r<br/>∴사용 시 그림자 휩쓸기 발동",
+      "searchstring": "- 아르카나 급 방어구 -\r",
+      "grade": 5,
+      "type": "방어구",
+      "recipies": [
+        [
+          {
+            "item": "I02P",
+            "count": 1
+          },
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I05P",
+            "count": 1
+          },
+          {
+            "item": "I00F",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
     "I01X": {
       "id": "I01X",
       "name": "고결한 영혼의 반지",
-      "description": "고결한 영혼이 잠들어 있는 반지\r<br/>∴주 스탯 +700\r<br/>∴공격 속도 +40%\r<br/>∴스킬 데미지 +23%\r<br/>∴HP 재생률 +120\r<br/>∴MP 재생률 +60\r<br/>∴스킬 시전 시 광휘 발동\r<br/>∴사용 시 영혼의 방패 발동",
+      "description": "고결한 영혼이 잠들어 있는 반지\r<br/>∴주 스탯 +700\r<br/>∴MP 재생률 +25\r<br/>∴공격 속도 +40%\r<br/>∴스킬 데미지 +23%\r<br/>∴스킬 시전 시 광휘 발동\r<br/>∴사용 시 영혼의 방패 발동",
       "searchstring": "- 아르카나 급 장신구 -\r",
       "grade": 5,
       "type": "장신구",
@@ -21634,6 +21944,40 @@
       ],
       "mobindex": 49,
       "mobgroup": "I0QE"
+    },
+    "I01W": {
+      "id": "I01W",
+      "name": "여명의 갑주",
+      "description": "달빛의 영원한 수호를 받은 갑옷\r<br/>∴방어력 +300\r<br/>∴힘 +600\r<br/>∴스킬 데미지 +20%\r<br/>∴스킬 시전 시 달빛의 룬 소환\r<br/>∴사용 시 여명의 결의 발동",
+      "searchstring": "- 아르카나 급 방어구 -\r",
+      "grade": 5,
+      "type": "방어구",
+      "recipies": [
+        [
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I0R4",
+            "count": 1
+          },
+          {
+            "item": "I023",
+            "count": 1
+          },
+          {
+            "item": "I0CT",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
     },
     "I01V": {
       "id": "I01V",
@@ -21827,6 +22171,44 @@
       "mobindex": 49,
       "mobgroup": "I0QE"
     },
+    "I01P": {
+      "id": "I01P",
+      "name": "신성한 피의 갑주",
+      "description": "신성의 정수로 벼려진 갑주\r<br/>∴방어력 +300\r<br/>∴모든 스탯 +500\r<br/>∴이동 속도 +50\r<br/>∴스킬 데미지 +15%\r<br/>∴받는 데미지 -10%\r<br/>∴모든 속성 효율 +5%\r<br/>∴스킬 시전 시 신성한 피 발동\r<br/>∴사용 시 신성한 분노 발동",
+      "searchstring": "- 아르카나 급 방어구 -\r",
+      "grade": 5,
+      "type": "방어구",
+      "recipies": [
+        [
+          {
+            "item": "I02P",
+            "count": 1
+          },
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I00G",
+            "count": 1
+          },
+          {
+            "item": "I0OH",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
     "I01O": {
       "id": "I01O",
       "name": "황혼검",
@@ -21906,7 +22288,7 @@
     "I01M": {
       "id": "I01M",
       "name": "창세의 반지",
-      "description": "만물의 근원이 깃든 반지\r<br/>∴모든 스탯 +525\r<br/>∴스킬 데미지 +17.5%\r<br/>∴데미지를 가할 시 확률로 30% 추가 데미지를 가함\r<br/>∴스킬 시전 시 확률로 5초간 총 데미지 7.5% 증가\r<br/>∴궁극기 시전 시 10초간 스킬로 가하는 피해량 5% 증가\r<br/>∴피격 시 확률로 절대 방어 작동",
+      "description": "만물의 근원이 깃든 반지\r<br/>∴모든 스탯 +525\r<br/>∴스킬 데미지 +17.5%\r<br/>∴데미지를 가할 시 확률로 30% 추가 데미지를 가함\r<br/>∴스킬 시전 시 확률로 5초간 최종 데미지 7.5% 증가\r<br/>∴궁극기 시전 시 10초간 스킬 데미지 5% 증폭\r<br/>∴피격 시 확률로 절대 방어 작동",
       "searchstring": "- 아르카나 급 장신구 -\r",
       "grade": 5,
       "type": "장신구",
@@ -22030,7 +22412,7 @@
     "I01J": {
       "id": "I01J",
       "name": "숲의 수호자",
-      "description": "대자연의 의지가 담긴 투구\r<br/>∴방어력 +160\r<br/>∴주 스탯 +340\r<br/>∴HP 재생률 +100\r<br/>∴받는 데미지 -15%\r<br/>∴걸아다닐 시 생명의 씨앗 소환\r<br/>∴사용 시 수호자의 의지 발동",
+      "description": "대자연의 의지가 담긴 투구\r<br/>∴방어력 +160\r<br/>∴주 스탯 +340\r<br/>∴받는 데미지 -15%\r<br/>∴대지 속성 효율 +7.5%\r<br/>∴걸아다닐 시 생명의 씨앗 소환\r<br/>∴사용 시 수호자의 의지 발동",
       "searchstring": "- 아르카나 급 머리보호구 -\r",
       "grade": 5,
       "type": "머리보호구",
@@ -22229,6 +22611,40 @@
         }
       ]
     },
+    "I01A": {
+      "id": "I01A",
+      "name": "원초의 불꽃",
+      "description": "창세를 불태운 최초의 불씨\r<br/>∴모든 스탯 +550\r<br/>∴공격 속도 +25%\r<br/>∴스킬 데미지 +15%\r<br/>∴불 속성 효율 +5%\r<br/>∴스킬 시전 시 원초의 불꽃 습득\r<br/>∴사용 시 원초의 불꽃 해방",
+      "searchstring": "- 아르카나 급 장신구 -\r",
+      "grade": 5,
+      "type": "장신구",
+      "recipies": [
+        [
+          {
+            "item": "I02O",
+            "count": 1
+          },
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I05Q",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I00J",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
     "I019": {
       "id": "I019",
       "name": "희생의 로브 상기스",
@@ -22251,11 +22667,11 @@
             "count": 1
           },
           {
-            "item": "kygh",
+            "item": "I0IG",
             "count": 1
           },
           {
-            "item": "I0IG",
+            "item": "kygh",
             "count": 1
           },
           {
@@ -22285,11 +22701,11 @@
             "count": 1
           },
           {
-            "item": "I0R3",
+            "item": "I09R",
             "count": 1
           },
           {
-            "item": "I09R",
+            "item": "I0R3",
             "count": 1
           },
           {
@@ -22308,7 +22724,7 @@
     "I017": {
       "id": "I017",
       "name": "아크 드루이드 로브",
-      "description": "고대 나무 정령이 깃든 로브\r<br/>∴방어력 +250\r<br/>∴주 스탯 +450\r<br/>∴마법 방어력 +15%\r<br/>∴물 속성 효율 +5%\r<br/>∴바람 속성 효율 +5%\r<br/>∴아군 회복 시 자연의 손길 발동\r<br/>∴사용 시 고대 정령을 방출",
+      "description": "고대 정령이 깃든 로브\r<br/>∴방어력 +250\r<br/>∴주 스탯 +450\r<br/>∴마법 방어력 +15%\r<br/>∴물 속성 효율 +5%\r<br/>∴바람 속성 효율 +5%\r<br/>∴아군 회복 시 자연의 손길 발동\r<br/>∴사용 시 고대 정령을 방출",
       "searchstring": "- 아르카나 급 방어구 -\r",
       "grade": 5,
       "type": "방어구",
@@ -22407,7 +22823,7 @@
       "type": "장신구",
       "droprates": [
         {
-          "rate": 0.7,
+          "rate": 0.75,
           "group": "I0R6"
         }
       ]
@@ -22744,14 +23160,14 @@
     "I00Q": {
       "id": "I00Q",
       "name": "게헨나의 부름",
-      "description": "마계의 힘이 깃든 로브\r<br/>∴방어력 +220\r<br/>∴지능 +600\r<br/>∴MP +2000\r<br/>∴스킬 데미지 +20%\r<br/>∴스킬 시전 시 헬스피어 발동\r<br/>∴사용 시 게헨나의 부름 발동",
+      "description": "마계의 힘이 깃든 로브\r<br/>∴방어력 +220\r<br/>∴지능 +600\r<br/>∴MP +2000\r<br/>∴MP 재생률 +40\r<br/>∴스킬 데미지 +20%\r<br/>∴스킬 시전 시 헬스피어 발동\r<br/>∴사용 시 게헨나의 부름 발동",
       "searchstring": "- 아르카나 급 방어구 -\r",
       "grade": 5,
       "type": "방어구",
       "recipies": [
         [
           {
-            "item": "I0R2",
+            "item": "I0O1",
             "count": 1
           },
           {
@@ -22759,7 +23175,7 @@
             "count": 1
           },
           {
-            "item": "I0O1",
+            "item": "I0R2",
             "count": 1
           },
           {
@@ -22773,7 +23189,7 @@
         ],
         [
           {
-            "item": "I0R2",
+            "item": "I0O1",
             "count": 1
           },
           {
@@ -22781,7 +23197,7 @@
             "count": 1
           },
           {
-            "item": "I0O1",
+            "item": "I0R2",
             "count": 1
           },
           {
@@ -23014,7 +23430,7 @@
     "I00F": {
       "id": "I00F",
       "name": "뒤틀린 영혼의 갑주",
-      "description": "죽음은 나를 기쁘게 한다.\r<br/>∴방어력 +280\r<br/>∴모든 스탯 +300\r<br/>∴공격 속도 -75%\r<br/>∴주변 아군의 스탯 7%, 적이 받는 데미지 4% 증가\r<br/>∴전투 중 뒤틀린 영혼 습득\r<br/>∴사용 시 비탄 발동",
+      "description": "죽음은 나를 기쁘게 한다.\r<br/>∴방어력 +280\r<br/>∴모든 스탯 +300\r<br/>∴주변 아군의 스탯 7%, 적이 받는 데미지 3% 증가\r<br/>∴전투 중 뒤틀린 영혼 습득\r<br/>∴사용 시 비탄 발동",
       "searchstring": "- 아르카나 급 방어구 -\r",
       "grade": 5,
       "type": "방어구",
@@ -23215,8 +23631,7 @@
       "type": "아이콘",
       "droprates": [
         {
-          "rate": 0.15,
-          "wishrate": 0.375,
+          "rate": 0.25,
           "group": "I0P2"
         }
       ]
@@ -23261,6 +23676,811 @@
       "id": "I00Y",
       "name": "이벤트 코스튬 선택권",
       "description": "[Special]\r<br/>사용 시 원하는 이벤트 코스튬 1기와 교환할 수 있습니다.\r<br/>∴저장 가능",
+      "grade": 0
+    },
+    "I00Z": {
+      "id": "I00Z",
+      "name": "아발론의 수호",
+      "description": "신성한 은총이 너의 갑주가 되리라\r<br/>∴모든 스탯 +425\r<br/>∴마법 방어력 +10%\r<br/>∴대지 속성 효율 +5%\r<br/>∴빛 속성 효율 +5%\r<br/>∴장착 시 빛의 잔향 발동\r<br/>∴사용 시 수호천사 발동",
+      "searchstring": "- 아르카나 급 날개 -\r",
+      "grade": 5,
+      "type": "날개",
+      "recipies": [
+        [
+          {
+            "item": "I02N",
+            "count": 1
+          },
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I0R4",
+            "count": 1
+          },
+          {
+            "item": "I012",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I010": {
+      "id": "I010",
+      "name": "강림자의 날개",
+      "description": "추락하는 자, 비상을 깨우치리라\r<br/>∴공격력 +4000\r<br/>∴모든 스탯 +350\r<br/>∴이동 속도 +50\r<br/>∴스킬 데미지 +15%\r<br/>∴마법 방어력 +7.5%\r<br/>∴500 거리 이동 시 강림자의 힘 활성화\r<br/>∴사용 시 초월 발동",
+      "searchstring": "- 아르카나 급 날개 -\r",
+      "grade": 5,
+      "type": "날개",
+      "recipies": [
+        [
+          {
+            "item": "I02O",
+            "count": 1
+          },
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I05Q",
+            "count": 1
+          },
+          {
+            "item": "I0R3",
+            "count": 1
+          },
+          {
+            "item": "I00W",
+            "count": 1
+          },
+          {
+            "item": "I0NP",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I021": {
+      "id": "I021",
+      "name": "ARCANA TEMPLATE",
+      "description": "",
+      "grade": 0
+    },
+    "I022": {
+      "id": "I022",
+      "name": "성창 오르디우스",
+      "description": "빛이 내리치는 곳, 어둠이 물러나리라\r<br/>∴공격력 +13500\r<br/>∴힘 +1250\r<br/>∴민첩성 +350\r<br/>∴지능 +1000\r<br/>∴스킬 데미지 +20%\r<br/>∴치명타 배수 +0.20x\r<br/>∴이동 시 신성한 힘 충전\r<br/>∴사용 시 빛의 심판 발동",
+      "searchstring": "- 아르카나 급 무기 (근접) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I02O",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I023",
+            "count": 1
+          },
+          {
+            "item": "rlif",
+            "count": 1
+          },
+          {
+            "item": "rwat",
+            "count": 1
+          },
+          {
+            "item": "I015",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I023": {
+      "id": "I023",
+      "name": "태양의 돌",
+      "description": "영원한 여명의 유물\r<br/>∴모든 스탯 +450\r<br/>∴공격 속도 +20%\r<br/>∴스킬 데미지 +10%\r<br/>∴사용 시 태양의 축복 발동\r<br/>∴사망 시 태양의 가호 발동",
+      "searchstring": "- 아르카나 급 장신구 -\r",
+      "grade": 5,
+      "type": "장신구",
+      "droprates": [
+        {
+          "rate": 0.4,
+          "group": "I0R8"
+        }
+      ]
+    },
+    "I024": {
+      "id": "I024",
+      "name": "신살자의 인장",
+      "description": "운명에 새겨진 반역\r<br/>∴힘 +575\r<br/>∴민첩성 +550\r<br/>∴지속 데미지 +40%\r<br/>∴받는 회복량 -40%\r<br/>∴공격 시 확률로 신들의 최후 발동\r<br/>∴사용 시 모독된 성가 발동",
+      "searchstring": "- 아르카나 급 장신구 -\r",
+      "grade": 5,
+      "type": "장신구",
+      "recipies": [
+        [
+          {
+            "item": "I02P",
+            "count": 1
+          },
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I0DL",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I026": {
+      "id": "I026",
+      "name": "영혼의 틈",
+      "description": "죽음과 생명의 경계, 그 사이의 틈\r<br/>∴공격력 +10500\r<br/>∴힘 +1000\r<br/>∴스킬 데미지 +20%\r<br/>∴받는 데미지 +10%\r<br/>∴불 속성 효율 +5%",
+      "searchstring": "- 아르카나 급 무기 (배낭) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I023",
+            "count": 1
+          },
+          {
+            "item": "rlif",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I01Z",
+            "count": 1
+          },
+          {
+            "item": "I014",
+            "count": 1
+          },
+          {
+            "item": "I0NS",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02C": {
+      "id": "I02C",
+      "name": "천상의 바람",
+      "description": "천상의 바람 실린 노래를 들으라\r<br/>∴주 스탯 +700\r<br/>∴공격 속도 +40%\r<br/>∴스킬 데미지 +15%\r<br/>∴치명타 배수 +0.25x\r<br/>∴스킬 시전 시 천상의 바람 발동\r<br/>∴사용 시 바람의 축복 발동",
+      "searchstring": "- 아르카나 급 장신구 -\r",
+      "grade": 5,
+      "type": "장신구",
+      "recipies": [
+        [
+          {
+            "item": "I02N",
+            "count": 1
+          },
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I05P",
+            "count": 1
+          },
+          {
+            "item": "I0OE",
+            "count": 1
+          },
+          {
+            "item": "I01H",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "item": "I02N",
+            "count": 1
+          },
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I05P",
+            "count": 1
+          },
+          {
+            "item": "I0OE",
+            "count": 1
+          },
+          {
+            "item": "I01H",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02F": {
+      "id": "I02F",
+      "name": "천지수호",
+      "description": "영역의 경계에서 만들어진 방벽\r<br/>∴방어력 +350\r<br/>∴힘 +550\r<br/>∴민첩성 +250\r<br/>∴지능 +250\r<br/>∴받는 데미지 -12%\r<br/>∴대지 속성 효율 +5%\r<br/>∴장착 시 천지수호 발동\r<br/>∴사용 시 코스모스 발동",
+      "searchstring": "- 아르카나 급 방어구 -\r",
+      "grade": 5,
+      "type": "방어구",
+      "recipies": [
+        [
+          {
+            "item": "I02P",
+            "count": 1
+          },
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I0R3",
+            "count": 1
+          },
+          {
+            "item": "I0OD",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02G": {
+      "id": "I02G",
+      "name": "천상의 왕관",
+      "description": "신성함과 함께 고독이 찾아온다.\r<br/>∴방어력 +150\r<br/>∴모든 스탯 +375\r<br/>∴치명타 확률 +10%\r<br/>∴바람 속성 효율 +12%\r<br/>∴물 속성 효율 +8%\r<br/>∴빛 속성 효율 +8%\r<br/>∴아군 보조 시 이로운 효과 부여\r<br/>∴사용 시 천상의 목소리 발동",
+      "searchstring": "- 아르카나 급 머리보호구 -\r",
+      "grade": 5,
+      "type": "머리보호구",
+      "recipies": [
+        [
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I05P",
+            "count": 1
+          },
+          {
+            "item": "I023",
+            "count": 1
+          },
+          {
+            "item": "I028",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I05P",
+            "count": 1
+          },
+          {
+            "item": "I023",
+            "count": 1
+          },
+          {
+            "item": "I028",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02H": {
+      "id": "I02H",
+      "name": "공허의 천사",
+      "description": "잊혀진 빛을 갈망하는 어둠\r<br/>∴주스탯 +550\r<br/>∴HP +2000\r<br/>∴공격 속도 +15%\r<br/>∴스킬 데미지 +15%\r<br/>∴불 속성 효율 +10%\r<br/>∴암흑 속성 효율 +5%\r<br/>∴스킬 적중 시 그림자 불꽃 발동\r<br/>∴사용 시 공허한 기도 발동",
+      "searchstring": "- 아르카나 급 날개 -\r",
+      "grade": 5,
+      "type": "날개",
+      "recipies": [
+        [
+          {
+            "item": "I02N",
+            "count": 1
+          },
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I0EI",
+            "count": 1
+          },
+          {
+            "item": "I076",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02I": {
+      "id": "I02I",
+      "name": "헤븐즈 폴",
+      "description": "신의 숨결이 너를 불태우리.\r<br/>∴공격력 +9500\r<br/>∴민첩성 +450\r<br/>∴지능 +950\r<br/>∴공격 속도 +35%\r<br/>∴아군 회복 시 축복 발동\r<br/>∴사용 시 헤븐즈 폴 발동",
+      "searchstring": "- 아르카나 급 무기 (총) -\r",
+      "grade": 5,
+      "type": "무기",
+      "recipies": [
+        [
+          {
+            "item": "I02P",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I05Q",
+            "count": 1
+          },
+          {
+            "item": "rlif",
+            "count": 1
+          },
+          {
+            "item": "I0BG",
+            "count": 1
+          },
+          {
+            "item": "I0NQ",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02J": {
+      "id": "I02J",
+      "name": "절대자의 갑주 엑솔루스",
+      "description": "넘어설 수 없는 경계\r<br/>∴방어력 +275\r<br/>∴힘 +200\r<br/>∴민첩성 +575\r<br/>∴스킬 데미지 +18%\r<br/>∴치명타 확률 +15%\r<br/>∴공격 시 절대자의 낙인 적용\r<br/>∴HP가 20% 이하로 내려갈 시 성역 발동",
+      "searchstring": "- 아르카나 급 방어구 -\r",
+      "grade": 5,
+      "type": "방어구",
+      "recipies": [
+        [
+          {
+            "item": "I02N",
+            "count": 1
+          },
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I05Q",
+            "count": 1
+          },
+          {
+            "item": "I0IL",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02K": {
+      "id": "I02K",
+      "name": "성화의 인장",
+      "description": "꺼지지 않는 성스러운 불꽃의 증표\r<br/>∴방어력 +180\r<br/>∴모든 스탯 +450\r<br/>∴스킬 데미지 +15%\r<br/>∴공격 속도 +10%\r<br/>∴불 속성 효율 +10%\r<br/>∴빛 속성 효율 +5%\r<br/>∴사용 시 성화 발동",
+      "searchstring": "- 아르카나 급 머리보호구 -\r",
+      "grade": 5,
+      "type": "머리보호구",
+      "recipies": [
+        [
+          {
+            "item": "I02O",
+            "count": 1
+          },
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I0R4",
+            "count": 1
+          },
+          {
+            "item": "I0DA",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02L": {
+      "id": "I02L",
+      "name": "서리달 왕관",
+      "description": "얼어붙은 왕좌 위에선 피조차 고요하다\r<br/>∴방어력 +165\r<br/>∴모든 스탯 +400\r<br/>∴스킬 데미지 +20%\r<br/>∴HP & MP +1500\r<br/>∴물 속성 효율 +12.5%\r<br/>∴암흑 속성 효율 +5%\r<br/>∴스킬 적중 시 확률로 어둠서리 발동\r<br/>∴사용 시 다크 이클립스 발동",
+      "searchstring": "- 아르카나 급 머리보호구 -\r",
+      "grade": 5,
+      "type": "머리보호구",
+      "recipies": [
+        [
+          {
+            "item": "I02P",
+            "count": 1
+          },
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I0R2",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "I0AX",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I02N": {
+      "id": "I02N",
+      "name": "천상의 매듭",
+      "description": "",
+      "searchstring": "- 아르카나 급 재료 -\r",
+      "grade": 5,
+      "type": "재료",
+      "droprates": [
+        {
+          "rate": 0.6,
+          "group": "I0R8"
+        }
+      ]
+    },
+    "I02O": {
+      "id": "I02O",
+      "name": "신성한 연꽃",
+      "description": "",
+      "searchstring": "- 아르카나 급 재료 -\r",
+      "grade": 5,
+      "type": "재료",
+      "droprates": [
+        {
+          "rate": 0.6,
+          "group": "I0R8"
+        }
+      ]
+    },
+    "I02P": {
+      "id": "I02P",
+      "name": "낙원의 이슬",
+      "description": "",
+      "searchstring": "- 아르카나 급 재료 -\r",
+      "grade": 5,
+      "type": "재료",
+      "droprates": [
+        {
+          "rate": 0.6,
+          "group": "I0R8"
+        }
+      ]
+    },
+    "I030": {
+      "id": "I030",
+      "name": "고대신의 광기",
+      "description": "이성은 부서지고, 힘은 남는다.\r<br/>∴방어력 +150\r<br/>∴민첩성 +550\r<br/>∴HP +2000\r<br/>∴스킬 데미지 +15%\r<br/>∴치명타 배수 +0.10x\r<br/>∴스킬 치명타 적중 시 파멸 발동\r<br/>∴사용 시 파멸의 서약 발동",
+      "searchstring": "- 아르카나 급 머리보호구 -\r",
+      "grade": 5,
+      "type": "머리보호구",
+      "recipies": [
+        [
+          {
+            "item": "I02P",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I05P",
+            "count": 1
+          },
+          {
+            "item": "I0R3",
+            "count": 1
+          },
+          {
+            "item": "rlif",
+            "count": 1
+          },
+          {
+            "item": "I0ND",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I031": {
+      "id": "I031",
+      "name": "광휘의 서",
+      "description": "빛으로 기록된 지식.\r<br/>∴모든 스탯 +525\r<br/>∴이동 속도 +50\r<br/>∴바람 속성 효율 +5%\r<br/>∴빛 속성 효율 +10%\r<br/>∴아군에게 스킬 적중 시 희망 발동\r<br/>∴사용 시 구원 발동",
+      "searchstring": "- 아르카나 급 장신구 -\r",
+      "grade": 5,
+      "type": "장신구",
+      "recipies": [
+        [
+          {
+            "item": "I02O",
+            "count": 1
+          },
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I09R",
+            "count": 1
+          },
+          {
+            "item": "I095",
+            "count": 1
+          },
+          {
+            "item": "tstr",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I032": {
+      "id": "I032",
+      "name": "성자의 망토",
+      "description": "어둠을 막는 한 겹의 빛\r<br/>∴주 스탯 +500\r<br/>∴HP +2000\r<br/>∴모든 속성 효율 +5%\r<br/>∴장착 시 성자의 권능 발동\r<br/>∴사용 시 헌신 발동",
+      "searchstring": "- 아르카나 급 날개 -\r",
+      "grade": 5,
+      "type": "날개",
+      "recipies": [
+        [
+          {
+            "item": "I05H",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I05Q",
+            "count": 1
+          },
+          {
+            "item": "I023",
+            "count": 1
+          },
+          {
+            "item": "I0OJ",
+            "count": 1
+          },
+          {
+            "item": "mlst",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I037": {
+      "id": "I037",
+      "name": "암영의 연꽃",
+      "description": "어둠이 피워낸 꽃, 죽음의 가장 아름다운 핏줄\r<br/>∴모든 스탯 +500\r<br/>∴MP 재생률 +35\r<br/>∴암흑 속성 효율 +7.5%\r<br/>∴단일 스킬 적중 시 어둠의 씨앗 발동\r<br/>∴사용 시 밤의 개화 발동",
+      "searchstring": "- 아르카나 급 장신구 -\r",
+      "grade": 5,
+      "type": "장신구",
+      "recipies": [
+        [
+          {
+            "item": "I02O",
+            "count": 1
+          },
+          {
+            "item": "I02V",
+            "count": 1
+          },
+          {
+            "item": "I0O1",
+            "count": 1
+          },
+          {
+            "item": "I0NL",
+            "count": 1
+          },
+          {
+            "item": "I00V",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I03A": {
+      "id": "I03A",
+      "name": "태고의 심장",
+      "description": "그 안에 세계의 심장이 뛰노라\r<br/>∴주 스탯 +600\r<br/>∴HP +2500\r<br/>∴공격 속도 +15%\r<br/>∴물 속성 효율 +5%\r<br/>∴대지 속성 효율 +10%\r<br/>∴주변 아군을 수호의 기운으로 강화\r<br/>∴사용 시 치유의 맥동 발동",
+      "searchstring": "- 아르카나 급 장신구 -\r",
+      "grade": 5,
+      "type": "장신구",
+      "recipies": [
+        [
+          {
+            "item": "I05K",
+            "count": 1
+          },
+          {
+            "item": "I0LP",
+            "count": 1
+          },
+          {
+            "item": "I05Q",
+            "count": 1
+          },
+          {
+            "item": "I023",
+            "count": 1
+          },
+          {
+            "item": "I0BE",
+            "count": 1
+          }
+        ]
+      ],
+      "mobindex": 50,
+      "mobgroup": "I0R8"
+    },
+    "I03E": {
+      "id": "I03E",
+      "name": "눈사람 아이콘",
+      "description": "[Collectible]",
+      "grade": 0,
+      "type": "아이콘"
+    },
+    "I03G": {
+      "id": "I03G",
+      "name": "크리스마스 어보미",
+      "description": "[Collectible]",
+      "grade": 0
+    },
+    "I03M": {
+      "id": "I03M",
+      "name": "위치 신년맞이 로드",
+      "description": "[Collectible]",
+      "grade": 0
+    },
+    "I03N": {
+      "id": "I03N",
+      "name": "소원 아르카나",
+      "description": "원하는 아이템을 지정합니다.\r<br/>\r<br/>지정 시: 다른 아이템은 드랍되지 않습니다.\r<br/>미지정 시: 모든 아이템이 드랍 가능하지만 드랍률이 N등분되며 15% 추가 드랍률을 적용 받습니다.\r<br/>\r<br/>재화 및 토큰은 영향받지 않습니다.",
+      "grade": 0
+    },
+    "I03O": {
+      "id": "I03O",
+      "name": "희생",
+      "description": "타인을 위해서 희생합니다.\r<br/>\r<br/>지정 시: 아이템이 드랍되지 않지만, 자신의 드랍률을 90% 효율로 특정 대상 혹은 모든 인원에게 분배해서 전달할 수 있습니다.\r<br/>\r<br/>희생으로 받을 수 있는 추가 드랍률 보너스는 200%으로 제한됩니다.\r<br/>\r<br/>재화 및 토큰은 영향받지 않습니다.",
+      "grade": 0
+    },
+    "I03P": {
+      "id": "I03P",
+      "name": "도전자의 포션 지급",
+      "description": "도전자의 포션을 지급받습니다.\r<br/>\r<br/>총 데미지가 15% 감소하지만 사용 시 디버프를 해제하고 HP를 60% 회복할 수 있습니다.\r<br/>\r<br/>전투 시작 시 파티 인원 수에 비례해 일정 횟수 채워집니다 (하드 모드 X)\r<br/>1인: 5회\r<br/>2인: 3회\r<br/>3인: 2회\r<br/>\r<br/>지역 이탈 시 자동 소멸됩니다.",
+      "grade": 0
+    },
+    "I03Q": {
+      "id": "I03Q",
+      "name": "마도 기계",
+      "description": "[Collectible]\r<br/>신비한 탈것",
+      "grade": 0
+    },
+    "I03T": {
+      "id": "I03T",
+      "name": "상어",
+      "description": "[Collectible]",
+      "grade": 0
+    },
+    "I03U": {
+      "id": "I03U",
+      "name": "푸른 혜성",
+      "description": "[Collectible]",
       "grade": 0
     }
   }
