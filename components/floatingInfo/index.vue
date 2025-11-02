@@ -30,6 +30,15 @@
           </div>
         </div>
       </div>
+      <div class="targets" v-if="c_data.highest?.length">
+        <div class="line" v-if="c_data.highest?.length"/>
+        <div class="targetarea">
+          <div class="targettitle">최상위 아이템</div>
+          <div class="hightlist">
+            <div class="target" v-for="target in c_data.highest">{{ s_database.items[target].name }}</div>
+          </div>
+        </div>
+      </div>
       <div class="targets" v-if="f_targetgearlist(_data).length">
         <div class="line" v-if="f_targetgearlist(_data).length"/>
         <div class="targetarea">
@@ -332,6 +341,23 @@ const f_targetgearlist = (id) => {
               &.makeable {
                 color: rgb(173, 255, 47);
               }
+            }
+          }
+        }
+        .hightlist {
+          display: flex;
+          flex-direction: column;
+          .target {
+            margin: 5px;
+            flex-shrink: 0;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: rgb(228, 230, 233);
+            &.willmakeable {
+              color: rgb(94, 103, 234);
+            }
+            &.makeable {
+              color: rgb(173, 255, 47);
             }
           }
         }

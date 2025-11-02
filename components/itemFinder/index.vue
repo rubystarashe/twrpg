@@ -2,7 +2,7 @@
   <Transition name="fade">
     <div class="background_item_finder" v-show="m_visible">
       <div class="close" @click="m_visible = false">빈 공간을 클릭하면 닫힙니다</div>
-      <div class="item_finder" ref="r_finder" @click.self="m_visible = false">
+      <div class="item_finder" ref="r_finder" @mousedown.self="m_visible = false">
         <div class="title" @click="m_visible = false">
           <div class="account">{{ p_account }}</div>
           <div class="job">{{ p_job }}</div>
@@ -24,6 +24,8 @@
                 class="item"
                 v-for="{ id, name, description, grade, droprates } in items"
                 :class="{ selected: c_targetitems[id], handled: c_handleitems[id] }"
+                @mouseover="s_f_setFloatingData(id)"
+                @mouseleave="s_f_setFloatingData()"
               >
                 <div class="meta">
                   <div v-if="c_handleitems[id]" class="handle">보유중</div>
@@ -37,7 +39,7 @@
             </div>
           </div>
         </div>
-        <div class="section_title" @click.self="m_visible = false">목표 아이템 관리</div>
+        <div class="section_title" @click.self="m_visible = false">아이템 찾기</div>
         <div class="floating_top">
           <div
             class="mini_targetlist_areabox"/>
@@ -95,6 +97,8 @@
                   v-for="{ id, name, description, grade, droprates } in items"
                   :class="{ selected: c_targetitems[id], handled: c_handleitems[id] }"
                   @click="c_targetitems[id] ? f_delete_target(id) : f_add_target(id)"
+                  @mouseover="s_f_setFloatingData(id)"
+                  @mouseleave="s_f_setFloatingData()"
                 >
                   <div v-if="c_handleitems[id]" class="handle">보유중</div>
                   <div v-if="c_targetitems[id]" class="target">목표 아이템</div>
@@ -125,6 +129,8 @@
               class="item"
               v-for="{ id, name, description, grade, droprates } in items"
               :class="{ selected: c_targetitems[id], handled: c_handleitems[id] }"
+              @mouseover="s_f_setFloatingData(id)"
+              @mouseleave="s_f_setFloatingData()"
             >
               <div class="grade" :class="`grade_${grade}`"/>
               <div class="name">{{ name }} <span v-if="droprates?.length" class="tags">완제</span></div>
@@ -279,7 +285,7 @@ watch(c_targetitems, async () => {
 })
 const c_mini_targetlist_margin = computed(() => '-' + _mini_targetlist_size + 'px')
 const c_mini_targetlist_size = computed(() => _mini_targetlist_size + 'px')
-const c_menu_margin = computed(() => _mini_targetlist_size - 25 + 20 + 'px')
+const c_menu_margin = computed(() => _mini_targetlist_size - 25 + 50 + 'px')
 
 let r_itemlist = $ref()
 watch(() => _type_filter, () => {
@@ -318,6 +324,8 @@ watch([p_account, p_job, p_targetIndex], async (v) => {
     left: 0
   })
 })
+
+const s_f_setFloatingData = useState('floatingInfo:f_setData')
 </script>
 
 <style lang="scss" scoped>

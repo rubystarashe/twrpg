@@ -96,11 +96,14 @@
                   </div>
                 </div>
                 <div class="edit_wrapper">
-                  <div class="edit" @click.stop="e_call_itemfinder({ account: p_account, job: p_job, index })">수정하기</div>
+                  <div class="edit" @click.stop="e_call_itemfinder({ account: p_account, job: p_job, index })">목표 아이템 관리</div>
+                  <div v-if="index" class="meta" @click.stop="f_edit_target(index, name, tags)">목표 정보 수정/삭제</div>
+                  <!-- <div class="meta" @click.stop="f_share_target(index)">공유하기</div> -->
                 </div>
               </div>
               <div class="reset" @click.stop="e_reset_targets(p_account, p_job, index)">초기화</div>
             </div>
+            <div class="add" @click.stop="f_add_target()">새 목표 추가</div>
           </div>
           <div class="iconfarming"
             :class="{ enabled: p_iconfarming, finished: p_icons.includes('I02T') }"
@@ -138,25 +141,25 @@
             </div>
           </div>
         </div>
-        
-        <div class="sticky_wrapper">
-          <div class="line"/>
-          <div class="section_title">파밍 루트</div>
+
+        <div class="edit_target_meta" v-if="_target_meta_editing" @mousedown.self="_target_meta_editing = null">
+          <div class="edit_target_meta_content">
+            <div class="edit_target_meta_content_item">
+              <div class="edit_target_meta_content_item_title">이름 변경</div>
+              <div class="edit_target_meta_content_item_input">
+                <input type="text" v-model="_target_meta_editing.name" spellcheck="false">
+              </div>
+            </div>
+          </div>
+          <div class="edit_target_meta_buttons">
+            <div class="edit_target_meta_buttons_button confirm" @click.stop="f_edit_confirm">변경사항 적용</div>
+            <div class="edit_target_meta_buttons_button delete" @click.stop="f_delete_target(_target_meta_editing.index), _target_meta_editing = null">목표 삭제하기</div>
+          </div>
         </div>
 
-        <div ref="r_farming">
-          <PathFinderFarming
-            :handle="c_handle"
-            :targets="c_targetgearlist"
-            :float="_mini_targets_size"
-            v-model:navi="_navi"
-            v-model:moblist="_moblist"
-          />
-        </div>
-
-        <div class="sticky_wrapper" ref="_parentbottom">
+        <div class="sticky_wrapper" ref="_targetdashboard">
           <div class="line"/>
-          <div class="section_title" :ref="r => _navi['목표 장비 대시보드'] = { ref: r, parent: _parentbottom }">목표 장비 대시보드</div>
+          <div class="section_title" :ref="r => _navi['목표 장비 대시보드'] = { ref: r, parent: _targetdashboard }">목표 장비 대시보드</div>
           <div class="targetitemlist">
             <div class="targetgroup" v-for="(items, type) in c_targetgearlist">
               <div class="group">{{ type }}</div>
@@ -185,7 +188,24 @@
               </div>
             </div>
           </div>
+        </div>
+        
+        <div class="sticky_wrapper">
+          <div class="line"/>
+          <div class="section_title">파밍 루트</div>
+        </div>
 
+        <div ref="r_farming">
+          <PathFinderFarming
+            :handle="c_handle"
+            :targets="c_targetgearlist"
+            :float="_mini_targets_size"
+            v-model:navi="_navi"
+            v-model:moblist="_moblist"
+          />
+        </div>
+
+        <div class="sticky_wrapper" ref="_parentbottom">
           <div class="line"/>
           <div class="section_title" :ref="r => _navi['인벤토리 관리'] = { ref: r, parent: _parentbottom }">인벤토리 관리 ({{ f_getEquips(p_handle).counts }}/60)</div>
           <div class="inventory">
@@ -225,8 +245,8 @@
         </div>
       </div>
       <Transition name="fade">
-        <div class="mini_targets" v-show="_visible_mini_targets"
-          :class="{ visible: _visible_mini_targets }"
+        <div class="mini_targets" v-show="_visible_mini_targets && !p_itemfindervisible"
+          :class="{ visible: _visible_mini_targets && !p_itemfindervisible }"
           ref="r_mini_targets"
         >
           <div class="inven">
@@ -255,7 +275,7 @@
         </div>
       </Transition>
       <Transition name="fade">
-      <div class="pagenavi" v-show="c_navivisible">
+      <div class="pagenavi" v-show="c_navivisible && !_target_meta_editing">
         <div v-for="({ scroll, position, type }, name) in _navibtns"
           class="navi"
           :style="{ top: position + 'px' }"
@@ -720,6 +740,7 @@ let r_mini_targets = $ref()
 let _mini_targets_size = $ref(0)
 let _mini_targets_size_num = $ref(0)
 let _watching_table = $ref('hidden')
+const p_itemfindervisible = defineProp('itemfindervisible')
 watch([p_account, p_job], async () => {
   await nextTick()
   r_finder.scrollTo({
@@ -731,7 +752,7 @@ watch([p_account, p_job], async () => {
   _watching_table = 'hidden'
 })
 watch(scroll.y, n => {
-  _visible_mini_targets = r_farming.offsetTop - 500 < n
+  _visible_mini_targets = _targetdashboard.offsetTop - 500 < n
   _mini_targets_size = r_mini_targets.offsetHeight - 40 + 35 + 'px'
   _mini_targets_size_num = r_mini_targets.offsetHeight - 40 + 35
   if (r_farming.offsetTop - r_finder.clientHeight < n && r_farming.offsetHeight + r_farming.offsetTop > n) {
@@ -827,6 +848,7 @@ const s_f_setFloatingData = useState('floatingInfo:f_setData')
 const _windowSize = useWindowSize()
 const _navi = reactive({})
 let _parenttop = $ref()
+let _targetdashboard = $ref()
 let _parentbottom = $ref()
 let _navibtns = $ref({})
 const _moblist = $ref()
@@ -859,6 +881,49 @@ const f_scrollTo = scroll => {
     left: 0,
     behavior: 'smooth'
   })
+}
+
+const i_f_update_usertdata_target = inject('app:f_update_usertdata_target')
+const f_add_target = () => {
+  const target = {
+    name: '신규 목표',
+    items: [],
+    tags: []
+  }
+  i_f_update_usertdata_target(p_account.value, p_job.value, p_targets.value.length, target)
+}
+const i_f_delete_usertdata_target = inject('app:f_delete_usertdata_target')
+const f_delete_target = index => {
+  i_f_delete_usertdata_target(p_account.value, p_job.value, index)
+}
+
+let _target_meta_editing = $ref(null)
+const f_edit_target = index => {
+  _target_meta_editing = {
+    index,
+    name: p_targets.value[index].name,
+    tags: p_targets.value[index].tags
+  }
+}
+const f_edit_confirm = () => {
+  const target = {
+    ...p_targets.value[_target_meta_editing.index],
+    name: _target_meta_editing.name,
+    tags: _target_meta_editing.tags
+  }
+  i_f_update_usertdata_target(p_account.value, p_job.value, _target_meta_editing.index, target)
+  _target_meta_editing = null
+}
+
+const f_share_target = index => {
+  const target = p_targets.value[index]
+  const target_data = {
+    name: target.name,
+    tags: target.tags,
+    items: target.items
+  }
+  const target_data_string = JSON.stringify(target_data)
+  
 }
 </script>
 
@@ -969,6 +1034,20 @@ const f_scrollTo = scroll => {
     .targets {
       display: flex;
       flex-wrap: wrap;
+      .add {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: .7;
+        transition: opacity .2s;
+        &:hover {
+          opacity: 1;
+        }
+        height: 30px;
+        padding: 0 5px;
+      }
       .target {
         display: flex;
         background: rgb(43, 45, 49);
@@ -1095,7 +1174,10 @@ const f_scrollTo = scroll => {
             margin-right: 5px;
             margin-bottom: 5px;
             min-width: 170px;
-            height: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
             .edit {
               // background: rgb(78, 80, 87);
               background: rgb(76, 83, 189);
@@ -1108,9 +1190,18 @@ const f_scrollTo = scroll => {
               border: 1px solid transparent;
               transition: background .1s;
               font-size: 13px;
+              height: 35px;
               &:hover {
                 // background: rgb(110, 111, 119);
                 background: rgb(94, 103, 324);
+              }
+            }
+            .meta {
+              font-size: 12px;
+              cursor: pointer;
+              opacity: .3;
+              &:hover {
+                opacity: .8;
               }
             }
           }
@@ -1797,6 +1888,64 @@ const f_scrollTo = scroll => {
     &.mob {
       font-size: 11px;
       opacity: .6;
+    }
+  }
+}
+.edit_target_meta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .5);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .edit_target_meta_content {
+    .edit_target_meta_content_item {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .edit_target_meta_content_item_title {
+        font-size: 45px;
+      }
+      .edit_target_meta_content_item_input {
+        input {
+          font-size: 50px;
+          padding: 5px;
+          background: rgba(255, 255, 255, .9);
+          outline: none;
+          border: none;
+        }
+      }
+    }
+  }
+  .edit_target_meta_buttons {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    .edit_target_meta_buttons_button {
+      cursor: pointer;
+      opacity: .7;
+      transition: opacity .2s;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .confirm {
+      font-size: 60px;
+    }
+    .delete {
+      font-size: 40px;
+      position: fixed;
+      right: 20px;
+      top: 80px;
+      color: rgb(240, 112, 89);
     }
   }
 }

@@ -27,6 +27,7 @@
         :icons="_pathFinder_meta.icons"
         :iconfarming="_pathFinder_meta.iconfarming"
         v-model:visible="_pathFinder_meta.visible"
+        :itemfindervisible="_itemFinder_meta.visible"
         @callFinder="f_call_itemFinder($event.account, $event.job, $event.index)"
         @refresh="f_call_pathFinder(_pathFinder_meta.account, _pathFinder_meta.job)"
         @resetTarget="f_reset_targets"
@@ -80,6 +81,17 @@ const f_update_usertdata_target = (account, job, targetIndex, target) => {
   f_update_userdata(s_userdata.value)
 }
 provide('app:f_update_usertdata_target', f_update_usertdata_target)
+
+const f_delete_usertdata_target = (account, job, targetIndex) => {
+  const newindexes = s_userdata.value[account][job].targetIndexes.filter(e => e != targetIndex).map(e => {
+    if (e > targetIndex) return e - 1
+    else return e
+  })
+  s_userdata.value[account][job].targetIndexes = newindexes
+  s_userdata.value[account][job].targets.splice(targetIndex, 1)
+  f_update_userdata(s_userdata.value)
+}
+provide('app:f_delete_usertdata_target', f_delete_usertdata_target)
 
 const f_update_usertdata_targetIndexes = (account, job, targetIndexes) => {
   s_userdata.value[account][job].targetIndexes = targetIndexes

@@ -95,28 +95,28 @@ const mobs = {
   'I0Q3': '자이언트 터틀',
   'ciri': '킹크랩',
   'I0DT': '바다코끼리',
+  'oven': '하이드라',
   'polabear': '자이언트 폴라베어',
   'ssil': '매머드',
   'I0DV': '킹콩',
   'I0BT': '피의 망령',
   'I0BT2': '박쥐 괴인',
   'I046': '데스나이트',
+  'shen': '왈라키아 백작',
+  'drph': '잭 오 랜턴',
   'nspi': '라그나스',
   'blba': '이블 라바',
+  'lnrn': '마법사 왕',
+  'oli2': '데드렉트',
   'gvsm': '촉수 지배자',
   'I0OV': '바다의 수호자',
   'dtsb': '자이언트 골렘',
   'envl': '마나 에인션트',
-  'oven': '하이드라',
-  'shen': '왈라키아 백작',
-  'drph': '잭 오 랜턴',
-  'lnrn': '마법사 왕',
-  'oli2': '데드렉트',
   'amrc': '문지기',
   'tmmt': '능천사',
   'mnsf': '타천사',
-  'olig': '서리한의 혼',
-  'stre': '거미 여왕 일셰나',
+  'olig': '서리한의 혼 / 일셰나',
+  // 'stre': '거미 여왕 일셰나',
   'tst2': '서리거미 제왕',
   'wswd': '마왕 베리엘',
   'wcyc': '매드클라운',
@@ -485,6 +485,36 @@ dropdata.match(regex.recipies).map(e => {
     })
   }
 })
+
+const find_upper = (target, visited = new Set()) => {
+  // 순환 참조 방지
+  if (visited.has(target)) return []
+  visited.add(target)
+  
+  const result = []
+  
+  // target을 재료로 사용하는 모든 상위 아이템들을 찾음
+  for (const [ id, item ] of Object.entries(items)) {
+    if (item.recipies) {
+      if (item.recipies.some(e => e.some(e => e.item == target))) {
+        // 상위 아이템의 최종 아이템들을 재귀적으로 찾음
+        const upperItems = find_upper(id, new Set(visited))
+        if (upperItems.length > 0) {
+          result.push(...upperItems)
+        } else {
+          // 더 이상 상위 아이템이 없으면 최종 아이템
+          result.push(id)
+        }
+      }
+    }
+  }
+  
+  // 중복 제거 및 정렬
+  return [...new Set(result)]
+}
+for (const [ id, item ] of Object.entries(items)) {
+  items[id].highest = find_upper(id)
+}
 
 // 더미 데이터 제거
 const items_array = Object.values(items)
